@@ -1,0 +1,1086 @@
+v7.4.2.1
+Fixed Loop in Tag Team Arena team selected
+Fixed Arena 5 Tokens collected in Inbox with Gems, Silver, Potions
+Fixed Doom Tower silver keys skipped
+Update Tredepica Autosell rules files
+Christmas Offers
+
+v7.4.2.0
+Works with last Raid update v11.0.0 (hide mouse, refill arenas)
+Fixed Doom Tower loop when Ultimate Boss is defeated
+Some improvements in AutoSell (added Mercurial Set)
+New Tredepica and Panda Autosell rules files
+
+v7.4.1.0
+Fixed Fury set not taken in account in Autosell
+Fixed confusion between Feral and Fury sets
+Fixed Event/Tournament not collecting rewards
+Fixed Champions not selected in Secret Rooms
+Fixed Champions summoned in Reserve Vault instead of Collection
+Fixed AutoSell bugs (not starting and stop before end)
+Fixed % not detected sometimes in main stat for Gauntlets, Chesplate and Boots
+Improved AutoSell Engine speed  (Items are skipped following level)
+Added Inbox collecting Gems, SIlver, Potions (Bastion Rewards)
+New Panda Autosell rules file : PandEndGame4
+Added ClaimAll to Playtime rewards
+Modified Daily Quest Upgrade Level: now the Bot selects the first available Champion level 1 with Rank <= 4
+
+v7.4.0.0
+Works with last Raid update v10.90.2
+Mouse and Keyboard can be hidden again in Plarium (you can use your PC with Bot running)
+v10.90.2 changes taken in account for Live Arena, Events and Quests rewards
+v10.80.1 changes in Doom Tower Secret Rooms taken in account (champions already selected)
+Fixed bugs in Options (check Disable camera shake, uncheck Optimize ...)
+Fixed bug in Iron Fortress about keys refill (6 keys done only for 12 asked)
+Fixed some bugs in Battles priorities
+Fixed loop bug in Hydra when there is no champion
+Fixed loop bug in Cursed City at the end of the map
+Fixed Autosell bugs after battles (some artifacts not sold)
+Fixed Power not found bug in Tag Team Arena
+Fixed Make an Artifact upgrade not done in Daily Quests (Bot crash)
+Fixed Bot restarting after a crash not working (totally redesigned and improved)
+Improved Events/Tournaments collect rewards 
+New Panda Autosell rules file : PandEndGame3
+Changed some Champion's names to match with the filter: Khad the Throatripper, Niamhe, Packmaster Shy, April O, Losan K
+
+v7.3.0.0
+Works with last Raid update v10.80.1
+New feature for Premium: you can define a starting hour for each battle and change the Battles Priority Order
+Team power above 1M taken in account in Classic Arena
+Fixed some bugs in AutoSell and in "Panda End Game2.txt" rules file
+Added new Champions: Gaspard the Accused, Venalicia Thrallmother, Packmaster Shy'ek, Sanguine Maria
+
+v7.2.0.0
+Works with last Raid update v10.70.2
+BlueStacks 4 removed (doesn't work anymore)
+Added Forge Pass changes (Core Pass only),
+Added Champion replacement changes,
+Added Multi-Battle management when Bot is started after a Multi-Battle has been launched by user
+Fixed AutoSell bugs,
+Added AutoSell rules for standard and Special Accessories,
+Created AutoSell rules files for Casual, Mid and End players,
+Improved AutoSell management,
+Added new Champions,
+Language is now changed in English by the Bot,
+Some other improvements.
+
+v7.1.1.0
+Works with last Raid update v10.55.3
+v10.55.3 changes taken in account (chickens grouped in Tavern)
+Fixed Hide mouse not working in Plarium Play
+
+v7.1.0.0
+Mouse and Keyboard can be hidden again in Plarium
+(you can use your PC with Bot running)
+New Panda rules files for AutoSell
+AutoSell bugs fixed
+
+V7.0.0.0
+Works with last Raid update v10.50.0
+New feature Autosell with rules engine in alpha testing (available for all licenses until beta)
+Added AutoSell ON/OFF for Chimera and Hydra (applying Battles Autosell rules file)
+Added Hard-->Normal and Normal-->Hard choices for Cursed City
+Added Master vault selection for Cursed City and Doom Tower Secret Rooms
+Improved Cursed City available stages searching
+Added Pause timer period selection in Settings Tab
+Added Rarity selection in Sparring
+Improved OCR reading errors management (OCR does 2% to 5% of random errors, trying to turn around)
+Improved RaidBot launch times
+Clan Bosses rewards chests management redesigned,
+Added 10.40 & 10.45 Champions (Caldor, Kerin, Aratheia, Praeva, Uzol, Niamhe), Ishiyama, Polara, Tholin
+Fixed Demon Lord keys reading error
+Fixed known bugs
+
+v6.5.1.0
+Easter promotions
+Added Artifacts/Accessories Autosell after Cursed City battles
+Fixed Chimera results display bug in Bot GUI
+
+v6.5.0.0
+Works with last Raid update v10.40.0
+Added v10.40 changes for Artifacts/Accessories upgrading and selling
+Added new premium feature Cursed City in alpha mode (available for all licenses until beta)
+Improving Settings management (UserSettings.txt saved in UserSettings.old.txt every time the Bot Starts)
+Fixed Senna Amberheart spell bug
+
+v6.4.2.0
+Added minimum trials to do for Chimera to keep the result
+Fixed Hydra Reset menu option
+Fixed Artifacts not sold after battles
+Fixed LA not choosing 1st champion
+Fixed Energy infinite loop for Campaign and Dungeons battles
+Added Fabian Champion
+
+v6.4.1.0
+Works with last Raid update v10.30.0
+Added Super Raids for Campaign Battles
+Fixed Energy calculation bug with Super Raids for Dungeons
+Fixed Secret Rooms infinite loop in Doom Tower
+Fixed Demon Lord waiting Reset bug
+Fixed Daily Battle not starting when there is enough energy
+Fixed login message error ("Your License Key has been used...)
+Added 10.30 Champions (Theodosia, Tetsuya, Kawn, Dune, Tuskkor)
+
+v6.4.0.0
+Don't use automatic update.
+Download RBdownload.exe from Discord/RaidApp/releases channel and start it in folder you want to install RaidBot.
+Works with last Raid update v10.20.0
+Improving Authentication system with user data protection
+Redesign of the RaidBot update process
+Fixed Not upgrading Artifacts/Accessories bug
+Fixed Chimera and Hydra infinite loop when all keys are done
+Added 10.20 Champions (Fjorad, Admiral, Modo, Chalco, Arashi)
+
+v6.3.2.0
+Works with last Raid update v10.10.0
+Added Market changes
+Added Advanced Quest Craft 1 Resilience/Perception artifact changes (Artifact to be crafted is in 1st position now)
+Added some tooltips in GUI (Doom Tower silver keys)
+Added 10.10 Champions (Losan, Alice, Cheshire, Queen of Hearts, Knave of Hearts)
+Added He-Man Champion
+Fixed the Bot restart when Chimera result is kept
+Fixed not selling Artifacts in Event Dungeon
+Fixed crashes in Arena when champion is unknown
+Fixed Doom Tower silver keys bug
+End of new feature Chimera beta test (available only with premium license)
+
+v6.3.1.0
+Added Chimera option to do A1 before Viper form
+Added fusion champions Stokk and Lady Noelle
+Added new champions of December (Zyclic, Prysma, Belz, Embrys, Wysteri, Redcloak)
+Fixed Clan Boss not working
+Fixed SuperRaids not working for Doom Tower, Faction Wars and Dungeons not in Daily Battles
+
+v6.3.0.0
+Added new feature Chimera (in beta test for all Licenses until end of the year)
+Added Master vault to Secret Rooms Champions choice
+Fixed Silver Keys not done in Doom Tower when Secret Rooms is active (infinite loop with last secret room)
+Fixed Win 3 Artifacts Advanced Quest Bug (OFF not taken in account when Daily Battles are OFF)
+Fixed Team not selected or wrong Team selected bug
+Fixed Crypt not reopened bug after Fight in 5 Tag Team Arena Series reward collected
+Fixed wrong Crypt selected in Faction Wars
+Fixed wrong Dungeon selected in Dungeons Battles
+Improved Period End management for Clan Bosses
+Fixed some other small bugs
+
+v6.2.0.0
+Works with last Raid update v10.0.0
+Added new feature Secret Rooms in Doom Tower
+Improved Hydra Damage dealt reading (results without point are removed to avoid errors)
+Fixed Artifact/Accessorie upgrade not working
+Fixed wrong period of Live Arena
+Added champions Authoratrix, Skeletor
+Added new champions of 9.40 (Tribune, Craklin, Pheidi)
+Fixed V10.0.0 changes bugs (Advanced Quest Artifact crafting)
+Fixed some small bugs
+
+v6.1.7.0
+Works with last Raid update v9.40
+Added Demon Lord Period End changes (now the bot waits 11:00 utc before to use a key)
+Added new Live Arena periods
+Added Live Arena Quests rewards collect
+Added new champions (Nell, Vulkanos, Arnorn, Hansel)
+Added champion Chronicler Adelyn
+Fixed wrong warning : "Please enter a valid score ending by K, M or B" with n.dL values (ie 1.1B or 3.4M were refused)
+Fixed Hydra Damage Dealt reading errors (point not detected by OCR)
+Fixed Events and Tournaments not collecting rewards
+
+v6.1.6.0
+New Hydra logic taken in account (don't focus Heads with Serpent Will)
+Halloween changes bugs fixed
+Fixed Bot crashes after battles
+Fixed move camera failed
+Fixed get Gold Pass loop
+
+v6.1.5.0
+Added OCR reading of Billion for Hydra Damage Dealt
+Added Billion management to the scores to keep for Hydra
+Added CheckBox to focus Decapitated Hydra Heads or not
+Added SuperRaids to Event Dungeon in Daily Battles
+Fixed Forge Pass Weekly Challenges uncollected Rewards
+Fixed some other little bugs
+
+v6.1.4.0
+Works with last Raid update v9.30
+Added Focus on decapitated heads by prioritizing them in Hydra battles
+Added new limit to 9999M for Hydra scores to keep
+Fixed all Hydra focusing head bugs
+Added Asgardian champions (Loki, Odin, Thor, Freyja)
+
+v6.1.3.0
+Works with last Raid update v9.20.6
+Added new Event Dungeon
+Added new champions of v9.20 (Aragaz, Onryo, Caolite, Matriarch)
+
+v6.1.2.0
+Works with last Raid update v9.20
+Fixed scrolling error in Tavern
+Fixed wrong Team chosen in Hydra
+Fixed gear upgrade bug
+Added new champions of v9.10 (Ash'nar, Bolint)
+
+v6.1.1.0
+Added automatic unpause after 1 hour
+Fixed screenshot not saved from Hydra Damage Dealt
+Fixed infinite loops caused by false popup window detection
+Added new champions of v9.00 (Komidus, Legate, Diamant)
+
+v6.1.0.0
+New feature: Pause button added,
+Screenshot Button added in main screen right tab (always visible),
+Big improvement in reading Damage Dealt for Hydra and Demon Lord, all reading bugs fixed,
+
+v6.0.3.0
+Works with last Raid update v8.60.1
+Added new Advanced Quest: Clear 2 Stages in the Cursed City (premium function for free during beta testing period)
+Fixed ITF keys reading error 
+Fixed Arenas power reading error when power < 100,000
+Fixed Advanced Quest: Mix 1 Affinity Potion, not working
+Fixed Choosing Dungeon or Campaign place error in Dungeon/Campaign map
+Fixed SuperRaids check/uncheck bugs
+Fixed Loop when going in Daily Battle without enough Energy
+Fixed Energy bugs in Daily Battles
+Fixed Server Maintenance Popup management bugs
+Fixed some other reported bugs
+Added new champions of v8.60 (Nais, Vizug, Yncensa, Mathias, Ingid)
+
+v6.0.2.2
+Works with last Raid update v8.60
+All keys reading errors fixed
+
+v6.0.2.1
+Works with last Raid update v8.50 :
+- Demon Lord reading keys change
+- Hydra Keys reading keys change
+- Arenas Team Power xxx.xxK format change
+- Energy reading change
+- ITF reading keys change
+- Raid Icon change in BlueStacks
+- Tavern changes
+Added new champions of May (Dune Lord, Senna, Giath, Glaicad, Vault)
+
+v6.0.2.0
+Improved Team Selection in Battles
+Fixed Chickens not clicked in Champions leveling
+Fixed AutoClimb not unchecked in Doom Tower
+Fixed Live Arena 1st turn not detected
+Fixed Artifacts/Accessories upgrade bugs
+Fixed Border not found in Tavern
+Fixed farming Minotaur Bugs
+
+v6.0.1.1
+Fixed Number of battles to do not working in Campaign Battles
+Fixed Champions replacement not working in Daily Battles
+Added new champions of April (Eostrid, Falmond, Calamitus, Toshiro, Wallmaster)
+
+v6.0.1.0
+Works with last Raid update v8.40
+Added new champions of March (Armanz, Gizmak, Padraig, Fyna, Khafru, Marius)
+Fixed champions not selectable in Arenas (Xena:, Krok', ...)
+Added SuperRaids in Daily Battles
+Improved Champions Leveling
+Fixed Tag Arena Team selection bugs
+Fixed crash when Load other Settings file
+Fixed crashes in Sparring Pit
+Fixed some other small bugs
+
+V6.0.0.2
+Added 5th Anniversary Raid Icon for BlueStacks
+Fixed crash bug in Sparring Pit
+Improved RaidBot crashes detection
+
+V6.0.0.1
+Works with last Raid update v8.30.1
+Fixed "Waiting the battle to begin" infinite loop bug
+Fixed some Daily Battles bugs
+
+V6.0.0.0
+Works with last Raid update v8.30.0
+New daily battles feature for campaign and dungeons (now you can define a list of dungeons and campaign battles to do every day (for example 8 ITF, 20 Brimstone, 20 spider, 8 sand)
+Added Great Hall Rewards collect
+Added Mythic Artifacts management in Battles Result
+Added Mythic Champion in Replacements
+Added all january and february new champions
+Demon Lord Keys management logic redesigned to match with Battles Switch
+Fixed Champion's Replacement bugs in Campaign and Dungeons
+Fixed scroll bug in Arenas and some other reported bugs
+
+v5.7.0.0
+Works with last Raid update 8.0.0
+Added hours in AutoStart
+Added champion picture recognition (premium feature)
+Added leader selection in Live Arena (premium feature)
+Added Ban List in Live Arena (premium feature)
+Added Champions to avoid List in Classic Arena (premium feature)
+Fixed Dungeons not working with Free License
+Fixed some other bugs
+
+v5.6.0.0
+Works with last Raid update 7.70.5
+Added Champion Pass Rewards collect
+Added BattleSwitcher
+Improved GUI
+All Live Arena reported bugs fixed
+
+v5.5.0.1
+Works with last Raid update 7.70
+Added Stage downgrade defeats number
+Added Time Out for leaving Battle new values until 120
+Extended Gems number to 1600 for Classic Arena
+Fixed Tag Arena Refills bugs
+Fixed error reading opponent power
+Mod Speed v7.70 changes taken into account
+
+v5.5.0.0
+Added new feature Hydra focus on opponents
+Improved replacements with filter in campaign and dungeons
+
+v5.4.0.2
+Fixed errors going in Bastion
+Fixed crashes in the beginning of Battles
+Fixed errors finding Opponent in Live Arena
+
+v5.4.0.1
+Works with last Raid update 7.60.1,
+Fixed RaidBot.exe bad generation to avoid false positive antivirus alerts,
+Mod Speed v7.60.1 changes taken into account
+
+v5.4.0.0
+Works with last Raid update 7.60.0,
+Added premium feature in Arenas: now you can choose to fight or not fight Clans in addition to Players,
+Added Hydra Clash Reset waiting before to begin Hydra Battles,
+Added replacements with filter in Campaign and Dungeons battles,
+Fixed Can't find Opponent loop in Live Arena,
+Fixed all PlariumPlay filter bugs in Live Arena,
+Fixed some other bugs
+
+v5.3.0.0
+Works with last Raid update 7.50.5,
+Added Premium Feature: Live Arena,
+Added: UserSettings load and save for all Licenses,
+Added Tag Team Arena and Spider, Dragon, IG, FK dungeons to free license,
+Added all possible combinations for Sparring Spit,
+Improved: Demon Lord management for Quick Battles,
+Improved: Boss management for Doom Tower Silver Keys,
+Fixed Boss selection loop with Silver Keys in Doom Tower,
+Some GUI improvements
+
+v5.2.2.0
+Fixed opponent power 1,000K not red by the Bot
+Added LITEAPKS speed multiplier value setting
+Modified Hydra result reading to take 7.40.1 changes into account
+
+v5.2.1.0
+Taking 7.40.1 changes into account for Advanced Quests,
+Fixed: opponent choice not available for Premium Licenses,
+Modified: now RaidBot waits Hydra Clash starting to do Hydra Battles,
+Modified: LITEAPKS Icon management to take changes into account
+
+v5.2.0.0
+Works with Free and Premium licenses,
+Added Free licenses management,
+Added Premium licenses management,
+Works with last Raid update 7.40.1,
+Added a Quick Battles checkbox in Demon Lord Keys management Tab,
+Taking changes into account for Hydra selection,
+Fixed Faction War loop bug when checking opened crypts
+
+v5.1.0.0
+Added Phantom Shogun's Grove Dungeon
+Added Sylvan Watcher Crypt
+Increased timer duration for starting Plarium
+Added detection of Raid process not responding
+Fixed Arenas Opponent Power reading bugs
+Fixed TTA defeat folder bug
+Fixed some BS5 bugs
+
+v5.0.0.0
+Works with last Raid update 7.30.0
+Added BlueStacks 5 64 bits (alpha version, not fully tested)
+
+v4.11.0.0
+Works with last Raid update 7.21.1
+Hiding mouse not working anymore for Plarium version
+Modified: Mouse hide is now disabled when Bot encounters an error
+Improved Plarium Play and BlueStacks crashes detection
+Fixed Arenas don't fight opponents bug
+Fixed Team selection Bug
+
+v4.10.1.0
+Fixed opponents choice bug
+Fixed refill energy with Gems bug
+Fixed crashes
+No more false positive
+No password to unzip v4.10.1.0.zip
+
+v4.10.0.0
+Added Premium Feature: Summon Rush, now Bot can burn Mystery Shards (50 to 5000) to level up Champions on starting then continues as usual
+Added Rank Up exclusion check box for Rare, Ascended and Fusion Champions
+Added Password: "RaidBot" to unzip V4.10.0.0.zip
+Fixed Team Selection not working some times
+Fixed Refill Energy from Inbox bug when there is no more
+Fixed Dungeon Hard Mode not selectionned
+Fixed Dungeon and Campaign alternation not working
+
+v4.9.1.0
+Added Team choice in Win 3 Artifacts in Dungeons Advanced Quest
+Added a free password for Premium Features in Login form
+Fixed Accessorie upgrading error in Daily Quest
+Fixed Energy reading error in Bastion
+Fixed moving and hiding Speed Battles Mod Icon (BlueStacks only)
+
+v4.9.0.0
+Works with last Raid update 7.0.0
+Added: Dungeons hard mode
+Added: Refill Energy from Inbox, now you can enter the number of Full Energy Restore you want to use
+Fixed Team not selected for ITF Dungeon
+Fixed Bot continues replaying same stage after the end of Campaign Daily quest or Dungeon advanced quest
+
+v4.8.0.0
+Works with last Raid update 6.50.1
+Improved: Team Selection (bugs fixed and algorithm refactored)
+Added: Default Team for Classic Arena
+Added: Default Teams for Tag Team Arena
+Added: "Rank 1 only" and  "Rank 4 only" in Ranking up Champions menu
+Added: the Bot can now choose or exclude opponents to fight in Arenas battles (very useful for top players as RaidBot video on Youtube showed recently). This is a feature accessible only to Premium Users.
+Added: Forge Pass rewards collect (useless for now)
+Fixed: Damage Dealt reading error when score is just right in M without dot or comma
+Fixed: Demon Lord returning to first key when you put it On after period reset
+Fixed: the Bot goes to a wrong Stage in Campaign, Dungeons, Faction Wars
+Fixed: replacements bugs (Bot was removing champions before they were max level)
+Some minor improvements and bugs fixes
+
+v4.7.2.0
+Added: Rewards management for Hydra
+Added 6.40.1: Auto Climb uncheck for Doom Tower floors progression
+Added: the Bot does now Doom Tower gold keys normal and hard modes successively, starting with the one indicated
+Added: clean up of Screenshots and Logs folders on start
+Added: Energy management for account with level < 35
+Modified: more understandable GUI for Hydra
+Modified: Bot begins Demon Lord's battles immediately after period end if there is one available key
+Improved: priorities management between battles
+Improved: stages selection management
+Fixed: Demon Lord and Hydra bugs when collecting rewards (beat previous difficulties error)
+Fixed: error Damage Dealt reading in Plarium (a comma is used in Plarium and a point is used in BS)
+Fixed: Bot idle when there is a battle to do
+Fixed: wrong frozen Battle status after end of Battle
+Fixed: Raid frozen checking infinite loop
+Fixed: selecting stage errors for Dungeons, Campaign and Faction Wars
+
+v4.7.1.0
+Modified: Updater.exe to take Tesseract folders in account (you have to copy new version from zip)
+Modified Hydra: Bot displays now the best score of all trials for each key
+Fixed: Hydra score bugs
+Fixed: Battles idle when Dungeon Unlimited
+
+v4.7.0.0
+Works with last Raid update 6.40.1
+New Feature: Hydra
+Added: Damage Dealt reading for Demon Lord
+Added 6.40: Uncheck Auto-Climb for Doom Tower
+Fixed: Replacements errors for Slot 4 in Dungeons
+Improved: Champion level reading
+
+v4.6.2.0
+Works with last Raid update 6.40
+Improved Replacements for Campaign/Dungeons battles (Replace all champions with level or rank reading error)
+Fixed Bot puts always Replacement to OFF on starting
+Fixed some Replacements bugs (Rank 1 Level 1 champions not selected)
+Fixed Bot crashes the last day of the month when upgrade artifacts or Accessories is activated
+Fixed Bot doesn't sell Artifacts for Demon Lord when there are chests for more one mode
+Fixed Bot iddle when there is a battle to do
+Fixed Faction Wars starting sometimes before Start Hour indicated
+Fixed not collecting Free Gift sometimes in Shop
+Fixed Raid frozen battle false detection
+Fixed Craft Perception Artifact not done in Advanced Quests (Plarium)
+Added "Defiant" to Artifact list for Advanced Quest in Bot GUI
+Added 6.40 Daily Login Rewards changes
+Added 6.40 Play Time Rewards changes
+Added 6.40 Clan Check In changes
+Added 6.40 Plarium Points Program collect
+Added Modyolo Icon new look management for BlueStacks (Speed battles without changing time)
+
+v4.6.1.3
+Fixed Not selling Artifact bugs for Demon Lord 2nd chest reward
+Fixed stage selection bugs with "LastVictory" as fightmode
+Improved Campaign and Dungeon battles balance in infinite mode
+
+v4.6.1.2
+Fixed Team selection bugs
+
+v4.6.1.1
+Fixed Autosell bugs when there is more than one artifact
+Fixed Reverse scrolling bugs for stage selection
+Fixed Crash when there is no team number for ITF Dungeon
+Fixed Affinity bugs for ITF Dungeon
+Fixed Training Event upgrade Rank 5 bugs 
+
+v4.6.1.0
+Improved scrolling for selecting stages in Campaign, Dungeons and Faction War Battles
+Training Event bugs fixes
+Autosell not selling bugs fixes
+
+v4.6.0.0
+Added for each Iron Twins Fortress mode : Stage number choice or Off
+Added Continue Battle when Turn Limit is almost reached and Raid pauses the battle
+Added Frozen Battles detection (The Bot tries to leave the Battle without waiting Battle Time out)
+Fixed the Bot checks SuperRaids in Faction wars when it's stage 7 or 9 and fullkey mode
+Fixed Uncheck Instant Upgrade for Artifacts/Accessories (modified by v6.30)
+Fixed Advanced Quest Craft Perception/Resilience artifact scroll error (modified by v6.30)
+Fixed Reverse scrolling error for Campaign/Dungeons/Faction stages (modified by v6.30)
+Fixed Buying 2 stars Champion loop bug
+Fixed Autoselling Dungeon Artifacts when not asked
+Improved Campaign and Dungeon battles management
+Improved Autosell (better search of Artifact/accessories to sold)
+Fixed Camera Error when Guardian Ring locked (player level < 15)
+Bugs and crashes fixes
+
+v4.5.0.0
+Works with last Raid update 6.30.0 (alpha version not fully tested)
+Added New Dungeon Sand Devil's Necropolis
+New feature: Training Event (alpha version not fully tested)
+Bugs fixes
+
+v4.4.0.0
+Works with last Raid update 6.20.0
+Iron Twins Fortress daily Battles then continue active Dungeon runs added
+Iron Twins Fortress 1 refill with gems added
+Status Leds for daily and advanced quests, Iron Twins Fortress and all others Battles added
+Bugs fixes
+
+v4.3.3.0
+Iron Twins Fortress added
+Bugs fixes
+
+v4.3.2.0
+Works with last Raid update 6.0.4
+Improving Camera Focus
+Doesn't use SuperRaids when there is ClanVsClan
+Bugs fixes
+
+v4.3.1.1
+PlariumPlay window can overlap with any other window without problem
+Improving RSL Helper driven by the Bot and bugs fixed
+Daily Quest Increase Level in tavern loop bug fixed
+Upgrade Champions bugs fixes (Ham not detected)
+Go to Bastion loop bug fixed
+Checking Raid Frozen loop bug fixed
+Leaving Battle after time out, always restarting Raid bug fixed
+
+v4.3.1.0
+Upgrade Champions bugs fixes
+Small improvements and bugs fixes
+
+v4.3.0.0
+New feature: you can now use RSL Helper driven by the Bot for Dungeons and Campaign battles
+New feature: you can now Autosell Demon Lord Artifacts with the Bot
+Added Super Raids checkbox in Battles Tab to activate/deactivate Super Raids
+Excluding opponents in Arenas bugs fixes
+Demon Lord not always reset at period end bug fixed
+Small improvements and bugs fixes
+
+v4.2.0.0
+New feature: you can now exclude opponents who have defeated you in Arenas
+Upgrading Champions bugs fixes
+
+v4.1.1.0
+Error tolerance improvement for scrolling
+Demon Lord choosing Mode improved
+Demon Lord not reset at Period End bug fixed
+Daily Quest upgrade Art/Acc improved and bugs fixed
+Doom Tower Silver Keys Done bugs fixed
+Stage and Team selection bugs fixed
+Upgrade Champions bugs fixed
+
+v4.1.0.0
+Works with last Raid update 5.80.0 and with PlariumPlay last update (exe location changed)
+New feature: Faction War full keys; now you can choose once stage 7 or stage 9 with 4 x stage 15 to 21 to spend all your keys
+New feature: the Bot selects automatically Super Raids Mode when available
+New feature: the Bot can do Minotaur's Labyrinth until Champions are max Scrolls then it stops
+Upgrading Champions in Tavern refactored and improved (now the Bot can use Chickens)
+Added Team Selection in Dungeons Battles
+Added a dedicated battle mode where the Bot does not go to the Bastion for the specified time
+Max number of Battles to do is now 300 for Campaign and 500 for Dungeons
+Max Level Champions detection bug fixed
+Artifacts autoselling bugs fixed
+Raid frozen detection improved
+Small improvements and bugs fixes
+
+v4.0.0.0
+Works with last Raid update 5.70.0
+Works with any FPS rate now (not only 30FPS)
+New feature: Upgrade Artifacts and Accessories (immediately or once a day every days)
+Champion Replacements refactored and improved with all reported bugs fixed
+Demon Lord improved with all bugs fixed
+Advanced Quests improved with all reported bugs fixed
+Tavern: all scrolling bugs fixed
+Now in case of Error, Bot takes ScreenShots automatically when "Debug" is activated in Settings Tab
+A lot of other small improvements
+
+v3.9.0.0
+Works with last Raid update 5.60.2
+New GUI for Clan Boss and Arenas
+Added Arenas Opponents list refreshing with Gems
+Added special password functions for the Classic Arena for users who have subscribed to it
+Removed HotKeys for CE (CE is now useless with last Raid update)
+Fixed all reported Arena bugs
+Fixed Bot stays idle when you start Arenas battles
+Fixed Doom Tower Drag and Drop loop bug
+Fixed Clan Boss Chests collect bugs
+Fixed Clan Boss unable to launch battle bug
+
+v3.8.0.1
+Fixed sacrificing rare champion when not selected
+Fixed Tavern border error when a champion is selected
+Fixed max inventory bug when buying a champion in market
+
+v3.8.0.0
+Hiding mouse working for Plarium version
+Raid window is not more TOPMOST when you stop RaidBot with Plarium version
+Fixed restart bug in Battles with Plarium version
+Fixed starting loop bug with Plarium version
+Fixed all other reported bugs
+Speed battles with CE deactivated with Plarium version (time detection by Raid server since 5.51)
+RaidBot is working with MODYOLO Mod with BlueStacks (speeds battles without changing time)
+		https://modyolo.com/raid-shadow-legends.html
+
+v3.7.6.0
+Works with last Raid update 5.51
+Hiding mouse and keyboard temporarily disabled for Plarium version (fatal error 14 since Raid update)
+Bot Starting refactored (all bugs  and restart loop fixed)
+Dll injection refactored for BS (Mouse click error loop fixed)
+Added possibility to switch Off the Timeout for leaving Battles in Settings tab
+
+v3.7.5.0
+Works with last Raid update 5.40.1
+Fixed Arena fighting always same team bug
+Fixed starting Battles infinite loops bugs
+Fixed some other reported bugs
+
+v3.7.4.3
+Fixed new AutoLogin crash bug
+Fixed Doom Tower select highest Boss bug
+
+v3.7.4.2
+Fixed Clan Boss starting bug
+Fixed AutoLogin crash bug
+Fixed Arena not Refresh bug
+Fixed Doom Tower SuperRaids loop bug (when there is only one silver key left)
+
+v3.7.4.1
+Added Super Raids for Dungeons
+Numbers reading improvements
+Fixed numbers reading errors in Tag Arena (BlueStacks)
+Fixed Clan Boss Team Selection Bug
+Fixed Faction Wars starting bug
+
+v3.7.4.0
+Works with last Raid update 5.30
+Bot now accepts Super Raids for Doom Tower and Faction Wars (Dungeons will come later)
+Added Team selection for floors in Doom Tower
+Fixed some Doom Tower bugs
+Fixed some reported bugs
+
+v3.7.3.0
+Added AutoLogin (Bot can start automatically when you start Windows)
+Arena and Tag Arena Team power reading refactored
+Numbers reading improvements
+Bot now goes to next campaign place when it is on last stage and fightmode is "Next from" or "Next from Last"
+Now you can use the Bot just after tutorial for new accounts
+Fixed Tray icons remaining after killing BlueStacks or Plarium
+
+v3.7.2.0
+Works with last Raid update 5.20
+Extended Team selection to 15 slots
+Fixed Campaign jump directly to last stage Bug for accounts below level 50
+Fixed Doom Tower going to floor 100 instead of 110 with Silver keys
+
+v3.7.1.0
+Added Shadowkin Crypt
+Added Guardian checking in Tavern
+Fixed Doom Tower Final Boss loop with Golden Keys
+Fixed Autosell bug
+Fixed random Crash bug
+
+v3.7.0.1
+Fixed Arena opponent power bug
+
+v3.7.0.0
+Works with last Raid update 5.10
+Nex feature for Doom Tower: Silver keys management
+Added Epic and Legendary Artifacts in AutoSell
+Added go directly to last campaign from Game Modes
+Added stage selection for dungeon in "Win 3 artifacts" advanced quest
+Modified Cheat Engine HotKeys: "ctrl+alt+e", "ctrl+alt+s", "ctrl+alt+d"
+Fixed some bugs
+
+v3.6.4.0
+Hiding mouse and Keyboard enabled again for PC version
+Window always put on Top for PC version (in BS4, Bot works with window covered by other one)
+
+v3.6.3.0
+Works with last Raid update 5.00 (Clan Bosses)
+
+v3.6.2.0
+Works with last Raid update 4.90.0 (Guardian Ring)
+Fixed all last reported BS4 starting Bugs
+Fixed reported bugs when BS4 Window is not in front (Plarium version Window has to be in front without any TopMost window above)
+
+v3.6.1.0
+Added Pause button for Plarium version
+Improved Bot Starting especially with BS4 (fixed restart loop)
+Fixed Starting Battle loop when Raid crashes before the beginning of Battle
+Fixed false positive AntiVirus alerts
+
+v3.6.0.0
+Hiding mouse and Keyboard temporarily disabled for PC version (fatal error 12 since Raid update)
+Limited to 30FPS again for PC version (too much drag and drop bugs reported)
+New feature: 2 stars Champions Market auto-buy
+Fixed BS4 starting freeze loop bug
+Fixed Champions replacement bugs
+Fixed most of the reported bugs
+
+v3.5.0.0
+Works with last Raid update 4.71.0
+Improved BS4 version for low PC
+Hiding mouse and Keyboard temporarily disabled for PC version (fatal error 12)
+New feature: Bazaar auto-buy
+Hotkeys for CheatEngine (PC version only): "ctrl+shift+alt+e" is sent by Bot for Campaign Battles (max speed x 2) and "ctrl+shift+alt+s" is sent for other Battles
+Doom Tower: 10 defeats in a row instead of 3 before suspending DoomTower until next reset
+Refactored Replace Champions management code to fix bugs and improve it
+Fixed wrong Dungeon stage selection bug
+Fixed loop in Doom Tower Final Boss bug
+Fixed most of the reported bugs
+
+v3.4.0.0
+New feature for Clan Boss: Team selection by mode and affinity
+New feature: Hotkeys "ctrl+shift+alt+e" and "ctrl+shift+alt+d" sent by Bot with a switch in Settings Tab
+Fixed Doom Tower loop with 0 golden key bug
+Fixed Doom Tower Team selection bugs
+
+v3.3.0.0
+New feature for Doom Tower: Team selection for Bosses
+New feature for Doom Tower: Silver keys spent on last Boss fought
+Fixed Number of Champions error reading bug
+
+v3.2.1.0
+Works with last Raid Version 4.40.0 (Tag Arena)
+
+v3.2.0.0
+Works with last Raid Version 4.30.0
+New feature: produce rank 2 level 1 Champions with Brews
+Fixed most of reported bugs
+
+v3.1.1.3
+Works with last Raid Version 4.21.1
+Works with last PlariumPlay update (version 6.5.0.0) with Raid PC version
+Fixed most of the reported bugs
+
+V3.1.1.0
+Works with last Raid Version 4.20.0
+Added new levels in Dungeons
+Added Daily and Advanced Quests in Raid PC version
+Now BlueStacks and Raid PC have exactly the same features
+Fixed all reported bugs
+
+V3.1.0.0
+Works with last Raid Version 4.10.1
+Faction wars refactored and added in Raid PC version
+Upgrade Champions in Tavern added in Raid PC version
+Numbers reading refactored
+Fixed all other reported bugs
+
+v3.0.0.0
+New feature : Works with Plarium Play (Raid PC version)
+Works with last Raid Version 4.10.0 
+Works with last BlueStacks version 4.280.0.1022 (not BS5)
+Functions not yet implemented in Raid PC version : Upgrade Champions in Tavern, Daily and Advanced Quests, Faction Battles
+Added Champions replacement in Dungeons Battles
+Refactored OCR for Raid PC version
+Fixed Refill spending gems bug
+Fixed all other reported bugs
+
+v2.8.1.1
+Fix going Dungeons loop bug
+
+v2.8.1.0
+Works with last Raid Version 3.30.0 and last BlueStacks version 4.260.0.1032
+Refactored Bot and Raid starting to fix all known bugs (sidebar, launching loops, etc.)
+Fixed last OCR known bugs (energy, teampower, etc.)
+Fixed all other reported bugs
+
+v2.8.0.0
+Works with last Raid Version 3.20.0 and last BlueStacks version 4.260
+Added Bot auto restart after a Crash
+Refactored UserSettings.txt management
+Refactored OCR to read Opponent team power above 1M
+Fixed OCR bugs
+Fixed pixels reading bugs
+Fixed all other reported bugs
+
+v2.7.2.0
+Works only with last Raid Version 3.10.0
+Fixed Bot closing on Daily Quest "Make 4 Artifacts"
+Fixed Clan Boss wrong designation
+Fixed Doom Tower last Boss scrolling loop
+Fixed Dungeon "battles to do" changing with Advanced Daily Quest "Win 3 Artifacts"
+Fixed all bugs found with alpha versions (thanks to alpha testers)
+Added 100% scaling Display verification for main Display and Bluestacks Window Display
+
+v2.7.1.0
+Fixed Bot crash on Victory
+Fixed Bot crash on Make 4 Artifacts
+Fixed Clan Boss keys wrong management
+Fixed Bot stopping Battle on first defeat
+Fixed Stage downgrade changing value not saved in UserSettings
+Changed Opened Crypts are now checked only if Faction Wars ToggleSwitch is On
+
+v2.7.0.0
+Added Doom Tower gold Keys management
+Added 2 Advanced Quests: Win 3 artifacts, Fight in 5 Tag Team
+Added Factions wars Crypt management
+Added Energy saving management
+Added Mouse injection deactivation
+Fixed Clan Boss bugs
+Fixed all other known bugs
+
+v2.6.0.1
+Works with last Raid update V3.0.0 changes
+
+v2.6.0.0
+Works with last Raid update V2.30.0 changes
+Added Tag Team Arena management
+Added Refill Arena Tokens with Gems
+Fixed Dungeon Stage number = max Dungeon Stages number when Dungeon is changed and new Dungeon has less Stages and Stage number is higher
+Fixed Champions replace Bot crashing
+Fixed Clan Boss Rewards collect Bot crashing
+Fixed Tavern sacrifying Fuse, Ascended or Rare Champions failed bug
+Fixed Sparring selected champions not found in replace mode
+
+v2.5.1.1
+Fixed Faction wars battle parameters bug
+Fixed Normal Campaign mode loop bug
+
+v2.5.1.0
+Fixed Daily Quest "Make 4 Artifact..." bugs
+Fixed Daily Quest "Summon 3 champions" when collection is full looping bug
+Fixed Daily Quests Campaign Battles fight mode display bug
+Fixed Advanced Quest "Fight in 5 Tag Team" reward collect when crypt keys are full looping bug
+Fixed Clan Boss Rewards collect bug
+Changed Clan Boss retrying delay from 1 hour to 10 minutes
+
+v2.5.0.0
+Added Daily Quests management
+Added Advanced Quests Rewards collect
+Added Arena 5 tokens collect in Bag
+Added Authentication message error in case of wrong username or password
+Added several small improvements
+Fixed Mouse click bugs
+Fixed Refill Arena Tokens spending Gems bug
+Fixed Event/Tournaments Rewards management bugs
+Fixed a bunch of other small bugs
+
+v2.4.1.0
+Fixed Clan Boss Repeat last Key not working
+Fixed Wait account already connected not working in some cases
+Fixed Dungeons and Campaign unlimited not working both on start
+Fixed champions scan bugs
+Fixed drag and drop errors for slow BlueStacks or Bots in VM
+Fixed authentication bugs
+
+v2.4.0.0
+Added Clan Boss keys management
+Added Campaign, Dungeons options for Artifacts autoselling
+Fixed Refill Energy with Gems not decrease Gems bug
+
+v2.3.0.0
+Works with last Raid update V2.0.0
+Refactor Clan Boss battles and rewards management
+Added Refill Energy with Gems
+Added champions's level and rank reading errors correction
+Added Settings errors check
+Fixed BlueStacks install in any folder
+Fixed campaign dungeon alternate battles bugs
+Fixed RaidBot lagging on start
+Fixed resize BlueStacks window bug on start
+Fixed champion's replacement rank error in campaign
+Fixed events and tournaments red dot scanning in next screen
+Fixed sparring replacement infinite loop
+Improved drag and drop algorithm and speed
+Improved RaidBot speed in Arena battles scanning
+
+v2.2.1.0
+New settings management feature (see Readme.txt)
+Added Resetting BlueStacks option
+Improved BlueStacks frozen management
+Improved Raid server lag management
+Added Sparring Champions rank choice
+Added number of Champions option in Summon action
+Added Market Shard type choice
+Added unlimited battles alternate between Campaign and Dungeons
+Fixed some replacement and levelling bugs
+Fixed Authentification bugs
+Fixed Events and Tournaments bugs
+Fixed Undead Horde Crypt bug
+Fixed "Replay Last Victory" last stage bug
+
+v2.1.0.0
+Works with Raid 1.15.2
+Added Fusion mark management in Levelling
+Added error tolerant feature (when Bot can't read Champion's level or rank, it searches new Champion instead of giving up)
+Added Sacrifice Rank 1 and Sacrifice Rank 2 level 1 options in Tavern
+Added Sacrifice Fusion option in Tavern
+Move "Sacrifice not locked Rare Champions" option from settings tab to Tavern
+Fixed Replacement bugs
+Fixed Levelling bugs
+Refactor Champions replacement, Tavern and Portal management for better performances
+Refactor Events and Tournaments rewards collect
+Remove "Collect Gems and free packs" toggle switch (always on)
+Added scroll bar in Log Monitor tab
+
+v2.0.1.1
+Fixed Bot crashing after end of Dungeon battle
+Fixed lag on start with Battle Result screen displayed
+Fixed some display bugs
+
+v2.0.1.0
+Added choose rank option in Tavern levelling
+Added Champions replacing options in Campaign Battle settings
+Added "Sacrifice not locked Rare Champions" option in settings tab
+Added tool tips for replacement and leveling options
+Refactor BlueStacks and Raid launching
+Fixed a bunch of bugs
+
+v2.0.0.0
+Added Champions level up in Tavern
+Refactor Champions replacement in Campaign to work with levelling
+Refactor Portal management to work with levelling
+
+v1.4.1.1
+Refactor Freeze management
+Refactor Return to Bastion management
+Improved stability and speed
+
+v1.4.1.0
+Works with BlueStacks 4.190 and Raid 1.14.0
+Refactor Champions replacement in Campaign
+Fixed all known bugs
+
+v1.4.0.2
+Fixed more collecting rewards bugs
+Fixed RaidBot freeze and starting infinite loops
+
+v1.4.0.1
+Fixed Connected to BlueStacks infinite loop
+Fixed Raid or BlueStacks frozen not detected
+Fixed Event and Tournament collecting rewards bugs
+Added time remaining for Timers in Status Bar
+
+v1.4.0.0
+Added Auto fill of Sparring Pit
+Added Timout for endless battles (all modes)
+Added RaidBot Autostart
+Added Faction Wars infinite defeats management
+Added Collecting Events and Tounaments Rewards
+Added Collecting Battle Pass Rewards
+Added Summoning Champions in Portal
+Fixed Dungeon unlimited battles not working
+Refactor all Bastion Modules preparing levelling in Tavern
+Improved bot stability and efficiency
+Fixed a lot of bugs
+
+v1.3.1.1
+Fixed updater issues
+
+v1.3.1.0
+Fix collect Missions, Quests and Challenges Rewards not working after Raid Update
+Fix start BlueStacks and Raid game not working after Raid update
+Fix refill token not working after Raid update
+Fix campaign locked infinite loop
+Fix scan Champion message with hexa values
+
+v1.3.0.0
+Added automatic replacement of max leveled Champions after the end of a campaign battle
+Now bot can do campaign and dungeons simultaneously
+Added settings to downgrade stage in case of defeat
+Added settings to wait if account is logged into from another device
+Fix dungeon locked infinite loop
+Refactor Status and Console messages
+Improved bot stability and efficiency
+Fixed a lot of bugs
+
+v1.2.0.0
+Added Faction wars feature
+Added Nightmare and Ultra-nightmare modes for clan boss
+Added next mode for clan boss when boss is defeated in chosen mode
+Added collecting rewards when Clan Boss is defeated
+Fixed Autosell bugs
+Added Campaign and Dungeon settings memorization separatly
+Fixed collecting some rewards not checked on start
+Remove Bastion period setting (real time checking)
+Remove Bastion check on Start setting (always check on start)
+
+v1.1.0.0
+Added arena battle with team power check feature
+Added autosell artifact feature
+Added clan boss feature
+Redid camera handling in bastion
+Added bastion timer as a setting
+Added bastion check on start as a setting
+Next event in status bar now has time remaining
+
+v1.0.4.2
+Fixed bot for winter event
+Updater now displays patchnotes
+Minor fixes
+
+v1.0.4.1
+Fixed Connection error or Maintenance Server not Re-log in
+Fixed infinite loop on starting
+Fixed replay stage instead of next on starting
+Added frozen counter to avoid bot killing BlueStacks for no reason
+
+v1.0.4.0
+Added auto-updater
+Increased timings for Arena Battles (slow PC issue)
+
+v1.0.3.4
+UI fixes
+Arena fixes
+More bug fixes
+
+v1.0.3.3
+Added Settings for Refill Energy and Arena Tokens from Inbox
+Fixed bugs on Refill Energy and Refill Arena Tokens from Inbox
+Added better management for server maintenance
+
+v1.0.3.2
+fixed error claiming clan boss chest
+Added Setting for buying Ancient Shard in Market
+
+v1.0.3.1
+Fixed Arena Tokens bought with Gems
+Added Setting for Arena Tokens refill from Inbox
+Fix Quit Game popups loop
+
+v1.0.3.0
+Improved UI
+Clan rewards handling
+Fixed some infinite loops
+Improved frozen BlueStacks detection
+Optimized some logic parts
+
+v1.0.2.0
+Added option to fight until all Champions are maxed
+Added gem mine handling
+Bot detects if BlueStacks is frozen and restarts it
+Added some rewards from Bastion
+Optimized various behavior routines
+
+v1.0.1.0
+Improved UI
+Added Automatic Rewards features
+Fixed some infinite loops
+
+v1.0.0.0
+Initial Release

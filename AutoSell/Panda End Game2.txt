@@ -1,0 +1,230 @@
+// Panda End Game rules for all uses (Battles, Inbox, Storage)
+
+// Syntax explanation:
+// Any blank line or line starting with // is ignored: allows adding comments
+// Actions Keep or Sell or Upgrade 4,8,12,16 : mandatory at the beginning of the rule, defines the action to take if the rule is true
+// Action Upgrade n upgrades the item to level n then the Bot reads new stats and apply all rules again to keep or sell upgraded item
+// Optional keyword Artifact or Accessory after the action means that the rule is only for artifacts or Accessory
+// Keyword GroupSets allows to define a group of sets to use in rules
+// All other conditions are optional and can be placed in any order in the rule, separated by commas:
+// - Set = : defines the Sets concerned by the rule (set names idem Raid), "Set = GroupSets" uses the group of sets defined by the last line "GroupSets = "
+// - Type = : defines the types concerned, possible values = W, H, S, G, C, B, R, A, N (W/H/S means considering artifacts of type Weapon, Helmet, or Shield, N means Banner)
+// - Main = : defines the main stats concerned, possible values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP (e.g., ATK%/DEF%/HP% means the main Stat must be ATK% or DEF% or HP%)
+// - Rank : in the form = or > or < or <= or >= (e.g., Rank < 6)
+// - Level : in the form = or > or < or <= or >= (e.g., Level < 16)
+// - Rarity : in the form = or > or < or <= or >= (e.g., Rarity < Epic means considering Common, Uncommon and Rare items)
+// - Sub = : idem Main stats (maximum of 4 Sub conditions since there are up to 4 substats per item)
+// - 2*Sub means that 2 substats of the item must meet the condition
+// - Sub values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP. Sub value can be followed by 1, 2, 3, 4 e.g. SPD2 in rules means SPD(2) in Raid screen
+
+
+// All Items: keep level 16, sell Rank < 5, sell Rarity < Rare
+//////////////////////////////////////////////////////////////
+Keep, Level = 16
+Sell, Rank < 5
+Sell, Rarity < Rare
+
+
+// Accessories
+//////////////
+
+// Special Accessories: Keep all 6* Rare+, Keep all 5* Rare+ Banners if speed substat
+Keep SpecialAcc, Rank = 6, Rarity >= Rare
+Keep SpecialAcc, Rank = 5, Rarity >= Rare, Type = N, Sub = SPD
+Sell SpecialAcc
+
+// Mythic standard Accessories = Special Accessories
+Keep Accessory, Rank = 6, Rarity = Mythic
+Keep Accessory, Rank = 5, Rarity = Mythic, Type = N, Sub = SPD
+
+// All other standard Accessories: Keep only 6* Epic+
+Sell Accessory, Rank < 6
+Sell Accessory, Rank = 6, Rarity < Epic
+
+// Standard Rings HP mainstat: Keep if HP% + ATK% substats, Upgrade level 8 if HP% or ATK% substat and Keep if HP%(1) or ATK%(1) or HP% + ATK% substats
+Keep Accessory, Type = R, Main = HP, 2*Sub = HP%/ATK%
+Upgrade 8 Accessory, Type = R, Main = HP, Sub = HP%/ATK%
+Keep Accessory, Type = R, Main = HP, 2*Sub = HP%/ATK%
+Keep Accessory, Type = R, Main = HP, Sub = HP%1/ATK%1
+
+// Standard Rings HP/DEF mainstat: Keep if substats HP% + DEF%, Upgrade level 8 if HP% or DEF% and Keep if HP%(1) or DEF%(1) or HP% + DEF% substats
+Keep Accessory, Type = R, Main = HP/DEF, 2*Sub = HP%/DEF%
+Upgrade 8 Accessory, Type = R, Main = HP/DEF, Sub = HP%/DEF%
+Keep Accessory, Type = R, Main = HP/DEF, 2*Sub = HP%/DEF%
+Keep Accessory, Type = R, Main = HP/DEF, Sub = HP%1/DEF%1
+
+// Standard Rings ATK mainstat: Keep if HP% + ATK% substats, Upgrade level 8 if HP% or ATK% substat and Keep if HP%(1) or ATK%(1) or HP% + ATK% substats
+Keep Accessory, Type = R, Main = ATK, 2*Sub = HP%/ATK%
+Upgrade 8 Accessory, Type = R, Main = ATK, Sub = HP%/ATK%
+Keep Accessory, Type = R, Main = ATK, 2*Sub = HP%/ATK%
+Keep Accessory, Type = R, Main = ATK, Sub = HP%1/ATK%1
+
+Sell Accessory, Type = R
+
+// Standard Amulets HP/DEF/CD% mainstat: Keep if ACC + RES substats, Upgrade Level 8 if ACC or RES substat and Keep if ACC(1) or RES(1) or ACC + RES substats
+Keep Accessory, Type = A, Main = HP/DEF/CD%, 2*Sub = ACC/RES
+Upgrade 8 Accessory, Type = A, Main = HP/DEF/CD%, Sub = ACC/RES
+Keep Accessory, Type = A, Main = HP/DEF/CD%, 2*Sub = ACC/RES
+Keep Accessory, Type = A, Main = HP/DEF/CD%, Sub = ACC1/RES1
+
+// Standard Amulets ATK mainstat: Keep if substat ACC(1), Upgrade Level 8 if ACC and Keep if ACC(1)
+Keep Accessory, Type = A, Main = ATK, Sub = ACC1
+Upgrade 8 Accessory, Type = A, Main = ATK, Sub = ACC
+Keep Accessory, Type = A, Main = ATK, Sub = ACC1
+
+Sell Accessory, Type = A
+
+// Standard Banners HP/DEF/ATK mainstat: Keep if HP% + SPD or DEF% + SPD or ATK% + SPD substats, Upgrade Level 8 if SPD substat and Keep if SPD(1)
+Keep Accessory, Type = N, Main = HP/DEF/ATK, Sub = SPD, Sub = HP%/DEF%/ATK%
+Upgrade 8 Accessory, Type = N, Main = HP/DEF/ATK, Sub = SPD
+Keep Accessory, Type = N, Main = HP/DEF/ATK, Sub = SPD, Sub = HP%/DEF%/ATK%
+Keep Accessory, Type = N, Main = HP/DEF/ATK, Sub = SPD1
+
+// Standard Banners ACC/RES mainstat: Keep if SPD substat 
+Keep Accessory, Type = N, Main = ACC/RES, Sub = SPD
+
+Sell Accessory, Type = N
+
+
+// Artifacts
+////////////
+
+// Sell Weapon/Helmet/Shield without SPD substat and with flat substats
+Sell Artifact, Type = W/H/S, Rarity = Rare, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, Sub = ATK/DEF/HP/ACC/RES
+Sell Artifact, Type = W/H/S, Rarity = Epic, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, 2*Sub = ATK/DEF/HP/ACC/RES
+Sell Artifact, Type = W/H/S, Rarity >= Legendary, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, 3*Sub = ATK/DEF/HP/ACC/RES
+
+// Special sets
+GroupSets = Merciless/Rebirth/Supersonic/Stonecleaver/Feral/Pinpoint/Chronophage
+////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Keep 6* if SPD substat, Upgrade Level 8 and Keep 5* rare+ if SPD(1) substat
+Keep, Set = GroupSets, Rank = 6, Type = W/H/S, Sub = SPD
+Upgrade 8, Set = GroupSets, Rank = 5, Rarity >= Rare, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank = 5, Rarity >= Rare, Type = W/H/S, Sub = SPD1
+
+// Gauntlets: keep Rare+ CD% mainstat if SPD or CR% substats, keep Rare+ with CR% mainstat if SPD substat
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Set = GroupSets, Rank >= 5, Rarity = Rare, Type = G, Main = CR%, Sub = SPD
+
+// Gauntlets: keep Rare+ any mainstat even 5* if SPD(1) substat
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Type = G, Sub = SPD1
+
+// Gauntlets: Keep 6* ATK%/HP%/DEF% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Type = G, Main = ATK%/HP%/DEF%, Sub = SPD
+
+// Chestplate: Keep Rare+ ACC/RES/HP%/DEF%/ATK% mainstat if CR% or SPD substats
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD/CR%
+
+// Chestplate: Keep Rare+ any mainstat if SPD(1) substat
+Upgrade 8, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = C, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Sub = SPD1
+
+// Chestplate: Keep 6* ATK%/HP%/DEF%/ACC/RES mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Type = C, Main = ATK%/HP%/DEF%/ACC/RES, Sub = SPD
+
+// Boots: Keep Rare+ SPD mainstat if ACC or RES or CR% or CD% substats
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%
+
+// Boots: Keep Rare+ HP% /DEF%/ATK% mainstat if speed substat
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+// Sell all other Special sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// Sell all other Artifacts with Rank < 6
+Sell Artifact, Rank < 6
+
+// Defensive and Health sets
+GroupSets = Life/Defense/Frost/Regeneration/Shield/Stalwart/Curing/Immortal/Divine Life/Deflection/Resilience/Frostbite/Guardian/Defiant/Bolster
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Keep Epic+ if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD
+
+// Gauntlets: Keep Epic+ HP%/DEF% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = HP%/DEF%, Sub = SPD
+
+// Chestplate: Keep Epic+ HP%/DEF%/ACC/RES mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ACC/RES, Sub = SPD
+
+// Boots: Keep Epic+ SPD mainstat if ACC or RES or HP% or DEF% substats, Keep Epic+ HP%/DEF% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = HP%/DEF%/ACC/RES
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%, Sub = SPD
+
+// Sell all other Defensive and Health sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// 2nd tier damage sets
+GroupSets = Offense/Critical Rate/Crit Damage/Lifesteal/Frenzy/Destroy/Toxic/Retaliation/Avenging/Divine Offense/Divine Critical Rate/Fatal/Bloodthirst
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Keep Epic+ if SPD + CR% substats
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = CR%
+
+// Gauntlets: Keep Rare+ CD% mainstat, if CR% or SPD substat, Keep Rare+ CR% mainstat, if CD% + SPD substats
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD, Sub = CD%
+
+// Chestplate: Keep Epic+ HP%/DEF%/ATK%/ACC if SPD + CR% or SPD + CD% or CR% + CD% substats
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD, Sub = CD%/CR%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = CR%, Sub = CD%
+
+// Boots: Keep Epic+ SPD mainstat if ACC + CR% or ACC + CD% or CR% + CD% substats
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = ACC, Sub = CR%/CD%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = CR%, Sub = CD%
+
+// Boots: Keep Epic+ HP%/DEF%/ATK% mainstat if SPD + CR% or SPD + CD% substats
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD, Sub = CR%/CD%
+
+// Sell all other 2nd tier damage sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// 1st tier damage sets
+GroupSets = Savage/Cruel/Lethal/Killstroke/Instinct/Zeal/Slayer
+///////////////////////////////////////////////////////////////
+
+// WHS: Keep Epic+ if SPD or CR% substat
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = W/H/S, Sub = SPD/CR%
+
+// Gauntlets: Keep Rare+ CD% mainstat if CR% or SPD substat, Keep Rare+ CR% mainstat if CD% + SPD substats
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD, Sub = CD%
+
+// Chestplate: Keep Epic+ HP%/DEF%/ATK%/ACC mainstat if SPD or CR% or CD% substat
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD/CD%/CR%
+
+// Boots: Keep Epic+ SPD mainstat if ACC or CR% or CD% substat
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = B, Main = SPD, Sub = ACC/CR%/CD%
+
+// Boots: Keep Epic+ HP%/DEF%/ATK% mainstat if SPD substat
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+// Sell all other 1st tier damage sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// Universal sets damage and acc / res : always needs speed
+GroupSets = Speed/Accuracy/Resistance/Daze/Cursed/Immunity/Relentless/Stun/Provoke/Reflex/Divine Speed/Swift Parry/Perception/Affinitybreaker/Untouchable/Fortitude/Protection/Stone Skin/Impulse/Righteous
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Keep Epic+ if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD
+
+// Gauntlets: Keep Epic+ CR%/CD%/HP%/DEF%/ATK% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = CR%/CD%/HP%/DEF%/ATK%, Sub = SPD
+
+// Chestplate: Keep Epic+ ACC/RES/HP%/DEF%/ATK% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD
+
+// Boots: Keep Rare+ SPD mainstat if ACC or RES or CR% or CD% substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = CR%/CD%/ACC/RES
+
+// Boots: Keep Rare+ HP%/DEF%/ATK% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+// Sell all other Universal sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// Keep all other items if no rule is matching (in case of new set)
+///////////////////////////////////////////////////////////////////

@@ -1,0 +1,196 @@
+// Mid Game rules for all uses (Battles, Inbox, Storage)
+
+// Syntax explanation:
+// Any blank line or line starting with // is ignored: allows adding comments
+// Actions Keep or Sell or Upgrade 4,8,12,16 : mandatory at the beginning of the rule, defines the action to take if the rule is true
+// Action Upgrade n upgrades the item to level n then the Bot reads new stats and apply all rules again to keep or sell upgraded item
+// Optional keyword Artifact or Accessory after the action means that the rule is only for artifacts or Accessory
+// Keyword GroupSets allows to define a group of sets to use in rules
+// All other conditions are optional and can be placed in any order in the rule, separated by commas:
+// - Set = : defines the Sets concerned by the rule (set names idem Raid), "Set = GroupSets" uses the group of sets defined by the last line "GroupSets = "
+// - Type = : defines the types concerned, possible values = W, H, S, G, C, B, R, A, N (W/H/S means considering artifacts of type Weapon, Helmet, or Shield, N means Banner)
+// - Main = : defines the main stats concerned, possible values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP (e.g., ATK%/DEF%/HP% means the main Stat must be ATK% or DEF% or HP%)
+// - Rank : in the form = or > or < or <= or >= (e.g., Rank < 6)
+// - Level : in the form = or > or < or <= or >= (e.g., Level < 16)
+// - Rarity : in the form = or > or < or <= or >= (e.g., Rarity < Epic means considering Common, Uncommon and Rare items)
+// - Sub = : idem Main stats (maximum of 4 Sub conditions since there are up to 4 substats per item)
+// - 2*Sub means that 2 substats of the item must meet the condition
+// - Sub values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP. Sub value can be followed by 1, 2, 3, 4 e.g. SPD2 in rules means SPD(2) in Raid screen
+
+
+// All Items: keep level 12 and more, keep Mythic, sell Rank < 5, sell Rarity < Rare
+////////////////////////////////////////////////////////////////////////////////////
+Keep, Level > 11
+Keep, Rarity = Mythic
+Sell, Rank < 5
+Sell, Rarity < Rare
+
+// Accessories
+//////////////
+
+// Special accessories:  Keep all 5* and 6*
+Keep SpecialAcc
+
+// All other standard Accessories: Sell if < 5*
+Sell Accessory, Rank < 5
+
+// Rings 6*: Keep if HP%/ATK%/DEF% substat
+Keep Accessory, Rank = 6, Type = R, Sub = HP%/ATK%/DEF%
+
+// Rings 5* HP: Keep if substats HP% + ATK%, Upgrade level 8 if HP% or ATK% and Keep if HP%(1) or ATK%(1) or HP% + ATK%
+Keep Accessory, Rank = 5, Type = R, Main = HP, 2*Sub = HP%/ATK%
+Upgrade 8 Accessory, Rank = 5, Type = R, Main = HP, Sub = HP%/ATK%
+Keep Accessory, Rank = 5, Type = R, Main = HP, 2*Sub = HP%/ATK%
+Keep Accessory, Rank = 5, Type = R, Main = HP, Sub = HP%1/ATK%1
+
+// Rings 5* HP or DEF: Keep if substats HP% + DEF%, Upgrade level 8 if HP% or DEF% and Keep if HP%(1) or DEF%(1) or HP% + DEF%
+Keep Accessory, Rank = 5, Type = R, Main = HP/DEF, 2*Sub = HP%/DEF%
+Upgrade 8 Accessory, Rank = 5, Type = R, Main = HP/DEF, Sub = HP%/DEF%
+Keep Accessory, Rank = 5, Type = R, Main = HP/DEF, 2*Sub = HP%/DEF%
+Keep Accessory, Rank = 5, Type = R, Main = HP/DEF, Sub = HP%1/DEF%1
+
+// Rings 5* ATK: Keep if substats HP% + ATK%, Upgrade level 8 if HP% or ATK% and Keep if HP%(1) or ATK%(1) or HP% + ATK%
+Keep Accessory, Rank = 5, Type = R, Main = ATK, 2*Sub = HP%/ATK%
+Upgrade 8 Accessory, Rank = 5, Type = R, Main = ATK, Sub = HP%/ATK%
+Keep Accessory, Rank = 5, Type = R, Main = ATK, 2*Sub = HP%/ATK%
+Keep Accessory, Rank = 5, Type = R, Main = ATK, Sub = HP%1/ATK%1
+
+Sell Accessory, Type = R
+
+// Amulets 6*: Keep mainstat CD%, Keep mainstat HP/DEF/ATK if CD%/ACC/RES substat
+Keep Accessory, Rank = 6, Type = A, Main = CD%
+Keep Accessory, Rank = 6, Type = A, Main = HP/DEF/ATK, Sub = CD%/ACC/RES
+
+// Amulets 5* HP or DEF or CD%: Keep if substats ACC + RES, Upgrade Level 8 if ACC or RES and Keep if ACC(1) or RES(1) or ACC + RES
+Keep Accessory, Rank = 5, Type = A, Main = HP/DEF/CD%, 2*Sub = ACC/RES
+Upgrade 8 Accessory, Rank = 5, Type = A, Main = HP/DEF/CD%, Sub = ACC/RES
+Keep Accessory, Rank = 5, Type = A, Main = HP/DEF/CD%, 2*Sub = ACC/RES
+Keep Accessory, Rank = 5, Type = A, Main = HP/DEF/CD%, Sub = ACC1/RES1
+
+// Amulets 5* ATK: Keep if substat ACC(1), Upgrade Level 8 if ACC and Keep if ACC(1)
+Keep Accessory, Rank = 5, Type = A, Main = ATK, Sub = ACC1
+Upgrade 8 Accessory, Rank = 5, Type = A, Main = ATK, Sub = ACC
+Keep Accessory, Rank = 5, Type = A, Main = ATK, Sub = ACC1
+
+Sell Accessory, Type = A
+
+// Banners ACC or RES: Keep if 6*, Keep if 5* with substat SPD
+Keep Accessory, Rank = 6, Type = N, Main = ACC/RES
+Keep Accessory, Rank = 5, Type = N, Main = ACC/RES, Sub = SPD
+
+// Banners HP/DEF/ATK: Keep 6* if substats SPD, Keep 5* if substats HP% + SPD or DEF% + SPD or ATK% + SPD, Upgrade Level 8 if SPD and Keep if SPD(1)
+Keep Accessory, Rank = 6, Type = N, Main = HP/DEF/ATK, Sub = SPD
+Keep Accessory, Rank = 5, Type = N, Main = HP/DEF/ATK, Sub = SPD, Sub = HP%/DEF%/ATK%
+Upgrade 8 Accessory, Rank = 5, Type = N, Main = HP/DEF/ATK, Sub = SPD
+Keep Accessory, Rank = 5, Type = N, Main = HP/DEF/ATK, Sub = SPD, Sub = HP%/DEF%/ATK%
+Keep Accessory, Rank = 5, Type = N, Main = HP/DEF/ATK, Sub = SPD1
+
+Sell Accessory, Type = N
+
+
+// Artifacts
+////////////
+
+// Special sets
+GroupSets = Merciless/Rebirth/Supersonic/Stonecleaver/Feral/Pinpoint
+////////////////////////////////////////////////////////////////////
+
+// WHS: Keep 6* with SPD substat, Upgrade Level 8 and Keep 5* with SPD(1) substat
+Keep, Rank = 6, Set = GroupSets, Type = W/H/S, Sub = SPD
+Upgrade 8, Rank = 5, Set = GroupSets, Type = W/H/S, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Type = W/H/S, Sub = SPD1
+
+// Gauntlets: Keep 6* with SPD substat, Keep 5* CR%/CD% mainstat with SPD substat, Upgrade Level 8 and Keep 5* with SPD(1) substat
+Keep, Rank = 6, Set = GroupSets, Type = G, Sub = SPD
+Keep, Rank = 5, Set = GroupSets,  Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank = 5, Set = GroupSets, Type = G, Main = CR%, Sub = SPD
+Upgrade 8, Rank >= 5, Set = GroupSets, Type = G, Sub = SPD
+Keep, Rank >= 5, Set = GroupSets, Type = G, Sub = SPD1
+
+// Chestplate: Keep with SPD(1) substat, Keep 6* ACC/RES/HP%/DEF%/ATK% mainstat with SPD substat, Keep 5* ACC/RES/HP%/DEF%/ATK% mainstat with SPD + CR% substats
+Keep, Rank = 6, Set = GroupSets, Type = C, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Type = C, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD/CR%
+Upgrade 8, Rank >= 5, Set = GroupSets,Type = C, Sub = SPD
+Keep, Rank >= 5, Set = GroupSets, Type = C, Sub = SPD1
+
+// Boots: Keep 6* SPD mainstat, Keep 6* HP%/DEF%/ATK% mainstat with SPD substat, Keep 5* SPD mainstat with SPD + ACC/RES/CR%/CD% substats
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = SPD
+Keep, Rank = 5, Set = GroupSets, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+Sell, Set = GroupSets
+
+// Universal sets damage and acc / res : always needs speed
+GroupSets = Speed/Accuracy/Resistance/Daze/Cursed/Immunity/Relentless/Stun/Provoke/Reflex/Divine Speed/Swift Parry/Perception/Affinitybreaker/ Untouchable/Fortitude/Protection/Stone Skin/Impulse/Righteous/Impulse
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Keep 6* Rare+ if SPD substat, Keep 5* Epic+ if SPD + CR%/CD%/ACC/RES substats
+Keep, Set = GroupSets, Rank = 6, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank = 5, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = CR%/CD%/ACC/RES
+
+// Gauntlets: Keep 6* Rare+ CR%/CD%/HP%/DEF%/ATK% mainstat if SPD substat, Keep 5* Epic+ CR%/CD%/HP%/DEF%/ATK% mainstat if SPD + twice CR%/CD%/HP%/DEF%/ATK% substats
+Keep, Set = GroupSets, Rank = 6, Type = G, Main = CR%/CD%/HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank = 5, Rarity >= Epic, Type = G, Main = CR%/CD%/HP%/DEF%/ATK%, Sub = SPD, 2*Sub = CR%/CD%/HP%/DEF%/ATK%
+
+// Chestplate: Keep 6* Rare+ ACC/RES/HP%/DEF%/ATK% mainstat if SPD substat, Keep 5* Epic+ ACC/RES/HP%/DEF%/ATK% mainstat if SPD + twice CR%/CD%/HP%/DEF%/ATK%/ACC/RES substat
+Keep, Set = GroupSets, Rank = 6, Type = G, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank = 5, Rarity >= Epic, Type = G, Main = ACC/RES/HP%/DEF%/ATK%, Sub = SPD, 2*Sub = CR%/CD%/HP%/DEF%/ATK%/ACC/RES
+
+// Boots: Keep 6* Rare+ SPD mainstat, Keep 5* Epic+ SPD mainstat if ACC or RES or CR% or CD% substat
+Keep, Set = GroupSets, Rank = 6, Type = B, Main = SPD
+Keep, Set = GroupSets, Rank = 5, Rarity >= Epic, Type = B, Main = SPD, Sub = CR%/CD%/ACC/RES
+
+// Boots: Keep 6* Rare+ HP%/DEF%/ATK% mainstat if SPD substat
+Keep, Set = GroupSets, Rank = 6, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+Sell, Set = GroupSets
+
+// Defensive and Health sets
+GroupSets = Life/Defense/Frost/Regeneration/Shield/Stalwart/Curing/Immortal/Divine Life/Deflection/Resilience/Frostbite/Guardian/Defiant/Bolster
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Keep, Rank = 6, Set = GroupSets, Type = W/H/S, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = W/H/S, Sub = SPD, 2*Sub = HP%/DEF%/ACC/RES
+Keep, Rank = 6, Set = GroupSets, Type = G, Main = HP%/DEF%, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = G, Main = HP%/DEF%, Sub = SPD, 2*Sub = HP%/DEF%/ACC/RES
+Keep, Rank = 6, Set = GroupSets, Type = C, Main = HP%/DEF%/ACC/RES, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = C, Main = HP%/DEF%/ACC/RES, Sub = SPD, 2*Sub = HP%/DEF%/ACC/RES
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = B, Main = SPD, Sub = HP%/DEF%/ACC/RES, 2*Sub = HP%/DEF%/ACC/RES
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = HP%/DEF%, Sub = SPD
+Sell, Set = GroupSets
+
+// 2nd tier damage sets
+GroupSets = Offense/Critical Rate/Crit Damage/Lifesteal/Frenzy/Destroy/Toxic/Retaliation/Avenging/Divine Offense/Divine Critical Rate/Fatal/Bloodthirst
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Keep, Rank = 6, Set = GroupSets, Type = W/H/S, Sub = SPD, Sub = CR%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = CR%
+Keep, Rank = 6, Set = GroupSets, Type = G, Main = CD%/CR%, Sub = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = G, Main = CR%, Sub = SPD, Sub = CD%
+Keep, Rank = 6, Set = GroupSets, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD
+Keep, Rank = 6, Set = GroupSets, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = CR%, Sub = CD%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD, 2*Sub = CD%/CR%
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = B, Main = SPD, 2*Sub = ACC/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD, Sub = CR%/CD%
+Sell, Set = GroupSets
+
+// 1st tier damage sets
+GroupSets = Savage/Cruel/Lethal/Killstroke/Instinct/Zeal/Slayer
+///////////////////////////////////////////////////////////////
+
+Keep, Rank = 6, Set = GroupSets, Type = W/H/S, Sub = SPD/CR%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = CR%
+Keep, Rank = 6, Set = GroupSets, Type = G, Main = CD%/CR%, Sub = SPD/CR%/CD%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = G, Main = CD%/CR%, Sub = SPD, Sub = CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD/CD%/CR%
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC, Sub = SPD, Sub = CD%/CR%
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = SPD
+Keep, Rank = 5, Set = GroupSets, Rarity >= Epic, Type = B, Main = SPD, Sub = ACC/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Sell, Set = GroupSets
+
+// Keep all other items if no rule is matching (in case of new set)
+///////////////////////////////////////////////////////////////////

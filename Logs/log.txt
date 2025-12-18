@@ -1,0 +1,51 @@
+23/11 15:08:09  Free Licence: Regular and Premium features disabled
+23/11 15:08:09  Cursed CIty feature added until end of the week
+23/11 15:08:09  UserSettings.txt file changes:  
+ < Chimera Autosell checkbox > is not a valid Setting and has been removed 
+< Last crash timestamp > Setting is missing, using default value: 0 
+< Consecutive crash count > Setting is missing, using default value: 0 
+< Crash timestamps history > Setting is missing, using default value:  
+
+23/11 15:08:11  License key confirmed by user
+23/11 15:08:11  Bot ready to start
+14/12 13:29:23  Free Licence: Regular and Premium features disabled
+14/12 13:29:23  Doom Tower feature added until end of the week
+14/12 13:29:23  UserSettings.txt file changes:  
+ < AutoSell Stop Bot checkbox > Setting is missing, using default value: Off 
+
+14/12 13:29:24  License key confirmed by user
+14/12 13:29:24  Bot ready to start
+18/12 12:08:20  Christmas offers :
+18/12 12:08:20  15% discount on Lifetimes
+18/12 12:08:20  Gets 7 or 14 months for the price of 6 or 12 - applies on renewal too.
+18/12 12:08:20  Free Licence: Regular and Premium features disabled
+18/12 12:08:21  For Christmas, Live Arena and Autosell are added until end of the month
+18/12 12:08:21  License key confirmed by user
+18/12 12:08:21  Bot ready to start
+18/12 12:08:33  Bot v7.4.2.1 Started
+18/12 12:08:34  Bot Stopped
+18/12 12:08:36  Starting Plarium Play and Raid
+18/12 12:08:36  Settings plarium2 loaded
+18/12 12:08:37  Bot v7.4.2.1 Started
+18/12 12:08:40  Starting Plarium Play and Raid
+18/12 12:08:47  Waiting Beginning of Raid launching
+18/12 12:08:52  Waiting End of Raid launching
+18/12 12:09:10  Raid started
+18/12 12:09:22  Scroll Sensitivity adjusted
+18/12 12:09:26  Optimize in-game UI unchecked
+18/12 12:09:27  Disable camera shake checked
+18/12 12:10:02  Shop Free Gift collected
+18/12 12:10:50  Going to Kaeroc Castle in Normal mode
+18/12 12:11:07  Starting Kaeroc Castle stage 2 battle in Normal mode
+18/12 12:11:42  Victory
+18/12 12:11:46  Starting Kaeroc Castle replay stage 2 battle
+18/12 12:12:15  Victory
+18/12 12:12:19  Starting Kaeroc Castle replay stage 2 battle
+18/12 12:12:48  Victory
+18/12 12:12:53  Starting Kaeroc Castle replay stage 2 battle
+18/12 12:13:22  Victory
+18/12 12:13:26  Starting Kaeroc Castle replay stage 2 battle
+18/12 12:14:13  Victory
+18/12 12:15:16  Bot Stopped
+18/12 12:15:17  Bot v7.4.2.1 Started
+18/12 12:15:19  Bot Unpaused
