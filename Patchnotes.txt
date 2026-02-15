@@ -1,3 +1,12 @@
+v7.5.0.0
+Works with last Raid update v11.20.0 (filter changes)
+Refactor of stages choice management
+Refactor of mouse hiding management (Bot continues to click even hide mouse is not working)
+Internal redesign increasing deeply the performances
+New feature Grim Forest (not yet available)
+Added RSL v11 new champions
+Fixed all known bugs
+
 v7.4.2.1
 Fixed Loop in Tag Team Arena team selected
 Fixed Arena 5 Tokens collected in Inbox with Gems, Silver, Potions

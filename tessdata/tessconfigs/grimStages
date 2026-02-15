@@ -1,0 +1,4 @@
+load_system_dawg false
+load_freq_dawg false
+tessedit_char_whitelist ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+tessedit_do_invert true
