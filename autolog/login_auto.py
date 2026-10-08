@@ -43,6 +43,7 @@ WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, HWND, LPARAM)
 ULONG_PTR = ctypes.c_ulonglong if ctypes.sizeof(ctypes.c_void_p) == 8 else ctypes.c_ulong
 
 EXE_PATH = Path(r"C:\Windows 11\raid-bot\RaidBot.exe")
+KEYS_PATH = Path(r"C:\Windows 11\keys")
 USERNAME = "kamzza2"
 CLICK_GAP = 10.0
 DESKTOP_SETTLE = 25.0
@@ -253,15 +254,9 @@ def fill_field(x: int, y: int, text: str) -> None:
 
 
 def load_key() -> str:
-    candidates = [
-        HERE / "keys.txt",
-        HERE / "keys",
-        EXE_PATH.parent / "keys.txt",
-        EXE_PATH.parent / "keys",
-    ]
-    path = next((item for item in candidates if item.is_file()), None)
-    if path is None:
-        raise SystemExit("Brak pliku keys.txt (ani keys) obok skryptu albo obok RaidBot.exe")
+    path = KEYS_PATH
+    if not path.is_file():
+        raise SystemExit(f"Brak pliku kluczy: {path}")
     keys = [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     if not keys:
         raise SystemExit(f"Plik kluczy jest pusty: {path}")
