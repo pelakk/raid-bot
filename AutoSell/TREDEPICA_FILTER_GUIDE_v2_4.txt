@@ -1,0 +1,148 @@
+================================================================================
+                    TREDEPICA FILTER SYSTEM v8.7
+                         A Guide for Everyone
+================================================================================
+
+
+ABOUT THESE FILTERS
+-------------------
+
+These filters were created to solve a simple problem: too much gear, not enough 
+inventory space, and no time to manually check every piece.
+
+The filters are STRICT but SYSTEMATIC. They won't keep everything - that would 
+defeat the purpose. Instead, they keep pieces that have genuine potential while 
+clearing out the obvious junk.
+
+Were they built perfectly? No. But they were built as carefully as possible, 
+with every rule thought through. They will be improved over time based on 
+feedback and testing.
+
+
+THE TWO FILTERS
+---------------
+
+You have two filter files:
+
+1. STORAGE FILTER (TredepicaStorageV8_7.txt)
+   This is your main filter. It evaluates gear in your artifact storage and 
+   decides what to keep, upgrade, or sell. It checks gear at multiple levels 
+   (0, 8, 12, 16) to give pieces multiple chances to prove themselves.
+
+2. DUNGEON FILTER (Tredepica_DungeonV8_7.txt)
+   This runs during dungeon farming. It's simpler and faster because you're 
+   getting hundreds of drops. It quickly separates obvious trash from pieces 
+   worth sending to storage for deeper evaluation.
+
+
+THE PHILOSOPHY BEHIND THE RULES
+-------------------------------
+
+Every set in the game serves a purpose. Damage sets need damage stats. Tank 
+sets need tank stats. Support sets need support stats.
+
+The filters recognize this and apply different rules to different sets:
+
+DAMAGE SETS (Savage, Cruel, Lethal, etc.)
+   Looking for: Speed, Crit Rate, Crit Damage, Attack%
+   These are for your nukers. No point keeping a Savage piece with HP% and RES.
+
+TANK SETS (Immortal, Resilience, Stalwart, etc.)
+   Looking for: Speed, HP%, DEF%, Resistance, Accuracy
+   These are for your tanks and support champions who need to survive.
+
+SUPPORT/UNIVERSAL SETS (Speed, Relentless, Reflex, etc.)
+   Looking for: Flexible combinations depending on use case
+   These sets work on many different champion types.
+
+ACC-BASED / DEBUFFER SETS (Cursed, Stun, Provoke, Frostbite)
+   Looking for: Speed, Accuracy, HP%, DEF%
+   These are for champions who apply debuffs. Accuracy is essential for landing 
+   those debuffs, while HP% and DEF% keep them alive.
+
+SPECIAL SETS
+   Some sets have unique rules. Feral is rare and always kept. Stonecleaver 
+   is damage-only. Protection allows some flexibility for set completion.
+
+
+HOW THE FILTER DECIDES
+----------------------
+
+When the filter sees a piece, it asks simple questions:
+
+1. Is this set worth keeping at all? 
+   (Junk sets like Life, Offense, Resistance are auto-sold)
+
+2. Does it have the RIGHT main stat for this piece type?
+   (ATK% boots on a tank set? Sell.)
+
+3. Does it have GOOD substats?
+   (The filter looks for specific stat combinations, not just individual stats)
+
+4. Did those substats ROLL well?
+   (A piece with SPD that never rolled into SPD is worse than one that did)
+
+The filter requires COMBINATIONS of good stats, not just one good stat. A 
+Savage weapon with only Speed but no Crit Rate or Crit Damage? Not good enough.
+
+
+WHY FLAT STATS ARE IGNORED
+--------------------------
+
+You might notice the filter doesn't care about flat stats (ATK, DEF, HP without 
+the % sign). This is intentional.
+
+On 6-star gear, percentage stats almost always outperform flat stats. A piece 
+that rolled all its upgrades into flat ATK instead of ATK% is significantly 
+weaker. The filter treats flat stat rolls as "wasted" rolls.
+
+This means: if your piece has SPD(2) and ATK(2), the filter sees it as having 
+only 2 good rolls (the SPD), not 4.
+
+
+WHEN GOOD PIECES GET SOLD
+-------------------------
+
+Sometimes the filter will sell a piece you wanted to keep. This happens when:
+
+- The piece has an unusual stat combination the filter doesn't expect
+- You have a specific champion build that needs "off-meta" stats
+- The piece is good but not good ENOUGH by the filter's standards
+
+This is where custom rules come in.
+
+
+================================================================================
+                         BEFORE YOU START
+================================================================================
+
+IMPORTANT: Before running the filter on your actual inventory, we STRONGLY 
+recommend using the SIMULATION feature first.
+
+The simulation will show you exactly which items would be kept and which would 
+be sold, without actually selling anything. This way you can review the 
+decisions and make sure you're comfortable with the results.
+
+The Storage filter is designed to keep a wide variety of useful items, but 
+everyone's account and needs are different. Use simulation to verify the 
+filter works well for YOUR inventory.
+
+
+================================================================================
+                         FINAL NOTES
+================================================================================
+
+These filters represent many hours of work trying to balance strictness with 
+practicality. They're not perfect, but they're systematic and logical.
+
+If you find patterns of pieces being wrongly sold, let me know. The filters 
+will be improved over time.
+
+Remember: the goal isn't to keep everything. It's to keep what matters and 
+clear out what doesn't, so you can actually find your good gear.
+
+
+Created by Tredepica
+Version 8.7
+
+================================================================================

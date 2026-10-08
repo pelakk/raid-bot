@@ -1,0 +1,38 @@
+// Casual Players rules for all uses (Battles, Inbox, Storage)
+
+// Syntax explanation:
+// Any blank line or line starting with // is ignored: allows adding comments
+// Actions Keep or Sell or Upgrade 4,8,12,16 : mandatory at the beginning of the rule, defines the action to take if the rule is true
+// Action Upgrade n upgrades the item to level n then the Bot reads new stats and apply all rules again to keep or sell upgraded item
+// Optional keyword Artifact or Accessory after the action means that the rule is only for artifacts or Accessory
+// Keyword GroupSets allows to define a group of sets to use in rules
+// All other conditions are optional and can be placed in any order in the rule, separated by commas:
+// - Set = : defines the Sets concerned by the rule (set names idem Raid), "Set = GroupSets" uses the group of sets defined by the last line "GroupSets = "
+// - Type = : defines the types concerned, possible values = W, H, S, G, C, B, R, A, N (W/H/S means considering artifacts of type Weapon, Helmet, or Shield, N means Banner)
+// - Main = : defines the main stats concerned, possible values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP (e.g., ATK%/DEF%/HP% means the main Stat must be ATK% or DEF% or HP%)
+// - Rank : in the form = or > or < or <= or >= (e.g., Rank < 6)
+// - Level : in the form = or > or < or <= or >= (e.g., Level < 16)
+// - Rarity : in the form = or > or < or <= or >= (e.g., Rarity < Epic means considering Common, Uncommon and Rare items)
+// - Sub = : idem Main stats (maximum of 4 Sub conditions since there are up to 4 substats per item)
+// - 2*Sub means that 2 substats of the item must meet the condition
+// - Sub values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP. Sub value can be followed by 1, 2, 3, 4 e.g. SPD2 in rules means SPD(2) in Raid screen
+
+// Keep all items with Level > 8, keep all Mythic items, keep all special accessories, keep all standard accessories Rank 5+, keep all artifacts rank 6
+Keep, Level > 8
+Keep, Rarity = Mythic
+Keep SpecialAcc
+Keep Accessory, Rank > 4
+Keep Artifact, Rank = 6
+
+// Sells common, uncommon and rare artifacts with rank < 6 without a SPD substat
+Sell Artifact, Rarity < Rare
+Sell Artifact, Rarity = Rare, Rank < 5
+Sell Artifact, Rarity = Rare, Rank = 5, 2*Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP
+
+// Sell Gauntlets, Chestplates, and Boots with a main Stat ATK/HP/DEF and Weapon/Helmet/Shield without SPD substat and with 2 flat substats
+Sell Artifact, Type = G/C/B, Main = ATK/DEF/HP
+Sell Artifact, Type = W/H/S, Rarity = Rare, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, Sub = ATK/DEF/HP/ACC/RES
+Sell Artifact, Type = W/H/S, Rarity = Epic, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, 2*Sub = ATK/DEF/HP/ACC/RES
+Sell Artifact, Type = W/H/S, Rarity = Legendary, Sub = ATK%/DEF%/HP%/CR%/CD%/ACC/RES/ATK/DEF/HP, 3*Sub = ATK/DEF/HP/ACC/RES
+
+// Keep all items that are not matching the previous rules

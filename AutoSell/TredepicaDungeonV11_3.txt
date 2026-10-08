@@ -1,0 +1,1662 @@
+// Tredepica_Dungeon v11.3
+// Dungeon filter for artifacts and accessories (Battles, Inbox)
+// ======================================================
+// SYNTAX EXPLANATION
+// ======================================================
+// Any blank line or line starting with // is ignored: allows adding comments
+// Actions Keep or Sell or Upgrade 4,8,12,16 : mandatory at the beginning of the rule
+// Action Upgrade n upgrades the item to level n then Bot reads new stats and applies all rules again
+// Optional keyword Artifact, Accessory or SpecialAcc after the action means rule is only for that type
+// Keyword GroupSets allows to define a group of sets to use in rules
+
+// All other conditions are optional and can be placed in any order, separated by commas:
+// - Set = : defines the Sets concerned (set names as in Raid), "Set = GroupSets" uses the last defined group
+// - Type = : W = Weapon, H = Helmet, S = Shield, G = Gauntlet, C = Chestplate, B = Boots, R = Ring, A = Amulet, N = Banner
+//            Combo (W/H/S means Weapon, Helmet, or Shield)
+// - Main = : main stats, values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, SPD, ATK, DEF, HP
+//            (e.g., ATK%/DEF%/HP% means main stat must be ATK% or DEF% or HP%)
+// - Rank : in form = or > or < or <= or >= (e.g., Rank < 6)
+// - Level : in form = or > or < or <= or >= (e.g., Level < 16)
+// - Rarity : Common, Uncommon, Rare, Epic, Legendary, Mythic in form = or > or < or <= or >=
+//            (e.g., Rarity < Epic means Common, Uncommon and Rare items)
+// - Sub = : substat conditions (max 4 Sub conditions per rule)
+//           Values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, SPD, ATK, DEF, HP
+//           Sub value can be followed by roll count 1,2,3,4 e.g. SPD2 means SPD(2) on Raid screen
+//           2*Sub means 2 substats must meet the condition
+
+// ======================================================
+// FILTER LOGIC
+// ======================================================
+// DAMAGE/UNIVERSAL/DEBUFFER: SPD required
+// TANK: SPD optional
+// FERAL: Keep all (first rule - before any Sell!)
+
+// ======================================================
+// ACCESSORY SUBSTAT RESTRICTIONS
+// ======================================================
+// Ring substats: HP, HP%, ATK, ATK%, DEF, DEF% ONLY (NO SPD, CR%, CD%, ACC, RES)
+// Amulet substats: HP, ATK, DEF (flat), ACC, RES, CD% ONLY (NO HP%, ATK%, DEF%, SPD, CR%)
+// Banner substats: HP, HP%, ATK, ATK%, DEF, DEF%, SPD (NO ACC, RES, CR%, CD%)
+
+// ======================================================
+// FERAL SET - KEEP PERMANENT (FIRST - before any Sell!)
+// ======================================================
+Keep, Set = Feral
+
+// ======================================================
+// JUNK - Flat main stats - SELL IMMEDIATELY
+// ======================================================
+Sell, Type = G, Main = HP/ATK/DEF
+Sell, Type = C, Main = HP/ATK/DEF
+Sell, Type = B, Main = HP/ATK/DEF
+
+// ======================================================
+// JUNK SETS - Sell all
+// ======================================================
+GroupSets = Life/Offense/Resistance/Frost/Defense/Curing/Divine Offense/Frenzy/Avenging/Destroy/Fury/Divine Critical Rate
+Sell, Set = GroupSets
+
+// =======================================================
+// ACCESSORIES - DUNGEON
+// =======================================================
+
+// SPECIAL ACCESSORIES - DUNGEON (Merciless, Supersonic, Pinpoint, Feral, etc.)
+// Special set accessories - V11.3: 2 substats required
+// =======================================================
+
+// Sell Rank < 5 or Rarity < Epic
+Sell SpecialAcc, Rank < 5
+Sell SpecialAcc, Rarity < Epic
+
+// Ring HP/ATK - need BOTH HP% AND ATK%
+Upgrade 8 SpecialAcc, Type = R, Main = HP/ATK, Level < 8, Sub = HP%, Sub = ATK%
+Sell SpecialAcc, Type = R, Main = HP/ATK, Level < 8
+Keep SpecialAcc, Type = R, Main = HP/ATK, Level >= 8, Sub = HP%1, Sub = ATK%1
+Sell SpecialAcc, Type = R, Main = HP/ATK, Level >= 8
+
+// Ring DEF - need BOTH HP% AND DEF%
+Upgrade 8 SpecialAcc, Type = R, Main = DEF, Level < 8, Sub = HP%, Sub = DEF%
+Sell SpecialAcc, Type = R, Main = DEF, Level < 8
+Keep SpecialAcc, Type = R, Main = DEF, Level >= 8, Sub = HP%1, Sub = DEF%1
+Sell SpecialAcc, Type = R, Main = DEF, Level >= 8
+
+// Amulet CD% - need ACC or RES with roll
+Upgrade 8 SpecialAcc, Type = A, Main = CD%, Level < 8, Sub = ACC/RES
+Sell SpecialAcc, Type = A, Main = CD%, Level < 8
+Keep SpecialAcc, Type = A, Main = CD%, Level >= 8, Sub = ACC1/RES1
+Sell SpecialAcc, Type = A, Main = CD%, Level >= 8
+
+// Amulet HP/ATK/DEF (flat) - need 2 of CD%/ACC/RES
+Upgrade 8 SpecialAcc, Type = A, Main = HP/ATK/DEF, Level < 8, Sub = CD%, Sub = ACC/RES
+Upgrade 8 SpecialAcc, Type = A, Main = HP/ATK/DEF, Level < 8, Sub = ACC, Sub = RES
+Sell SpecialAcc, Type = A, Main = HP/ATK/DEF, Level < 8
+Keep SpecialAcc, Type = A, Main = HP/ATK/DEF, Level >= 8, Sub = CD%1, Sub = ACC1/RES1
+Keep SpecialAcc, Type = A, Main = HP/ATK/DEF, Level >= 8, Sub = ACC1, Sub = RES1
+Sell SpecialAcc, Type = A, Main = HP/ATK/DEF, Level >= 8
+
+// Banner ACC/RES - need SPD + scaler
+Upgrade 8 SpecialAcc, Type = N, Main = ACC/RES, Level < 8, Sub = SPD, Sub = HP%/ATK%/DEF%
+Sell SpecialAcc, Type = N, Main = ACC/RES, Level < 8
+Keep SpecialAcc, Type = N, Main = ACC/RES, Level >= 8, Sub = SPD1
+Sell SpecialAcc, Type = N, Main = ACC/RES, Level >= 8
+
+// Banner HP/ATK/DEF (flat) - need SPD + scaler
+Upgrade 8 SpecialAcc, Type = N, Main = HP/ATK/DEF, Level < 8, Sub = SPD, Sub = HP%/ATK%/DEF%
+Sell SpecialAcc, Type = N, Main = HP/ATK/DEF, Level < 8
+Keep SpecialAcc, Type = N, Main = HP/ATK/DEF, Level >= 8, Sub = SPD1
+Sell SpecialAcc, Type = N, Main = HP/ATK/DEF, Level >= 8
+
+// Fallback
+Sell SpecialAcc
+// Regular Accessories - Rank 6 Epic only
+Sell Accessory, Rank < 6
+Sell Accessory, Rank >= 5, Rarity < Epic
+
+// Ring HP/ATK - need BOTH HP% AND ATK% present
+Upgrade 8 Accessory, Type = R, Main = HP/ATK, Level < 8, Sub = HP%, Sub = ATK%
+Sell Accessory, Type = R, Main = HP/ATK, Level < 8
+Keep Accessory, Type = R, Main = HP/ATK, Level >= 8, Sub = HP%2/ATK%2
+Keep Accessory, Type = R, Main = HP/ATK, Level >= 8, Sub = HP%1, Sub = ATK%1
+Sell Accessory, Type = R, Main = HP/ATK, Level >= 8
+
+// Ring DEF - need BOTH HP% AND DEF% present
+Upgrade 8 Accessory, Type = R, Main = DEF, Level < 8, Sub = HP%, Sub = DEF%
+Sell Accessory, Type = R, Main = DEF, Level < 8
+Keep Accessory, Type = R, Main = DEF, Level >= 8, Sub = HP%2/DEF%2
+Keep Accessory, Type = R, Main = DEF, Level >= 8, Sub = HP%1, Sub = DEF%1
+Sell Accessory, Type = R, Main = DEF, Level >= 8
+
+// Amulet HP/ATK/DEF (flat) - need at least 2 of CD%/ACC/RES present
+Upgrade 8 Accessory, Type = A, Main = HP/ATK/DEF, Level < 8, Sub = CD%, Sub = ACC/RES
+Upgrade 8 Accessory, Type = A, Main = HP/ATK/DEF, Level < 8, Sub = ACC, Sub = RES
+Sell Accessory, Type = A, Main = HP/ATK/DEF, Level < 8
+Keep Accessory, Type = A, Main = HP/ATK/DEF, Level >= 8, Sub = CD%2/ACC2/RES2
+Keep Accessory, Type = A, Main = HP/ATK/DEF, Level >= 8, Sub = CD%1, Sub = ACC1/RES1
+Keep Accessory, Type = A, Main = HP/ATK/DEF, Level >= 8, Sub = ACC1, Sub = RES1
+Sell Accessory, Type = A, Main = HP/ATK/DEF, Level >= 8
+
+// Amulet CD% - need BOTH ACC AND RES present
+Upgrade 8 Accessory, Type = A, Main = CD%, Level < 8, Sub = ACC, Sub = RES
+Sell Accessory, Type = A, Main = CD%, Level < 8
+Keep Accessory, Type = A, Main = CD%, Level >= 8, Sub = ACC2/RES2
+Keep Accessory, Type = A, Main = CD%, Level >= 8, Sub = ACC1, Sub = RES1
+Sell Accessory, Type = A, Main = CD%, Level >= 8
+
+// Banner HP (flat) - SPD + HP% + DEF% (pivot for tank)
+Upgrade 8 Accessory, Type = N, Main = HP, Level < 8, Sub = SPD, Sub = HP%, Sub = DEF%
+Sell Accessory, Type = N, Main = HP, Level < 8
+Keep Accessory, Type = N, Main = HP, Level >= 8, Sub = SPD2/HP%2
+Keep Accessory, Type = N, Main = HP, Level >= 8, Sub = SPD1, Sub = HP%1
+Sell Accessory, Type = N, Main = HP, Level >= 8
+
+// Banner DEF (flat) - SPD + DEF% + HP% (pivot for tank)
+Upgrade 8 Accessory, Type = N, Main = DEF, Level < 8, Sub = SPD, Sub = DEF%, Sub = HP%
+Sell Accessory, Type = N, Main = DEF, Level < 8
+Keep Accessory, Type = N, Main = DEF, Level >= 8, Sub = SPD2/DEF%2
+Keep Accessory, Type = N, Main = DEF, Level >= 8, Sub = SPD1, Sub = DEF%1
+Sell Accessory, Type = N, Main = DEF, Level >= 8
+
+// Banner ATK (flat) - SPD + ATK% + HP% (pivot for survivability)
+Upgrade 8 Accessory, Type = N, Main = ATK, Level < 8, Sub = SPD, Sub = ATK%, Sub = HP%
+Sell Accessory, Type = N, Main = ATK, Level < 8
+Keep Accessory, Type = N, Main = ATK, Level >= 8, Sub = SPD2/ATK%2
+Keep Accessory, Type = N, Main = ATK, Level >= 8, Sub = SPD1, Sub = ATK%1
+Sell Accessory, Type = N, Main = ATK, Level >= 8
+
+// Banner ACC - need SPD AND scaler% present
+Upgrade 8 Accessory, Type = N, Main = ACC, Level < 8, Sub = SPD, Sub = HP%, Sub = ATK%/DEF%
+Sell Accessory, Type = N, Main = ACC, Level < 8
+Keep Accessory, Type = N, Main = ACC, Level >= 8, Sub = SPD2
+Keep Accessory, Type = N, Main = ACC, Level >= 8, Sub = SPD1, Sub = HP%, Sub = ATK%/DEF%
+Sell Accessory, Type = N, Main = ACC, Level >= 8
+
+// Banner RES - need SPD AND scaler% present
+Upgrade 8 Accessory, Type = N, Main = RES, Level < 8, Sub = SPD, Sub = HP%, Sub = ATK%/DEF%
+Sell Accessory, Type = N, Main = RES, Level < 8
+Keep Accessory, Type = N, Main = RES, Level >= 8, Sub = SPD2
+Keep Accessory, Type = N, Main = RES, Level >= 8, Sub = SPD1, Sub = HP%, Sub = ATK%/DEF%
+Sell Accessory, Type = N, Main = RES, Level >= 8
+
+// Fallback
+Sell Accessory
+// SUPERSONIC/PINPOINT/CHRONOPHAGE - RANK 5 EPIC - UNIVERSAL
+// ======================================================
+GroupSets = Supersonic/Pinpoint/Chronophage
+
+Sell, Set = GroupSets, Rank < 5
+
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = CR%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+Sell, Set = GroupSets
+// ======================================================
+// ======================================================
+// SLAYER/STONECLEAVER - RANK 5 EPIC - DAMAGE
+// ======================================================
+GroupSets = Slayer/Stonecleaver
+Sell, Set = GroupSets, Rank < 5
+
+// W/H/S
+// Level < 8: SPD or CR% or CD% + scalers
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = CR%, Sub = CD%/ATK%/HP%/DEF%
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = CD%, Sub = ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8-12: 2 rolls - SPD or CR% or CD% concentrated (scaler + utility separated)
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CD%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CD%1, Sub = ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+
+// Level 12-16: 3 rolls (MEDIUM: X2+)
+
+// G CR% - CD% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD/CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = CD%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+// G CD% - CR% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = CR%, Sub = SPD/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%1/HP%1/DEF%1, Sub = SPD1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = CR%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+// G HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+// G DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+// G ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8
+// C HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+// C DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+// C ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+// C ACC - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+// C ACC - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+// C ACC - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// C RES - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+// C RES - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+// C RES - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+// B SPD - flexible for any nuker
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = CR%, Sub = CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+// B HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+// B DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+// B ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+Sell, Set = GroupSets
+
+// ======================================================
+// ======================================================
+// MERCILESS/MERCURIAL - RANK 5 EPIC - DAMAGE
+// ======================================================
+GroupSets = Merciless/Mercurial/Lethal/Instinct
+Sell, Set = GroupSets, Rank < 5
+
+// W/H/S
+// Level < 8: SPD or CR% or CD% + scalers
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = CR%, Sub = CD%/ATK%/HP%/DEF%
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = CD%, Sub = ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8-12: 2 rolls - SPD or CR% or CD% concentrated (scaler + utility separated)
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CD%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CD%1, Sub = ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+
+// Level 12-16: 3 rolls (MEDIUM: X2+)
+
+// G CR% - CD% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD/CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = CD%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+// G CD% - CR% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = CR%, Sub = SPD/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%1/HP%1/DEF%1, Sub = SPD1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = CR%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+// G HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+// G DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+// G ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8
+// C HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+// C DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+// C ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+// C ACC - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+// C ACC - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+// C ACC - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// C RES - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+// C RES - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+// C RES - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+// B SPD - flexible for any nuker
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = CR%, Sub = CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+// B HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+// B DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+// B ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+Sell, Set = GroupSets
+
+// ======================================================
+// ======================================================
+// DAMAGE SETS T1+T2 - RANK 5 MYTHIC / RANK 6 EPIC
+// ======================================================
+GroupSets = Cruel/Crit Damage/Savage/Critical Rate/Lifesteal/Fatal/Killstroke/Zeal/Bloodthirst
+Sell, Set = GroupSets, Rank < 5
+Sell, Set = GroupSets, Rank = 5, Rarity < Mythic
+Sell, Set = GroupSets, Rank = 6, Rarity < Epic
+
+// W/H/S - SPD + scaler + utility
+// Level 0-8: Check presence of SPD + scaler + utility
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8: Keep if 2 rolls in SPD/scaler/utility
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = CR%2/CD%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+// G CR% - CD% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD/CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1, Sub = SPD1/CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = CD%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+// G CD% - CR% + any scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = CR%, Sub = SPD/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = CR%, Sub = ATK%1/HP%1/DEF%1, Sub = SPD1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = CR%2/ATK%2/HP%2/DEF%2/ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+// G HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+// G DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+// G ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = CD%, Sub = SPD/CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8
+// C HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+// C DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+// C ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+// C ACC - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = ATK%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/HP%/DEF%/RES
+
+// C ACC - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/DEF%/RES
+
+// C ACC - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = DEF%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/HP%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// C RES - All Nukers: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = CR%, Sub = SPD/CD%/ATK%/HP%/DEF%/ACC
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = ATK%, Sub = SPD/CR%/CD%/HP%/DEF%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1/ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = ATK%1, Sub = SPD1/CR%1/CD%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = ATK%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/HP%/DEF%/ACC
+
+// C RES - HP Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = SPD1/CR%1/CD%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/DEF%/ACC
+
+// C RES - DEF Nuker: CR%/CD%/SPD/ATK%/HP%/DEF%/ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = DEF%1, Sub = SPD1/CR%1/CD%1/HP%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = DEF%1, Sub = CR%1/CD%1, Sub = SPD/CR%/CD%/HP%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+// B SPD - flexible for any nuker
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = CR%, Sub = CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ATK%2/HP%2/DEF%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%1, Sub = CD%1/ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+// B HP% - HP nuker: CR% + CD% + ACC/RES (no ATK%/DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+// B DEF% - DEF nuker: CR% + CD% + ACC/RES (no ATK%/HP%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+// B ATK% - ATK nuker: CR% + CD% + HP% + ACC/RES (no DEF%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = CR%, Sub = SPD/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = CR%1, Sub = CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+Sell, Set = GroupSets
+// ======================================================
+// ======================================================
+// STONE SKIN - RANK 5+ EPIC - UNIVERSAL (DAMAGE + TANK)
+// ======================================================
+Sell, Set = Stone Skin, Rank < 5
+Sell, Set = Stone Skin, Rarity < Epic
+
+// ============ W/H/S ============
+// SPD + scaler + utility
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8+: 2 rolls needed
+Keep, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = W/H/S, Level >= 8
+
+// ============ GLOVES CR% (utility main) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = CR%, Level >= 8
+
+// ============ GLOVES CD% (utility main) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = CD%, Level >= 8
+
+// ============ GLOVES HP% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = HP%, Level >= 8
+
+// ============ GLOVES DEF% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+
+// ============ GLOVES ATK% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = G, Main = ATK%, Level >= 8
+
+// ============ CHEST HP% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = HP%, Level >= 8
+
+// ============ CHEST DEF% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+
+// ============ CHEST ATK% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+
+// ============ CHEST ACC (utility main) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// ============ CHEST RES (utility main) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1
+Keep, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1
+Sell, Set = Stone Skin, Rank >= 5, Type = C, Main = RES, Level >= 8
+
+// ============ BOOTS SPD (pivot main) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ATK%2/HP%2/DEF%2
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ATK%1/HP%1/DEF%1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = B, Main = SPD, Level >= 8
+
+// ============ BOOTS HP%/DEF%/ATK% (scaler main - utility only) ============
+Upgrade 8, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level < 8
+
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level >= 8, Sub = SPD2
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level >= 8, Sub = SPD, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = Stone Skin, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Level >= 8
+
+// Sell remaining Stone Skin
+Sell, Set = Stone Skin
+
+// PROTECTION SET - RANK 5+ EPIC - SUPPORT ONLY (NO CR%/CD%, NO ATK%)
+// ======================================================
+Sell, Set = Protection, Rank < 5
+Sell, Set = Protection, Rarity < Epic
+
+// ============ W/H/S ============
+// SPD + HP%/DEF% + ACC/RES
+Upgrade 8, Set = Protection, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8+: 2 rolls needed
+Keep, Set = Protection, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1
+Keep, Set = Protection, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = W/H/S, Level >= 8
+
+// ============ GLOVES HP% (scaler main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = DEF%/ACC/RES, Sub = DEF%/ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%1/ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%1/ACC1/RES1, Sub = DEF%1/ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = G, Main = HP%, Level >= 8
+
+// ============ GLOVES DEF% (scaler main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = HP%/ACC/RES, Sub = HP%/ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%1/ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%1/ACC1/RES1, Sub = HP%1/ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+
+// ============ CHEST HP% (scaler main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = DEF%/ACC/RES, Sub = DEF%/ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%1/ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%1/ACC1/RES1, Sub = DEF%1/ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = C, Main = HP%, Level >= 8
+
+// ============ CHEST DEF% (scaler main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = HP%/ACC/RES, Sub = HP%/ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%1/ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%1/ACC1/RES1, Sub = HP%1/ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+
+// ============ CHEST ACC (utility main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = RES
+Sell, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = RES1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = RES1
+Sell, Set = Protection, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// ============ CHEST RES (utility main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC
+Sell, Set = Protection, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = Protection, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = ACC1
+Sell, Set = Protection, Rank >= 5, Type = C, Main = RES, Level >= 8
+
+// ============ BOOTS SPD (pivot main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = HP%/DEF%, Sub = ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%2/DEF%2
+Keep, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ACC2/RES2
+Keep, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%1/DEF%1, Sub = ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = B, Main = SPD, Level >= 8
+
+// ============ BOOTS HP%/DEF% (scaler main) ============
+Upgrade 8, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level < 8, Sub = SPD, Sub = HP%/DEF%/ACC/RES, Sub = HP%/DEF%/ACC/RES
+Sell, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level < 8
+
+Keep, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level >= 8, Sub = SPD2
+Keep, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1/ACC1/RES1
+Keep, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1/ACC1/RES1, Sub = HP%1/DEF%1/ACC1/RES1
+Sell, Set = Protection, Rank >= 5, Type = B, Main = HP%/DEF%, Level >= 8
+
+// Sell remaining Protection
+Sell, Set = Protection
+
+
+// ======================================================
+// ======================================================
+// DEFENSIVE SETS - RANK 5 MYTHIC / RANK 6 EPIC - TANK
+// ======================================================
+GroupSets = Stalwart/Immortal/Resilience/Shield/Divine Life/Guardian/Regeneration/Retaliation/Deflection/Bolster/Defiant
+Sell, Set = GroupSets, Rank < 5
+Sell, Set = GroupSets, Rank = 5, Rarity < Mythic
+Sell, Set = GroupSets, Rank = 6, Rarity < Epic
+
+// W/H/S
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = HP%, Sub = DEF%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%2, Sub = DEF%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%1, Sub = DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%1, Sub = DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = HP%, Sub = DEF%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2, Sub = HP%/DEF%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = HP%/DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = HP%2/DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+// G HP%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = DEF%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = DEF%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = DEF%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2, Sub = DEF%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+// G DEF%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = HP%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = HP%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = HP%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2, Sub = HP%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+// C HP%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = DEF%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = DEF%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = DEF%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2, Sub = DEF%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+// C DEF%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = HP%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = HP%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = HP%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2, Sub = HP%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+// C ACC
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = HP%, Sub = DEF%, Sub = RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%2, Sub = DEF%, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = DEF%1, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%1, Sub = DEF%, Sub = RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%, Sub = DEF%2, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%, Sub = DEF%1, Sub = RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = HP%, Sub = DEF%, Sub = RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2, Sub = HP%/DEF%, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = HP%/DEF%, Sub = RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = HP%2/DEF%2, Sub = RES
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD, Sub = HP%/DEF%, Sub = RES2
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+// C RES
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = HP%, Sub = DEF%, Sub = ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%2, Sub = DEF%, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = DEF%1, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%1, Sub = DEF%, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%, Sub = DEF%2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%, Sub = DEF%1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = HP%, Sub = DEF%, Sub = ACC2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2, Sub = HP%/DEF%, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = HP%1/DEF%1, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = HP%/DEF%, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = HP%2/DEF%2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = HP%1/DEF%1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = HP%/DEF%, Sub = ACC2
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+// B SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = HP%/DEF%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+// 2 rolls
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%1, Sub = DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%1, Sub = DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = HP%, Sub = DEF%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+// B HP%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = DEF%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = DEF%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = DEF%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2, Sub = DEF%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = DEF%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = DEF%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+// B DEF%
+// With SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = HP%, Sub = ACC/RES
+// Without SPD
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = HP%, Sub = ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+// Without SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = HP%, Sub = ACC2/RES2
+// With SPD (2 rolls)
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2, Sub = HP%, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%1, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = HP%, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%2, Sub = ACC/RES
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%1, Sub = ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = HP%, Sub = ACC2/RES2
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+Sell, Set = GroupSets
+
+// UNIVERSAL/SUPPORT SETS - RANK 5 MYTHIC / RANK 6 EPIC
+// ======================================================
+GroupSets = Speed/Accuracy/Relentless/Divine Speed/Swift Parry/Perception/Affinitybreaker/Untouchable/Fortitude/Impulse/Righteous/Reflex/Immunity/Rebirth
+Sell, Set = GroupSets, Rank < 5
+Sell, Set = GroupSets, Rank = 5, Rarity < Mythic
+Sell, Set = GroupSets, Rank = 6, Rarity < Epic
+
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+// Level 8: SPD1 required
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%/HP%/DEF%, Sub = CR%1/CD%1/ACC1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = CR%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ATK%/HP%/DEF%, Sub = CR%/CD%/ACC
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = CR%/CD%/ACC/RES, Sub = ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%2/CD%2/ACC2/RES2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = CR%1/CD%1/ACC1/RES1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = CR%/CD%/ACC/RES, Sub = CR%/CD%/ACC/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ACC1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+Sell, Set = GroupSets
+
+// ======================================================
+// ======================================================
+// ======================================================
+// DEBUFFER SETS - RANK 5 MYTHIC / RANK 6 EPIC
+// Substat priority: SPD/ACC → CR%/CD%/RES → ATK%/DEF%/HP%
+// Tank (HP%/DEF% main): SPD/ACC/CR%/CD%/RES
+// Damage (ATK%/CR%/CD% main): SPD/ACC/CR%/CD%/ATK%/RES (no HP%/DEF%)
+// ======================================================
+GroupSets = Toxic/Stun/Cursed/Frostbite/Daze/Provoke
+Sell, Set = GroupSets, Rank < 5
+Sell, Set = GroupSets, Rank = 5, Rarity < Mythic
+Sell, Set = GroupSets, Rank = 6, Rarity < Epic
+
+// W/H/S - SPD + ACC required + restul
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/ATK%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = W/H/S, Level >= 8
+
+// G CR% - SPD + ACC + utility/scaler (without CR%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8, Sub = SPD, Sub = ACC, Sub = CD%/ATK%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CD%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CD%1/ATK%1/HP%1/DEF%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CR%, Level >= 8
+
+// G CD% - SPD + ACC + utility/scaler (without CD%)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/ATK%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/ATK%1/HP%1/DEF%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/ATK%1/HP%1/DEF%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = CD%, Level >= 8
+
+// G HP% - SPD + ACC + utility only (without HP%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = HP%, Level >= 8
+
+// G DEF% - SPD + ACC + utility only (without DEF%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = DEF%, Level >= 8
+
+// G ATK% - SPD + ACC + utility only (without ATK%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = G, Main = ATK%, Level >= 8
+
+// C HP% - SPD + ACC + utility only (without HP%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = HP%, Level >= 8
+
+// C DEF% - SPD + ACC + utility only (without DEF%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = DEF%, Level >= 8
+
+// C ATK% - SPD + ACC + utility only (without ATK%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ATK%, Level >= 8
+
+// C ACC - only SPD pivot (ACC e main) + utility/scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8, Sub = SPD, Sub = CR%/CD%/ATK%/HP%/DEF%/RES, Sub = CR%/CD%/ATK%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8, Sub = SPD1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = ACC, Level >= 8
+
+// C RES - SPD + ACC + utility/scaler (without RES)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/ATK%/HP%/DEF%
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1
+Keep, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1
+Sell, Set = GroupSets, Rank >= 5, Type = C, Main = RES, Level >= 8
+
+// B SPD - only ACC pivot (SPD e main) + utility/scaler
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8, Sub = ACC, Sub = CR%/CD%/ATK%/HP%/DEF%/RES, Sub = CR%/CD%/ATK%/HP%/DEF%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8, Sub = ACC1, Sub = CR%1/CD%1/ATK%1/HP%1/DEF%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = SPD, Level >= 8
+
+// B HP% - SPD + ACC + utility only (without HP%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = HP%, Level >= 8
+
+// B DEF% - SPD + ACC + utility only (without DEF%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = DEF%, Level >= 8
+
+// B ATK% - SPD + ACC + utility only (without ATK%, no scalers)
+Upgrade 8, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8, Sub = SPD, Sub = ACC, Sub = CR%/CD%/RES
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level < 8
+
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD2, Sub = ACC
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC2
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD1, Sub = ACC, Sub = CR%1/CD%1/RES1
+Keep, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8, Sub = SPD, Sub = ACC1, Sub = CR%1/CD%1/RES1
+Sell, Set = GroupSets, Rank >= 5, Type = B, Main = ATK%, Level >= 8
+
+Sell, Set = GroupSets
+
+// KEEP EVERYTHING ELSE (new sets)
+// ======================================================
+Keep

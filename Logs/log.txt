@@ -1,0 +1,31 @@
+08/10 05:10:32  The Bot checks the Bastion every 15mn
+08/10 05:10:32  Premium Licence: all premium features enabled
+08/10 05:10:32  Bot ready to start, AutoStart in 30 mn
+08/10 05:11:39  The Bot checks the Bastion every 15mn
+08/10 05:11:39  Premium Licence: all premium features enabled
+08/10 05:11:39  Bot ready to start, AutoStart in 30 mn
+08/10 06:01:41  The Bot checks the Bastion every 15mn
+08/10 06:01:42  Premium Licence: all premium features enabled
+08/10 06:01:42  Bot ready to start, AutoStart in 30 mn
+08/10 06:03:31  The Bot checks the Bastion every 15mn
+08/10 06:03:31  Premium Licence: all premium features enabled
+08/10 06:03:31  Bot ready to start, AutoStart in 30 mn
+08/10 06:05:40  Settings FernandelUsualSettings.txt loaded
+08/10 06:05:40  AutoStart in 60 mn
+08/10 06:05:41  Live Arena will open at 8 o'clock
+08/10 06:12:15  The Bot checks the Bastion every 15mn
+08/10 06:12:15  Premium Licence: all premium features enabled
+08/10 06:12:15  Bot ready to start, AutoStart in 60 mn
+08/10 06:13:35  Settings UserSettings.old.txt loaded
+08/10 06:13:39  Settings UserSettings.old.txt loaded
+08/10 06:13:44  Settings UserSettings.old.txt loaded
+08/10 06:55:22  The Bot checks the Bastion every 15mn
+08/10 06:55:22  Premium Licence: all premium features enabled
+08/10 06:55:22  Bot ready to start, AutoStart in 60 mn
+08/10 06:56:40  Settings UserSettings.old.txt loaded
+08/10 07:56:27  The Bot checks the Bastion every 15mn
+08/10 07:56:27  Premium Licence: all premium features enabled
+08/10 07:56:27  Bot ready to start
+08/10 07:57:11  The Bot checks the Bastion every 15mn
+08/10 07:57:11  Premium Licence: all premium features enabled
+08/10 07:57:11  Bot ready to start, AutoStart in 30 mn
