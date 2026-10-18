@@ -1,3 +1,19 @@
+v8.0.0.3 (private beta)
+New Bug report button (in place of Screenshot): write what happened, take screenshots of Raid, and the bot makes a zip with your logs and settings (your licence data removed, your names masked) to drop on Discord
+Dungeons: Hard stages already won are no longer taken as locked (Normal was played instead)
+Live Arena: the skills order is played again (Raid 11.80)
+Super Raid: the box is ticked again when it is asked (the bot took it as already ticked)
+The version is shown with its build number, next to the version name
+Teams: a team or an arena defence with a champion in it is no longer completed by the bot (only an empty one is filled, and the replacements you ask for)
+Farm account: same row as the AutoSell ones: OFF / ON / Edit, the plan to use, until which level; without a leader in the plan, the starter champion of the account is trained
+
+v8.0.0.2 (private beta)
+Hydra, Chimera, Demon Lord: the real damage dealt is read again (Raid 11.80 showed the clash points instead)
+Chimera: results are no longer discarded when the trials cannot be read
+Shop: the free Mystery Shard and Silver Ticket are claimed again (Raid 11.80)
+Grim Forest: a screen left open over the map (Curious Altar...) is closed instead of blocking the map
+Lighter download: unused champion pictures removed
+
 v8.0.0.1 (private beta)
 Warden: the bot waits until Raid is ready before each click (promotions, error messages, server waits, black or moving screen) and never clicks while Raid says your account is open on another device
 Bot Daily Rest Time: Off by default, start hour and length vary a little each day

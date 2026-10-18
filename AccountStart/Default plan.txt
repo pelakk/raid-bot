@@ -3,19 +3,24 @@
 # ================================================================================================
 #
 # WHAT IT DOES
-#   While "Farm account until level" is ON (Settings tab, Farmer option), the bot plays the campaign
+#   While the Farm account list is ON (General tab, Farmer option), the bot plays the campaign
 #   and collects the start rewards. It reads the account level in Raid and changes its settings when
 #   the account reaches the levels written below. This lets a new account turn on features little by
 #   little: champion replacement once there are enough champions, arena, farming the campaign,
-#   dungeons... At the level chosen next to "Farm account until level", the account start stops and
+#   dungeons... At the level chosen in the "until" list of the Farm row, the account start stops and
 #   your own settings come back.
 #
 # PLAN FILES
 #   - Plans are the .txt files of the AccountStart folder, in the RSLBot folder (like the AutoSell and
-#     Settings folders). When "Farm account until level" is switched ON, the plans are listed under the switch:
-#     click the one to use (the last plan used is checked). "Open the AccountStart folder" opens it.
-#   - "Default plan.txt" comes with RSLBot and is replaced by each new version.
-#     To make your own plan, copy it under another name (for example "My plan.txt") and change the copy.
+#     Settings folders). The Farm row of the General tab works like the AutoSell rows of the Bastion tab:
+#     [OFF / ON / Edit]  Farm  [plan]  until  [account level]
+#     Choose the plan in the plan list, the level in the "until" list, then ON.
+#   - To change a plan: stop the bot, choose the plan in the list, then Edit: the plan opens in your text
+#     editor (Notepad). Change it and save it.
+#   - To create your own plan: Edit, then "Save as" (File menu of Notepad) with a new name, for example
+#     "My plan.txt". Notepad saves it in the same folder (AccountStart), so it shows in the plan list at once.
+#     Then choose it in the list.
+#   - "Default plan.txt" comes with RSLBot and is replaced by each new version: change your own copy, not it.
 #
 # HOW TO WRITE A STEP
 #   One step per line:      level : setting name = value
@@ -31,10 +36,10 @@
 #   - The account level is read after each battle and at the Bastion.
 #   - Each step is applied once, when the level reaches it, in level order. Every change is shown
 #     in cyan in the log. A step whose level is already passed is not applied again, even after a
-#     restart of the bot (switch the account start OFF then ON to start the plan again).
+#     restart of the bot (set the Farm list OFF then ON to start the plan again).
 #   - The plan can be changed while the bot runs: it is read again at each level check.
 #   - A badly written line is shown in orange in the log and ignored; the other lines still work.
-#   - At the level chosen next to "Farm account until level" your own settings come back, and the
+#   - At the level chosen in the "until" list of the Farm row your own settings come back, and the
 #     steps from that level on are not applied.
 #
 # SETTINGS MADE FOR THE PLAN
@@ -49,8 +54,15 @@
 #   Account Start Market Slots = N   (0 to 6, default 6)
 #       Market slots unlocked with silver at each Market visit, up to slot N. On a new account the 7th slot asks for
 #       gems: the bot never goes past the 6th and never accepts a price in gems.
-#   Account Start Leader = Athel, Elhain, Kael or Galek   (default Athel)
-#       Starter champion chosen in the tutorial ("Choose your first Champion"); use it at level 1.
+#   Account Start Leader = Athel, Elhain, Kael or Galek   (optional)
+#       The leader is the starter champion of the account: the bot trains him first (rank up, brews, artifacts,
+#       skills) and uses him in the Classic Arena defence.
+#       - Account that starts from zero (tutorial not done): with this line, the bot chooses this champion in the
+#         tutorial ("Choose your first Champion") and trains him; without this line, it chooses Athel.
+#         Write it at level 1, for example:  1 : Account Start Leader = Kael
+#       - Account already started (the starter was chosen before): leave this line out, the bot finds the starter
+#         the account has and trains him (the best one if it has several). With this line, the bot trains the
+#         champion written here, so it must be the one the account has.
 #   Account Start Champion Collection = N   (0 = off)
 #       The champion collection is extended (Champions, "+" at the end of the list, 10 places) until N places, paid with
 #       silver only (120,000; never the gems button). The minimum silver of the settings does not apply during the account start.
@@ -77,10 +89,7 @@
 #   Settings that cannot be changed here: login data, emulator, Account Start.
 #
 # ================================================================================================
-1 : Account Start Leader = Athel
-1 : Account Start Leader = Elhain
-1 : Account Start Leader = Kael
-1 : Account Start Leader = Galek
+# 1 : Account Start Leader = Athel     (no leader line: the account's starter, Athel on a new account)
 15 : Campaign Champions replacement number = 2
 15 : Campaign Champions replacement rarity = until epic
 15 : Campaign Champions replacement rank = 1-4
