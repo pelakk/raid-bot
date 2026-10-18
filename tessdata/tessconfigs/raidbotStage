@@ -1,0 +1,5 @@
+load_system_dawg false
+load_freq_dawg false
+tessedit_char_whitelist 0123456789
+tessedit_pageseg_mode 7
+textord_dark_background 1

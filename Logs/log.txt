@@ -49,3 +49,671 @@
 18/12 12:15:16  Bot Stopped
 18/12 12:15:17  Bot v7.4.2.1 Started
 18/12 12:15:19  Bot Unpaused
+18/10 05:33:58  V8 licence session started: premium, check every 150 s, pack 9900bf938aaccc3a
+18/10 05:34:00  The Bot checks the Bastion every 15mn
+18/10 05:34:00  Premium Licence: all premium features enabled
+18/10 05:34:00  UserSettings.txt file changes:  
+ < Emulator > is not a valid Setting and has been removed 
+< Pixels only (debug build) > Setting is missing, using default value: Off 
+< Daily rest > Setting is missing, using default value: Off 
+< Daily rest start hour > Setting is missing, using default value: 03:00 
+< Daily rest play start > Setting is missing, using default value:  
+< Minimum silver > Setting is missing, using default value: 1M 
+< Campaign Super Raids > Setting is missing, using default value: Off 
+< Dungeons Super Raids > Setting is missing, using default value: Off 
+< Substitute 1 leader > Setting is missing, using default value:  
+< Substitute 2 leader > Setting is missing, using default value:  
+< Substitute 3 leader > Setting is missing, using default value:  
+< Substitute 4 leader > Setting is missing, using default value:  
+< Substitute 5 leader > Setting is missing, using default value:  
+< Substitute 6 leader > Setting is missing, using default value:  
+< Substitute 7 leader > Setting is missing, using default value:  
+< Substitute 8 leader > Setting is missing, using default value:  
+< Substitute 9 leader > Setting is missing, using default value:  
+< Substitute 10 leader > Setting is missing, using default value:  
+< Grim Forest Titular 1 Name > Setting is missing, using default value:  
+< Grim Forest Titular 1 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Titular 1 Type > Setting is missing, using default value:  
+< Grim Forest Titular 1 Leader > Setting is missing, using default value:  
+< Grim Forest Titular 2 Name > Setting is missing, using default value:  
+< Grim Forest Titular 2 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Titular 2 Type > Setting is missing, using default value:  
+< Grim Forest Titular 2 Leader > Setting is missing, using default value:  
+< Grim Forest Titular 3 Name > Setting is missing, using default value:  
+< Grim Forest Titular 3 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Titular 3 Type > Setting is missing, using default value:  
+< Grim Forest Titular 3 Leader > Setting is missing, using default value:  
+< Grim Forest Titular 4 Name > Setting is missing, using default value:  
+< Grim Forest Titular 4 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Titular 4 Type > Setting is missing, using default value:  
+< Grim Forest Titular 4 Leader > Setting is missing, using default value:  
+< Grim Forest Titular 5 Name > Setting is missing, using default value:  
+< Grim Forest Titular 5 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Titular 5 Type > Setting is missing, using default value:  
+< Grim Forest Titular 5 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 1 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 1 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 1 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 1 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 2 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 2 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 2 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 2 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 3 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 3 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 3 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 3 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 4 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 4 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 4 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 4 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 5 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 5 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 5 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 5 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 6 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 6 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 6 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 6 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 7 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 7 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 7 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 7 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 8 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 8 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 8 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 8 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 9 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 9 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 9 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 9 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 10 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 10 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 10 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 10 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 11 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 11 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 11 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 11 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 12 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 12 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 12 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 12 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 13 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 13 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 13 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 13 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 14 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 14 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 14 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 14 Leader > Setting is missing, using default value:  
+< Grim Forest Substitute 15 Name > Setting is missing, using default value:  
+< Grim Forest Substitute 15 Rarity > Setting is missing, using default value: Legendary  
+< Grim Forest Substitute 15 Type > Setting is missing, using default value:  
+< Grim Forest Substitute 15 Leader > Setting is missing, using default value:  
+< Grim Forest Trait Stat Priority > Setting is missing, using default value: RES,IgnDEF,ACC,SPD,HP,DEF,ATK,C.DMG,C.RATE 
+< Live Arena Skills Order > Setting is missing, using default value:  
+< Live Arena Skills Order Activated > Setting is missing, using default value: False 
+< Account Start > Setting is missing, using default value: False 
+< Account Start Until Level > Setting is missing, using default value: 10 
+< Account Start Plan Level Done > Setting is missing, using default value: 0 
+< Account Start Campaign Farm > Setting is missing, using default value: 0 
+< Account Start Plan File > Setting is missing, using default value: Default plan.txt 
+< Account Start Farm Until Core Rank > Setting is missing, using default value: 0 
+< Account Start Market Slots > Setting is missing, using default value: 8 
+< Account Start Champion Collection > Setting is missing, using default value: 0 
+< Account Start Leader > Setting is missing, using default value: Athel 
+< Grim Forest Difficulty > Setting is missing, using default value: Off 
+< Grim Forest Boss Rewards > Setting is missing, using default value: Off 
+< Grim Forest Defeats Before Stage Skip > Setting is missing, using default value: 3 
+< Grim Forest Keys To Save > Setting is missing, using default value: 0 
+< Grim Forest Normal Mimic Profile > Setting is missing, using default value:  
+< Grim Forest Hard Mimic Profile > Setting is missing, using default value:  
+< GF Hard Titular 1 Name > Setting is missing, using default value:  
+< GF Hard Titular 1 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Titular 1 Type > Setting is missing, using default value:  
+< GF Hard Titular 1 Leader > Setting is missing, using default value:  
+< GF Hard Titular 2 Name > Setting is missing, using default value:  
+< GF Hard Titular 2 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Titular 2 Type > Setting is missing, using default value:  
+< GF Hard Titular 2 Leader > Setting is missing, using default value:  
+< GF Hard Titular 3 Name > Setting is missing, using default value:  
+< GF Hard Titular 3 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Titular 3 Type > Setting is missing, using default value:  
+< GF Hard Titular 3 Leader > Setting is missing, using default value:  
+< GF Hard Titular 4 Name > Setting is missing, using default value:  
+< GF Hard Titular 4 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Titular 4 Type > Setting is missing, using default value:  
+< GF Hard Titular 4 Leader > Setting is missing, using default value:  
+< GF Hard Titular 5 Name > Setting is missing, using default value:  
+< GF Hard Titular 5 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Titular 5 Type > Setting is missing, using default value:  
+< GF Hard Titular 5 Leader > Setting is missing, using default value:  
+< GF Hard Sub 1 Name > Setting is missing, using default value:  
+< GF Hard Sub 1 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 1 Type > Setting is missing, using default value:  
+< GF Hard Sub 1 Leader > Setting is missing, using default value:  
+< GF Hard Sub 2 Name > Setting is missing, using default value:  
+< GF Hard Sub 2 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 2 Type > Setting is missing, using default value:  
+< GF Hard Sub 2 Leader > Setting is missing, using default value:  
+< GF Hard Sub 3 Name > Setting is missing, using default value:  
+< GF Hard Sub 3 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 3 Type > Setting is missing, using default value:  
+< GF Hard Sub 3 Leader > Setting is missing, using default value:  
+< GF Hard Sub 4 Name > Setting is missing, using default value:  
+< GF Hard Sub 4 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 4 Type > Setting is missing, using default value:  
+< GF Hard Sub 4 Leader > Setting is missing, using default value:  
+< GF Hard Sub 5 Name > Setting is missing, using default value:  
+< GF Hard Sub 5 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 5 Type > Setting is missing, using default value:  
+< GF Hard Sub 5 Leader > Setting is missing, using default value:  
+< GF Hard Sub 6 Name > Setting is missing, using default value:  
+< GF Hard Sub 6 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 6 Type > Setting is missing, using default value:  
+< GF Hard Sub 6 Leader > Setting is missing, using default value:  
+< GF Hard Sub 7 Name > Setting is missing, using default value:  
+< GF Hard Sub 7 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 7 Type > Setting is missing, using default value:  
+< GF Hard Sub 7 Leader > Setting is missing, using default value:  
+< GF Hard Sub 8 Name > Setting is missing, using default value:  
+< GF Hard Sub 8 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 8 Type > Setting is missing, using default value:  
+< GF Hard Sub 8 Leader > Setting is missing, using default value:  
+< GF Hard Sub 9 Name > Setting is missing, using default value:  
+< GF Hard Sub 9 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 9 Type > Setting is missing, using default value:  
+< GF Hard Sub 9 Leader > Setting is missing, using default value:  
+< GF Hard Sub 10 Name > Setting is missing, using default value:  
+< GF Hard Sub 10 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 10 Type > Setting is missing, using default value:  
+< GF Hard Sub 10 Leader > Setting is missing, using default value:  
+< GF Hard Sub 11 Name > Setting is missing, using default value:  
+< GF Hard Sub 11 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 11 Type > Setting is missing, using default value:  
+< GF Hard Sub 11 Leader > Setting is missing, using default value:  
+< GF Hard Sub 12 Name > Setting is missing, using default value:  
+< GF Hard Sub 12 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 12 Type > Setting is missing, using default value:  
+< GF Hard Sub 12 Leader > Setting is missing, using default value:  
+< GF Hard Sub 13 Name > Setting is missing, using default value:  
+< GF Hard Sub 13 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 13 Type > Setting is missing, using default value:  
+< GF Hard Sub 13 Leader > Setting is missing, using default value:  
+< GF Hard Sub 14 Name > Setting is missing, using default value:  
+< GF Hard Sub 14 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 14 Type > Setting is missing, using default value:  
+< GF Hard Sub 14 Leader > Setting is missing, using default value:  
+< GF Hard Sub 15 Name > Setting is missing, using default value:  
+< GF Hard Sub 15 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 15 Type > Setting is missing, using default value:  
+< GF Hard Sub 15 Leader > Setting is missing, using default value:  
+< GF Hard Sub 16 Name > Setting is missing, using default value:  
+< GF Hard Sub 16 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 16 Type > Setting is missing, using default value:  
+< GF Hard Sub 16 Leader > Setting is missing, using default value:  
+< GF Hard Sub 17 Name > Setting is missing, using default value:  
+< GF Hard Sub 17 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 17 Type > Setting is missing, using default value:  
+< GF Hard Sub 17 Leader > Setting is missing, using default value:  
+< GF Hard Sub 18 Name > Setting is missing, using default value:  
+< GF Hard Sub 18 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 18 Type > Setting is missing, using default value:  
+< GF Hard Sub 18 Leader > Setting is missing, using default value:  
+< GF Hard Sub 19 Name > Setting is missing, using default value:  
+< GF Hard Sub 19 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 19 Type > Setting is missing, using default value:  
+< GF Hard Sub 19 Leader > Setting is missing, using default value:  
+< GF Hard Sub 20 Name > Setting is missing, using default value:  
+< GF Hard Sub 20 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 20 Type > Setting is missing, using default value:  
+< GF Hard Sub 20 Leader > Setting is missing, using default value:  
+< GF Hard Sub 21 Name > Setting is missing, using default value:  
+< GF Hard Sub 21 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 21 Type > Setting is missing, using default value:  
+< GF Hard Sub 21 Leader > Setting is missing, using default value:  
+< GF Hard Sub 22 Name > Setting is missing, using default value:  
+< GF Hard Sub 22 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 22 Type > Setting is missing, using default value:  
+< GF Hard Sub 22 Leader > Setting is missing, using default value:  
+< GF Hard Sub 23 Name > Setting is missing, using default value:  
+< GF Hard Sub 23 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 23 Type > Setting is missing, using default value:  
+< GF Hard Sub 23 Leader > Setting is missing, using default value:  
+< GF Hard Sub 24 Name > Setting is missing, using default value:  
+< GF Hard Sub 24 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 24 Type > Setting is missing, using default value:  
+< GF Hard Sub 24 Leader > Setting is missing, using default value:  
+< GF Hard Sub 25 Name > Setting is missing, using default value:  
+< GF Hard Sub 25 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 25 Type > Setting is missing, using default value:  
+< GF Hard Sub 25 Leader > Setting is missing, using default value:  
+< GF Hard Sub 26 Name > Setting is missing, using default value:  
+< GF Hard Sub 26 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 26 Type > Setting is missing, using default value:  
+< GF Hard Sub 26 Leader > Setting is missing, using default value:  
+< GF Hard Sub 27 Name > Setting is missing, using default value:  
+< GF Hard Sub 27 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 27 Type > Setting is missing, using default value:  
+< GF Hard Sub 27 Leader > Setting is missing, using default value:  
+< GF Hard Sub 28 Name > Setting is missing, using default value:  
+< GF Hard Sub 28 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 28 Type > Setting is missing, using default value:  
+< GF Hard Sub 28 Leader > Setting is missing, using default value:  
+< GF Hard Sub 29 Name > Setting is missing, using default value:  
+< GF Hard Sub 29 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 29 Type > Setting is missing, using default value:  
+< GF Hard Sub 29 Leader > Setting is missing, using default value:  
+< GF Hard Sub 30 Name > Setting is missing, using default value:  
+< GF Hard Sub 30 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 30 Type > Setting is missing, using default value:  
+< GF Hard Sub 30 Leader > Setting is missing, using default value:  
+< GF Hard Sub 31 Name > Setting is missing, using default value:  
+< GF Hard Sub 31 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 31 Type > Setting is missing, using default value:  
+< GF Hard Sub 31 Leader > Setting is missing, using default value:  
+< GF Hard Sub 32 Name > Setting is missing, using default value:  
+< GF Hard Sub 32 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 32 Type > Setting is missing, using default value:  
+< GF Hard Sub 32 Leader > Setting is missing, using default value:  
+< GF Hard Sub 33 Name > Setting is missing, using default value:  
+< GF Hard Sub 33 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 33 Type > Setting is missing, using default value:  
+< GF Hard Sub 33 Leader > Setting is missing, using default value:  
+< GF Hard Sub 34 Name > Setting is missing, using default value:  
+< GF Hard Sub 34 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 34 Type > Setting is missing, using default value:  
+< GF Hard Sub 34 Leader > Setting is missing, using default value:  
+< GF Hard Sub 35 Name > Setting is missing, using default value:  
+< GF Hard Sub 35 Rarity > Setting is missing, using default value: Legendary  
+< GF Hard Sub 35 Type > Setting is missing, using default value:  
+< GF Hard Sub 35 Leader > Setting is missing, using default value:  
+< Grim Forest Battles switch > Setting is missing, using default value: OFF 
+< Grim Forest Battles Mode > Setting is missing, using default value: Normal 
+< Battle Priority for Grim Forest > Setting is missing, using default value: 10 
+< Grim Forest Starting Hour > Setting is missing, using default value: Now 
+< AutoSell rules file for Market > Setting is missing, using default value:  
+< AutoSell Battles Mode > Setting is missing, using default value: OFF 
+< Market Mode > Setting is missing, using default value: OFF 
+< Daily Battle 11 Name Index > Setting is missing, using default value: -1 
+< Daily Battle 12 Name Index > Setting is missing, using default value: -1 
+< Daily Battle 13 Name Index > Setting is missing, using default value: -1 
+< Daily Battle 14 Name Index > Setting is missing, using default value: -1 
+< Daily Battle 15 Name Index > Setting is missing, using default value: -1 
+< Daily Battle 11 team > Setting is missing, using default value:   
+< Daily Battle 12 team > Setting is missing, using default value:   
+< Daily Battle 13 team > Setting is missing, using default value:   
+< Daily Battle 14 team > Setting is missing, using default value:   
+< Daily Battle 15 team > Setting is missing, using default value:   
+< Daily Battle 11 stage > Setting is missing, using default value: 1 
+< Daily Battle 12 stage > Setting is missing, using default value: 1 
+< Daily Battle 13 stage > Setting is missing, using default value: 1 
+< Daily Battle 14 stage > Setting is missing, using default value: 1 
+< Daily Battle 15 stage > Setting is missing, using default value: 1 
+< Daily Battle 11 fight mode > Setting is missing, using default value: Replay 
+< Daily Battle 12 fight mode > Setting is missing, using default value: Replay 
+< Daily Battle 13 fight mode > Setting is missing, using default value: Replay 
+< Daily Battle 14 fight mode > Setting is missing, using default value: Replay 
+< Daily Battle 15 fight mode > Setting is missing, using default value: Replay 
+< Daily Battle 11 campaign mode > Setting is missing, using default value: Normal 
+< Daily Battle 12 campaign mode > Setting is missing, using default value: Normal 
+< Daily Battle 13 campaign mode > Setting is missing, using default value: Normal 
+< Daily Battle 14 campaign mode > Setting is missing, using default value: Normal 
+< Daily Battle 15 campaign mode > Setting is missing, using default value: Normal 
+< Daily Battle 11 to do > Setting is missing, using default value: 1 
+< Daily Battle 12 to do > Setting is missing, using default value: 1 
+< Daily Battle 13 to do > Setting is missing, using default value: 1 
+< Daily Battle 14 to do > Setting is missing, using default value: 1 
+< Daily Battle 15 to do > Setting is missing, using default value: 1 
+< Daily Battle 11 done > Setting is missing, using default value: 0 
+< Daily Battle 12 done > Setting is missing, using default value: 0 
+< Daily Battle 13 done > Setting is missing, using default value: 0 
+< Daily Battle 14 done > Setting is missing, using default value: 0 
+< Daily Battle 15 done > Setting is missing, using default value: 0 
+< Daily Battle 11 status Led > Setting is missing, using default value: Start 
+< Daily Battle 12 status Led > Setting is missing, using default value: Start 
+< Daily Battle 13 status Led > Setting is missing, using default value: Start 
+< Daily Battle 14 status Led > Setting is missing, using default value: Start 
+< Daily Battle 15 status Led > Setting is missing, using default value: Start 
+< Daily Battle 11 replace number > Setting is missing, using default value: Off 
+< Daily Battle 12 replace number > Setting is missing, using default value: Off 
+< Daily Battle 13 replace number > Setting is missing, using default value: Off 
+< Daily Battle 14 replace number > Setting is missing, using default value: Off 
+< Daily Battle 15 replace number > Setting is missing, using default value: Off 
+< Daily Battle 11 replace rarity > Setting is missing, using default value: (un)commmon 
+< Daily Battle 12 replace rarity > Setting is missing, using default value: (un)commmon 
+< Daily Battle 13 replace rarity > Setting is missing, using default value: (un)commmon 
+< Daily Battle 14 replace rarity > Setting is missing, using default value: (un)commmon 
+< Daily Battle 15 replace rarity > Setting is missing, using default value: (un)commmon 
+< Daily Battle 11 replace rank > Setting is missing, using default value: 2-4 
+< Daily Battle 12 replace rank > Setting is missing, using default value: 2-4 
+< Daily Battle 13 replace rank > Setting is missing, using default value: 2-4 
+< Daily Battle 14 replace rank > Setting is missing, using default value: 2-4 
+< Daily Battle 15 replace rank > Setting is missing, using default value: 2-4 
+< Daily Battle 11 SuperRaids > Setting is missing, using default value: Off 
+< Daily Battle 12 SuperRaids > Setting is missing, using default value: Off 
+< Daily Battle 13 SuperRaids > Setting is missing, using default value: Off 
+< Daily Battle 14 SuperRaids > Setting is missing, using default value: Off 
+< Daily Battle 15 SuperRaids > Setting is missing, using default value: Off 
+
+18/10 05:34:01  Bot ready to start
+18/10 05:34:10  Settings RaidAccounts.json loaded
+18/10 05:34:10  AutoStart in 30 mn
+18/10 05:34:17  Account start until level 25 with Default plan.txt: start settings loaded, your settings saved in Settings before account start.txt
+18/10 05:34:19  Bot v8.0.0.1 Started
+18/10 05:34:19  ---- Diagnostic ----
+Bot: 8.0.0.1, Plarium Play
+Windows: Microsoft Windows NT 10.0.26100.0 64-bit, .NET 8.0.32
+Screens: 1440x900 primary
+Raid: version 11.80.0, window 1280x800
+Raid window: offset 4,-12, scale 1
+Modes ON: CAMPAIGN, REWARDS_COLLECT
+Campaign: CAMPAIGN_SUPER_RAIDS=Off, CAMPAIGN=ON, CAMPAIGN_MODE=Normal, CAMPAIGN_PLACE=Kaeroc Castle, CAMPAIGN_TEAM=, CAMPAIGN_STAGE=1, CAMPAIGN_FIGHT_MODE=Next from Last, CAMPAIGN_BATTLES=Unlimited, CAMPAIGN_REPLACE=Off, CAMPAIGN_REPLACE_RARITY=until rare, CAMPAIGN_REPLACE_RANK=2-4, CAMPAIGN_START=Now
+---- End of diagnostic ----
+18/10 05:34:20  Mouse hidden activated
+18/10 05:34:20  Raid window resized
+18/10 05:34:21  Waiting End of Raid launching
+18/10 05:34:43  Raid started
+18/10 05:34:44  Mouse hidden activated
+18/10 05:34:45  Tutorial screen 3001 TextNotificationsContext
+18/10 05:34:45  Tutorial screen 3007 BattleTextNotificationsContext
+18/10 05:34:45  Tutorial screen 3009 BattlePassLevelNotificationsContext
+18/10 05:34:45  Tutorial screen 3015 RevivalPathLevelNotificationsContext
+18/10 05:34:45  Tutorial screen 3002 PrizeNotificationsContext
+18/10 05:34:45  Tutorial screen 3008 ConfigurationsNotificationsContext
+18/10 05:34:45  Tutorial screen 3003 QuestNotificationsContext
+18/10 05:34:45  Tutorial screen 3031 CooperationEventQuestNotificationsContext
+18/10 05:34:45  Tutorial screen 3010 RecommendedQuestNotificationsContext
+18/10 05:34:45  Tutorial screen 3017 CursedCityQuestNotificationsContext
+18/10 05:34:45  Tutorial screen 3004 SuggestionNotificationsContext
+18/10 05:34:45  Tutorial screen 3005 TournamentPointsNotificationsContext
+18/10 05:34:45  Tutorial screen 3006 TournamentPositionNotificationsContext
+18/10 05:34:45  Tutorial screen 3011 HeroSkinNotificationsContext
+18/10 05:34:45  Tutorial screen 3012 SoloEventPointsNotificationsContext
+18/10 05:34:45  Tutorial screen 3013 CommonInfoNotificationsContext
+18/10 05:34:45  Tutorial screen 3030 CooperationEventMultiplierChangeNotificationsContext
+18/10 05:34:45  Tutorial screen 3014 AllianceBossElementChangedNotificationsContext
+18/10 05:34:45  Tutorial screen 3016 ProgressiveBoostChanceNotificationsContext
+18/10 05:34:45  Tutorial screen 3020 SpecialProgramNotificationsContext
+18/10 05:34:45  Tutorial screen 3032 CooperationEventEngagementNotificationsContext
+18/10 05:34:45  Tutorial screen 3039 FoggyForestQuestNotificationsContext
+18/10 05:34:45  Tutorial screen 3038 BackgroundBattleFinishedNotificationsContext
+18/10 05:34:45  Tutorial screen 3041 FriendlyBattlesIncomingInviteNotificationsContext
+18/10 05:34:45  Tutorial screen 3044 ConquestEventQuestNotificationsContext
+18/10 05:34:45  Tutorial screen 9100 BlockingViewContext
+18/10 05:34:45  Tutorial screen 1058 IntroContext
+18/10 05:34:49  Click outside a micro-action: EventModule.Run
+18/10 05:34:49  Click 798,375 on a screen still for 29 ms: EventModule.Run
+18/10 05:34:49  Tutorial arrow followed (intro battle)
+18/10 05:35:00  Click 623,453: screen still moving after 1500 ms, sent: EventModule.Run
+18/10 05:35:00  Click 623,453 on a screen still for 9 ms: EventModule.Run
+18/10 05:35:00  Tutorial arrow followed (intro battle)
+18/10 05:35:09  Tutorial arrow followed (intro battle)
+18/10 05:35:10  Click 253,128 on a screen still for 284 ms: EventModule.Run
+18/10 05:35:11  Tutorial arrow followed (intro battle)
+18/10 05:35:12  Tutorial arrow followed (intro battle)
+18/10 05:35:14  Tutorial arrow followed (intro battle)
+18/10 05:35:16  Tutorial arrow followed (intro battle)
+18/10 05:35:18  Tutorial arrow followed (intro battle)
+18/10 05:35:22  Click 396,347: screen still moving after 1500 ms, sent: EventModule.Run
+18/10 05:35:22  Click 396,347 on a screen still for 7 ms: EventModule.Run
+18/10 05:35:22  Tutorial arrow followed (intro battle)
+18/10 05:35:23  Tutorial arrow followed (intro battle)
+18/10 05:35:25  Tutorial arrow followed (intro battle)
+18/10 05:35:27  Tutorial arrow followed (intro battle)
+18/10 05:35:31  Tutorial arrow followed (intro battle)
+18/10 05:35:33  Click 227,208 on a screen still for 38 ms: EventModule.Run
+18/10 05:35:34  Tutorial arrow followed (intro battle)
+18/10 05:35:35  Tutorial arrow followed (intro battle)
+18/10 05:35:37  Tutorial arrow followed (intro battle)
+18/10 05:35:39  Tutorial arrow followed (intro battle)
+18/10 05:35:41  Tutorial arrow followed (intro battle)
+18/10 05:35:43  Tutorial arrow followed (intro battle)
+18/10 05:35:45  Tutorial arrow followed (intro battle)
+18/10 05:35:47  Tutorial arrow followed (intro battle)
+18/10 05:35:49  Tutorial arrow followed (intro battle)
+18/10 05:35:52  Click 60,254 on a screen still for 276 ms: EventModule.Run
+18/10 05:35:52  Tutorial arrow followed (intro battle)
+18/10 05:35:53  Tutorial arrow followed (intro battle)
+18/10 05:36:00  Click 10,430: screen still moving after 1500 ms, sent: EventModule.Run
+18/10 05:36:01  Tutorial arrow followed (intro battle)
+18/10 05:36:04  Click 839,356 on a screen still for 100 ms: EventModule.Run
+18/10 05:36:04  Tutorial arrow followed (intro battle)
+18/10 05:36:07  Tutorial arrow followed (intro battle)
+18/10 05:36:09  Tutorial arrow followed (intro battle)
+18/10 05:36:11  Tutorial arrow followed (intro battle)
+18/10 05:36:14  Click 88,480: screen still moving after 1500 ms, sent: EventModule.Run
+18/10 05:36:14  Tutorial arrow followed (intro battle)
+18/10 05:36:19  Click 908,475 on a screen still for 7 ms: EventModule.Run
+18/10 05:36:19  Tutorial arrow followed (intro battle)
+18/10 05:36:21  Tutorial arrow followed (intro battle)
+18/10 05:36:23  Tutorial arrow followed (intro battle)
+18/10 05:36:24  Tutorial arrow followed (intro battle)
+18/10 05:36:26  Tutorial arrow followed (intro battle)
+18/10 05:36:28  Tutorial arrow followed (intro battle)
+18/10 05:36:30  Click 264,342 on a screen still for 287 ms: EventModule.Run
+18/10 05:36:30  Tutorial arrow followed (intro battle)
+18/10 05:36:34  Click 66,362: screen still moving after 1500 ms, sent: EventModule.Run
+18/10 05:36:34  Tutorial arrow followed (intro battle)
+18/10 05:36:38  Tutorial arrow followed (intro battle)
+18/10 05:36:39  Raid server lagging
+18/10 05:36:44  Click 905,532 on a screen still for 354 ms: Module.ReturnBack
+18/10 05:36:47  Tutorial screen 1059 IntroHeroSelectionContext
+18/10 05:36:47  Tutorial screen 9300 WizardViewContext
+18/10 05:36:47  Tutorial screen 9001 MessageBoxContext
+18/10 05:36:47  Click outside a micro-action: EventModule.StarterChoiceWait
+18/10 05:36:47  Starter choice: Galek clicked
+18/10 05:36:52  Starting Plarium Play and Raid
+18/10 05:37:02  Waiting Beginning of Raid launching
+18/10 05:37:05  Waiting End of Raid launching
+18/10 05:37:35  Raid started
+18/10 05:37:44  Mouse hidden activated
+18/10 05:37:46  Click 573,320 on a screen still for 59 ms: EventModule.StarterChoiceWait
+18/10 05:37:46  Starter choice: Galek clicked
+18/10 05:37:48  Starter choice: Galek clicked
+18/10 05:37:51  Starter choice: Galek clicked
+18/10 05:37:53  Tutorial screen 1060 IntroHeroDetailContext
+18/10 05:38:02  Starter champion: Galek chosen
+18/10 05:38:04  Raid server lagging
+18/10 05:38:05  Tutorial screen 1032 VillageContext
+18/10 05:38:05  Tutorial screen 1033 VillageHUDContext
+18/10 05:38:05  Click 858,422 on a screen still for 82 ms: EventModule.Run
+18/10 05:38:07  Story page: Next
+18/10 05:38:09  Story page: Next
+18/10 05:38:10  Tutorial arrow followed
+18/10 05:38:11  Tutorial screen 1035 PortalDialogContext
+18/10 05:38:12  Story page: Next
+18/10 05:38:14  Story page: Next
+18/10 05:38:16  Story page: Next
+18/10 05:38:18  Story page: Next
+18/10 05:38:20  Story page: Next
+18/10 05:38:22  Story page: Next
+18/10 05:38:22  Click 503,500 on a screen still for 38 ms: EventModule.Run
+18/10 05:38:23  Tutorial arrow followed
+18/10 05:38:26  Story page: Next
+18/10 05:38:26  Tutorial screen 1036 PortalHeroInfoDialogContext
+18/10 05:38:28  Story page: Next
+18/10 05:38:30  Story page: Next
+18/10 05:38:33  Story page: Next
+18/10 05:38:34  Click 869,51 on a screen still for 84 ms: EventModule.Run
+18/10 05:38:35  Tutorial arrow followed
+18/10 05:38:37  Tutorial arrow followed
+18/10 05:38:39  Tutorial arrow followed
+18/10 05:38:39  Tutorial screen 1022 BattleModeSelectionDialogContext
+18/10 05:38:41  Tutorial arrow followed
+18/10 05:38:41  Tutorial screen 1023 MapContext
+18/10 05:38:41  Tutorial screen 1024 MapHUDContext
+18/10 05:38:43  Story page: Next
+18/10 05:38:45  Story page: Next
+18/10 05:38:45  Click 858,422 on a screen still for 123 ms: EventModule.Run
+18/10 05:38:47  Story page: Next
+18/10 05:38:49  Tutorial arrow followed
+18/10 05:38:50  Story page: Next
+18/10 05:38:52  Story page: Next
+18/10 05:38:54  Story page: Next
+18/10 05:38:56  Story page: Next
+18/10 05:38:58  Story page: Next
+18/10 05:39:00  Story page: Next
+18/10 05:39:02  Story page: Next
+18/10 05:39:02  Tutorial screen 1025 StorylineRegionDialogContext
+18/10 05:39:02  Click 858,422 on a screen still for 323 ms: EventModule.Run
+18/10 05:39:04  Story page: Next
+18/10 05:39:05  Tutorial arrow followed
+18/10 05:39:06  Tutorial screen 1006 HeroesSelectionPveDialogContext
+18/10 05:39:07  Story page: Next
+18/10 05:39:09  Tutorial arrow followed
+18/10 05:39:11  Story page: Next
+18/10 05:39:13  Tutorial arrow followed
+18/10 05:39:13  Click 45,450 on a screen still for 118 ms: EventModule.Run
+18/10 05:39:15  Tutorial arrow followed
+18/10 05:39:17  Tutorial arrow followed
+18/10 05:39:18  Tutorial arrow followed
+18/10 05:39:19  Tutorial screen 1012 BattleLoadingDialogContext
+18/10 05:39:20  Story page: Next
+18/10 05:39:20  Tutorial screen 8000 ClientBattleViewContext
+18/10 05:39:20  Tutorial screen 1015 BattleHUDContext
+18/10 05:39:21  Click outside a micro-action: EventModule.TutorialBattleAutoX2
+18/10 05:39:22  Battle Auto ticked (tutorial)
+18/10 05:39:27  Click 135,494 on a screen still for 80 ms: EventModule.TutorialBattleAutoX2
+18/10 05:39:27  Battle x2 ticked (tutorial)
+18/10 05:39:46  Tutorial screen 1013 BattleFinishStorylineDialogContext
+18/10 05:39:47  Click 858,422 on a screen still for 152 ms: EventModule.Run
+18/10 05:39:48  Story page: Next
+18/10 05:39:50  Tutorial arrow followed
+18/10 05:39:50  Tutorial screen 2003 PrizeInfoOverlayContext
+18/10 05:39:52  Story page: Next
+18/10 05:39:54  Tutorial arrow followed
+18/10 05:39:56  Story page: Next
+18/10 05:39:58  Tutorial arrow followed
+18/10 05:39:58  Click 858,422 on a screen still for 307 ms: EventModule.Run
+18/10 05:39:59  Story page: Next
+18/10 05:40:01  Tutorial arrow followed
+18/10 05:40:01  Tutorial screen 1018 HeroesInfoOverlayContext
+18/10 05:40:03  Story page: Next
+18/10 05:40:05  Story page: Next
+18/10 05:40:07  Tutorial arrow followed
+18/10 05:40:09  Tutorial arrow followed
+18/10 05:40:09  Click 191,511 on a screen still for 211 ms: EventModule.Run
+18/10 05:40:11  Tutorial arrow followed
+18/10 05:40:12  Story page: Next
+18/10 05:40:14  Tutorial arrow followed
+18/10 05:40:16  Story page: Next
+18/10 05:40:18  Tutorial arrow followed
+18/10 05:40:20  Tutorial arrow followed
+18/10 05:40:20  Click 445,261 on a screen still for 69 ms: EventModule.Run
+18/10 05:40:22  Tutorial arrow followed
+18/10 05:40:24  Tutorial arrow followed
+18/10 05:40:25  Tutorial arrow followed
+18/10 05:40:27  Story page: Next
+18/10 05:40:50  Click 858,422 on a screen still for 309 ms: EventModule.Run
+18/10 05:40:52  Story page: Next
+18/10 05:40:54  Story page: Next
+18/10 05:40:56  Tutorial arrow followed
+18/10 05:40:57  Tutorial arrow followed
+18/10 05:41:01  Tutorial arrow followed
+18/10 05:41:01  Click 289,299 on a screen still for 231 ms: EventModule.Run
+18/10 05:41:03  Tutorial arrow followed
+18/10 05:41:05  Tutorial arrow followed
+18/10 05:41:07  Tutorial arrow followed
+18/10 05:41:09  Tutorial arrow followed
+18/10 05:41:11  Tutorial arrow followed
+18/10 05:41:12  Tutorial arrow followed
+18/10 05:41:13  Tutorial screen 1048 ArtifactUpgradeOverlayContext
+18/10 05:41:13  Click 460,491 on a screen still for 104 ms: EventModule.Run
+18/10 05:41:14  Tutorial arrow followed
+18/10 05:41:16  Tutorial arrow followed
+18/10 05:41:18  Tutorial arrow followed
+18/10 05:41:20  Tutorial arrow followed
+18/10 05:41:22  Tutorial arrow followed
+18/10 05:41:24  Tutorial arrow followed
+18/10 05:41:24  Click 459,490 on a screen still for 70 ms: EventModule.Run
+18/10 05:41:25  Tutorial arrow followed
+18/10 05:41:27  Tutorial arrow followed
+18/10 05:41:29  Tutorial arrow followed
+18/10 05:41:31  Tutorial arrow followed
+18/10 05:41:33  Story page: Next
+18/10 05:41:35  Warden: promotion Daily14DaysRewardProgramOverlay, the bot waits
+18/10 05:41:35  Click outside a micro-action: PopupMemory.CloseForeignPopup
+18/10 05:41:35  Popup closed: Daily14DaysRewardProgram
+18/10 05:41:35  Raid server lagging
+18/10 05:41:37  Warden: promotion Daily14DaysRewardProgramOverlay gone after 1 s, 0 inputs held
+18/10 05:41:39  Account level 2
+18/10 05:41:39  Account start plan, level 1: Account Start Leader = Athel
+18/10 05:41:39  Account start plan, level 1: Account Start Leader = Elhain
+18/10 05:41:39  Account start plan, level 1: Account Start Leader = Kael
+18/10 05:41:39  Account start plan, level 1: Account Start Leader = Galek
+18/10 05:41:39  Account start resumed at Kaeroc Castle stage 3
+18/10 05:41:40  Raid options to set: graphics quality 0, camera shake, optimize UI
+18/10 05:41:40  Click outside a micro-action: Module.WaitScreenClick
+18/10 05:41:43  Click outside a micro-action: BastionModule.Run
+18/10 05:41:44  Drag and drop outside a micro-action: BastionModule.Run
+18/10 05:41:46  Scroll Sensitivity adjusted
+18/10 05:41:52  Optimize in-game UI unchecked
+18/10 05:41:53  Disable camera shake checked
+18/10 05:41:56  Bastion buildings: Crystal_group (92,364), Tavern_group (618,140), Academy_group (700,277), Command_center_group (424,139), Market_group (337,386), Forge_group (477,237), Portal_group (218,137), Double_building (606,443)
+18/10 05:41:57  Menu red dots: menu True, Progression Rewards False, Plarium Points True
+18/10 05:41:58  Plarium Points Program card clicked at 145,147
+18/10 05:41:59  Treasure Tickets: tab dot False, free draw False, gold 0, silver 0, milestones ready 0
+18/10 05:42:04  Reward Calendar: no day to claim (3443000000000000000000000)
+18/10 05:42:24  Shop free Gift: tab 1/1 offer type 10, free give
+18/10 05:42:26  Shop free Gift collected
+18/10 05:42:28  Shop Limited Offers: day 1 reward collected
+18/10 05:42:28  Shop free Gift: tab 1/1 offer type 10, free give
+18/10 05:42:36  Warden: promotion StarterOfferOverlay, the bot waits
+18/10 05:42:36  Click 868,57 on a screen still for 275 ms: PopupMemory.CloseForeignPopup
+18/10 05:42:37  Popup closed: StarterOffer
+18/10 05:42:37  Warden: promotion StarterOfferOverlay gone after 1 s, 0 inputs held
+18/10 05:42:37  Drag and drop 447,312 on a screen still for 336 ms: BastionModule.CameraFromMemory
+18/10 05:42:40  Bastion camera in place (Market at 366,343)
+18/10 05:42:40  MARKET clicked at 366,343 (camera not moved)
+18/10 05:42:43  Market: slot 5 price: Price_h < Bottom, NextToUnlockState_h < LockedOverlay
+18/10 05:42:43  Click 647,310 on a screen still for 299 ms: BastionModule.MarketUnlockStep
+18/10 05:42:45  Market: new slot unlocked (5/12)
+18/10 05:42:46  Market: slot 6 price: Price_h < Bottom, NextToUnlockState_h < LockedOverlay
+18/10 05:42:47  Market: new slot unlocked (6/12)
+18/10 05:43:01  Click 198,486 on a screen still for 305 ms: BastionModule.Run
+18/10 05:43:03  Click 108,370 on a screen still for 276 ms: BastionModule.ClickAndWait
+18/10 05:43:06  Missions: reward not taken
+18/10 05:43:09  MISSIONS: rewards still waiting, again
+18/10 05:43:12  Progress Mission reward collected
+18/10 05:43:22  Challenges: challenge reward collected
+18/10 05:43:23  Bot Stopped by user, AutoStart in 30 mn
+18/10 05:44:25  Account start until level 40
+18/10 05:44:38  Settings plarium2 saved in RSLBot Settings folder
+18/10 05:44:43  Settings plarium2 loaded
+18/10 05:44:59  Settings plarium3 saved in RSLBot Settings folder
+18/10 05:45:28  V8 licence session started: premium, check every 150 s, pack 9900bf938aaccc3a
+18/10 05:45:30  The Bot checks the Bastion every 15mn
+18/10 05:45:31  Premium Licence: all premium features enabled
+18/10 05:45:31  Bot ready to start, AutoStart in 30 mn
+18/10 05:45:39  Settings plarium2 loaded
+18/10 05:45:46  Bot v8.0.0.1 Started
+18/10 05:45:46  ---- Diagnostic ----
+Bot: 8.0.0.1, Plarium Play
+Windows: Microsoft Windows NT 10.0.26100.0 64-bit, .NET 8.0.32
+Screens: 1440x900 primary
+Raid: version 11.80.0, window 902x509
+Raid window: offset 4,-12, scale 1
+Modes ON: CAMPAIGN, REWARDS_COLLECT
+Campaign: CAMPAIGN_SUPER_RAIDS=Off, CAMPAIGN=ON, CAMPAIGN_MODE=Normal, CAMPAIGN_PLACE=Kaeroc Castle, CAMPAIGN_TEAM=, CAMPAIGN_STAGE=3, CAMPAIGN_FIGHT_MODE=Next from Last, CAMPAIGN_BATTLES=Unlimited, CAMPAIGN_REPLACE=Off, CAMPAIGN_REPLACE_RARITY=until rare, CAMPAIGN_REPLACE_RANK=2-4, CAMPAIGN_START=Now
+---- End of diagnostic ----
+18/10 05:45:47  Mouse hidden activated
+18/10 05:45:51  Warden: promotion GiftOfferOverlay, the bot waits
+18/10 05:45:52  Click outside a micro-action: PopupMemory.CloseForeignPopup
+18/10 05:45:52  Popup closed: GiftOffer
+18/10 05:45:52  Warden: promotion GiftOfferOverlay gone after 1 s, 0 inputs held
+18/10 05:45:53  Account level 2
+18/10 05:45:53  Click 60,415 on a screen still for 100 ms: BastionModule.Run
+18/10 05:45:57  Free Rewards collected
+18/10 05:45:58  Raid options to set: graphics quality 0, camera shake, optimize UI
+18/10 05:45:58  Click outside a micro-action: Module.WaitScreenClick
+18/10 05:46:00  Click 106,273 on a screen still for 293 ms: Module.WaitScreenClick
+18/10 05:46:01  Click outside a micro-action: BastionModule.Run
+18/10 05:46:02  Drag and drop outside a micro-action: BastionModule.Run
+18/10 05:46:05  Scroll Sensitivity adjusted
+18/10 05:46:07  Bot Stopped by user, AutoStart in 30 mn
+18/10 05:46:09  Click 608,298: held (bot stopped): BastionModule.Run
+18/10 05:46:09  Warden: bot stopped, the bot waits
+18/10 05:46:10  Disable camera shake checked
+18/10 05:46:10  Click 877,46: held (bot stopped): Module.ReturnBack

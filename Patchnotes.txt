@@ -1,3 +1,124 @@
+v8.0.0.1 (private beta)
+Warden: the bot waits until Raid is ready before each click (promotions, error messages, server waits, black or moving screen) and never clicks while Raid says your account is open on another device
+Bot Daily Rest Time: Off by default, start hour and length vary a little each day
+Reward Calendar: the daily reward is claimed once a day (vote days are left to you)
+Grim Forest: Set Team with the Mimic profile shown copies your Standard team into Mimic
+Doom Tower: no more loop when no boss can be beaten with Silver Keys, retried after the reset
+Cursed City: a skipped stage is no longer tried again and again
+Iron Twins Fortress: key refill fixed
+Demon Lord, Hydra, Chimera: no more freeze at the end of a battle
+Hydra, Chimera: short battles (team not suited) slow down instead of looping
+Daily battles: a stage that does not open 3 times is skipped until the reset; Hard locked falls back to Normal
+Clan Boss chests claimed from the boss screen
+A loop of more than 20 minutes without a battle stops that mode until the reset
+
+v8.0.0.0
+New licence system: secure session with the RSLBot server, long licences are linked to your Raid accounts, Discord link required
+Build number shown on the login and main windows
+Live Arena: for each champion you can choose skills to use in the 4 first turns
+Grim Forest & Cursed city: the map is read and scrolled to each stage
+Grim Forest: level increase, Trait Cards and Draw Champions screens are handled after battles (no more loops)
+Hard mode of dungeons handled (switch to Normal when Hard is locked)
+New account start mode: tutorial, first champion, campaign, Tavern, Market (Premium in farmer mode)
+Frozen bot watch: the bot restarts by itself when it stays stuck for 20 minutes
+Iron Twins Fortress: no more endless loop when the key refill fails
+The bot stops with a clear message when Raid cannot load a battle 3 times in a row
+
+v7.8.0.1
+A license used on another computer can be selected again: it is shown as "Used on another computer" (closing the bot on one computer and opening it on another no longer blocks the license)
+
+v7.8.0.0
+New "Choose another license key" button on the login screen: sign in with your Discord or RSLBot account and pick one of your licenses
+License list shows the key, type (Free, Regular, Premium), duration and status of each license
+Licenses already running on another bot are shown as "Used" and cannot be selected
+When your username and license key are filled in, your licenses are listed directly without opening the browser
+LOGIN button is disabled until a username and a license key are entered
+The bot no longer stops when the RSLBot server restarts or is unreachable: it pauses, shows "Bot is waiting for server" with a countdown, and resumes by itself
+Server problems are no longer reported as license errors
+Restart after a crash now waits for the server instead of closing
+Release package no longer overwrites your UserSettings.txt
+
+v7.7.3.2
+Uses the new RSLBot website and server infrastructure
+Includes all features and fixes from v7.7.3.1
+
+v7.7.3.1
+Fixed automatic update download after Invision attachment HTML changes
+
+v7.7.3.0
+Works with RSL v11.71 (new screens and options)
+No more need of 100% scale in your main Monitor (now you only need 100% scale on Monitor where Plarium window is displayed)
+No more loop when  Raid launching screen has changed
+Added new Champions Khamir, Rhaia, Varkos
+
+v7.7.2.0
+Works with RSL v11.67 (hidden mouse updated)
+Added Mimic profile in Grim Forest
+Fixed Grim Forest loop bugs
+Fixed Grim Forest Trait Cards freeze
+Fixed RSLBot Update auto not working
+Added new Champions Talenna, Yukimasa, Granyt, Arachoa
+
+v7.7.1.1
+Fixed Grim Forest scrolling map bugs
+Some improvements
+
+v7.7.1.0
+RSL V11.65 changes taken in account
+Fixed loop bug when scrolling map in Grim Forest
+Fixed filter champions bug for replacements in Campaign/Dungeons battles
+Fixed Autoselling Artifacts bugs after SuperRaids battles in Campaign/Dungeons battles
+Fixed Iron Twist refill bug in SuperRaids mode
+Added new Champions Cinda, Vallaryn, Heinrik, Aria, Celendiel, Xalgaze, Holguk, Haggibah
+
+V7.7.0.1
+Some GUI improvements
+
+v7.7.0.0
+New Feature Grim Forest in alpha mode (available for all Licenses)
+Added Tooltips for all GUI objects
+Improved logs registration
+Some GUI improvements
+Added new Champion Tekteon
+
+v7.6.2.1
+Fixed Champions errors
+Fixed Cursed City and Live Arena Artifacts/Accessories auto selling after battles even if AutoSell OFF
+Fernandel usual Settings added in Settings 
+
+v7.6.2.0
+RSL V11.60 changes taken in account
+Fixed Stages selections errors
+Added Silver Tickets collect
+Added new Champions: Sabrael, Klaazag, Storm, Keberon, Arne, Blood, Cinda, Pelagus, Grugtha, Sydax, Vestele
+
+v7.6.1.0
+RSL V11.40 changes taken in account (Launching screen, Live Arena Schedule, No aura skill loop in battles)
+Increased Nb asked to 40 for Silver keys in Doom Tower
+Fixed refill Energy with Gem not working
+Added Mercurial emblem for AutoSell
+Added new Champions: Bayek, Solanar, Pelops, Noldua, Edward, Pallas, Gretel
+
+v7.6.0.0
+RSL V11.30 last changes taken in account (Anniversary screen, Refill, ...)
+New features for Accessories rules in AutoSell : 
+ - now Faction, Set and Special (Bloodshield, Revenge...) are available to build rules
+Added SuperRaids to Iron Twins
+Added Items collect for Inbox (one shot operation)
+Fixed all known bugs
+
+V7.5.0.1
+Not working OCR fixed
+
+v7.5.0.0
+Works with last Raid update v11.20.0 (filter changes)
+Refactor of stages choice management
+Refactor of mouse hiding management (Bot continues to click even hide mouse is not working)
+Internal redesign increasing deeply the performances
+New feature Grim Forest (not yet available)
+Added RSL v11 new champions
+Fixed all known bugs
+
 v7.4.2.1
 Fixed Loop in Tag Team Arena team selected
 Fixed Arena 5 Tokens collected in Inbox with Gems, Silver, Potions

@@ -1,0 +1,106 @@
+# ================================================================================================
+#  RSLBot - ACCOUNT START PLAN
+# ================================================================================================
+#
+# WHAT IT DOES
+#   While "Farm account until level" is ON (Settings tab, Farmer option), the bot plays the campaign
+#   and collects the start rewards. It reads the account level in Raid and changes its settings when
+#   the account reaches the levels written below. This lets a new account turn on features little by
+#   little: champion replacement once there are enough champions, arena, farming the campaign,
+#   dungeons... At the level chosen next to "Farm account until level", the account start stops and
+#   your own settings come back.
+#
+# PLAN FILES
+#   - Plans are the .txt files of the AccountStart folder, in the RSLBot folder (like the AutoSell and
+#     Settings folders). When "Farm account until level" is switched ON, the plans are listed under the switch:
+#     click the one to use (the last plan used is checked). "Open the AccountStart folder" opens it.
+#   - "Default plan.txt" comes with RSLBot and is replaced by each new version.
+#     To make your own plan, copy it under another name (for example "My plan.txt") and change the copy.
+#
+# HOW TO WRITE A STEP
+#   One step per line:      level : setting name = value
+#   Example:                15 : Campaign Champions replacement number = 3
+#   - level: account level (1 to 100). Several lines can have the same level.
+#   - setting name: written exactly as in the files of the Settings folder (open "Account start.txt"
+#     with Notepad: the text before the colon on each line is the setting name). Upper/lower case ignored.
+#   - value: the text after the colon in those files. For a drop-down list, the value must be one of
+#     its choices (ON, OFF, Off, 1, 2, 3, NO...). Upper/lower case ignored.
+#   - Lines starting with # are comments; empty lines are ignored.
+#
+# WHEN STEPS ARE APPLIED
+#   - The account level is read after each battle and at the Bastion.
+#   - Each step is applied once, when the level reaches it, in level order. Every change is shown
+#     in cyan in the log. A step whose level is already passed is not applied again, even after a
+#     restart of the bot (switch the account start OFF then ON to start the plan again).
+#   - The plan can be changed while the bot runs: it is read again at each level check.
+#   - A badly written line is shown in orange in the log and ignored; the other lines still work.
+#   - At the level chosen next to "Farm account until level" your own settings come back, and the
+#     steps from that level on are not applied.
+#
+# SETTINGS MADE FOR THE PLAN
+#   Account Start Campaign Farm = N
+#       Each new campaign stage won is replayed N times (experience, artifacts) before the next stage.
+#       0 = no farm. The last stage of a region is not farmed.
+#   Number of Defeats in a row to downgrade stage number = N   (NO, 1 to 10)
+#       After N defeats in a row, the campaign goes back one stage. Default during the account start: 1.
+#   Number of Victories in a row to upgrade stage number = N   (NO, 1 to 10)
+#       After going back, the stage lost is tried again after N victories. Default: 3.
+#       When a campaign farm is running, its number is used instead.
+#   Account Start Market Slots = N   (0 to 6, default 6)
+#       Market slots unlocked with silver at each Market visit, up to slot N. On a new account the 7th slot asks for
+#       gems: the bot never goes past the 6th and never accepts a price in gems.
+#   Account Start Leader = Athel, Elhain, Kael or Galek   (default Athel)
+#       Starter champion chosen in the tutorial ("Choose your first Champion"); use it at level 1.
+#   Account Start Champion Collection = N   (0 = off)
+#       The champion collection is extended (Champions, "+" at the end of the list, 10 places) until N places, paid with
+#       silver only (120,000; never the gems button). The minimum silver of the settings does not apply during the account start.
+#   Account Start Farm Until Core Rank = N
+#       While Athel or Warpriest is under N stars, the campaign does not go further: the stage won is
+#       replayed (food champions, experience) until both are ranked up. 0 = off.
+#       Athel and Warpriest never leave the campaign team during the account start.
+#
+# USEFUL SETTINGS (name = possible values)
+#   Campaign Champions replacement number = Off, 1, 2, 3     (food champions replaced when maxed)
+#   Campaign Champions replacement rarity / rank               (same values as in the bot)
+#   Classic Arena Battles switch = ON, OFF
+#   Tag Team Arena Battles switch = ON, OFF
+#   Dungeons Battles menu = ON, OFF    with  Dungeon Name, Dungeon Stage, Number of Dungeon Battles to do
+#   Demon Lord Battles switch = ON, OFF
+#   Faction War Battles switch = ON, OFF
+#   Doom Tower Battles switch = ON, OFF
+#   Minimum Energy for Battles = number
+#   Tavern switch = On, Off    with  Champion to level Rank choice = Until Rank 3, Until Rank 4...,
+#       Sacrifice rank 1 champions checkbox, Exclude rare / ascended / fusion champions checkbox = On, Off
+#   Portal switch = On, Off    with  Number of champions to summon = 10, 20... (Mystery Shards; during the
+#       account start the Portal is also used when there are not enough champions to replace)
+#   Any other setting of the Settings files can be used the same way.
+#   Settings that cannot be changed here: login data, emulator, Account Start.
+#
+# ================================================================================================
+1 : Account Start Leader = Athel
+1 : Account Start Leader = Elhain
+1 : Account Start Leader = Kael
+1 : Account Start Leader = Galek
+15 : Campaign Champions replacement number = 2
+15 : Campaign Champions replacement rarity = until epic
+15 : Campaign Champions replacement rank = 1-4
+15 : Portal switch = On
+15 : Number of champions to summon = 10
+15 : Tavern switch = On
+15 : Tavern upgrade on Start switch = On
+15 : Champion to level Rank choice = Until Rank 4
+15 : Sacrifice rank 1 champions checkbox = Off
+15 : Exclude rare champions checkbox = On
+15 : Exclude ascended champions checkbox = Off
+15 : Exclude fusion champions checkbox = Off
+15 : Level up with Brews switch = Off
+15 : Account Start Champion Collection = 40
+20 : Account Start Campaign Farm = 10
+20 : Number of Defeats in a row to downgrade stage number = 2
+20 : Number of Victories in a row to upgrade stage number = 10
+20 : Account Start Farm Until Core Rank = 4
+20 : Account Start Market Slots = 6
+20 : Account Start Champion Collection = 50
+25 : Account Start Champion Collection = 60
+30 : Account Start Champion Collection = 70
+35 : Account Start Champion Collection = 80

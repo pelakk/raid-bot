@@ -1,0 +1,515 @@
+// Panda End Game rules for all uses (Battles, Inbox, Storage)
+
+// Syntax explanation:
+// Any blank line or line starting with // is ignored: allows adding comments
+// Actions Keep or Sell or Upgrade 4,8,12,16 : mandatory at the beginning of the rule, defines the action to take if the rule is true
+// Action Upgrade n upgrades the item to level n then the Bot reads new stats and apply all rules again to keep or sell upgraded item
+// Optional keyword Artifact, Accessory or SpecialAcc after the action means that the rule is only for artifacts or accessories or special accessories
+// By default SpecialAcc means all special accessories (Sets and Special: Bloodshield, Revenge, Reaction, Refresh, Cleansing), but you can define it:
+// Keyword SpecialAcc allows to define a small group of special accessories (ie SpecialAcc = Stonecleaver/Bloodshield/Chronophage)
+// Keyword GroupSets allows to define a group of sets to use in rules
+// All other conditions are optional and can be placed in any order in the rule, separated by commas:
+// - Set = : defines the Sets concerned by the rule (set names idem Raid), "Set = GroupSets" uses the group of sets defined by the last line "GroupSets = "
+// - Faction = : defines the Factions for Accessories
+// - Special = : defines the Special Accessories concerned, possible values = Bloodshield, Reaction, Revenge, Cleansing, Refresh
+// - Type = : defines the types concerned, possible values = W, H, S, G, C, B, R, A, N, W = Weapon, H = Helmet, S = Shield, G = Gauntlet, C = Chestplate, B = Boots, R = Ring, A = Amulet, N = Banner
+//	          Combo (W/H/S means considering artifacts of type Weapon, Helmet, or Shield)
+// - Main = : defines the main stats concerned, possible values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP (e.g., ATK%/DEF%/HP% means the main Stat must be ATK% or DEF% or HP%)
+// - Rank : in the form = or > or < or <= or >= (e.g., Rank < 6)
+// - Level : in the form = or > or < or <= or >= (e.g., Level < 16)
+// - Rarity : Common, Uncommon, Rare, Epic, Legendary, Mythic in the form = or > or < or <= or >= (e.g., Rarity < Epic means considering Common, Uncommon and Rare items)
+// - Sub = : idem Main stats (maximum of 4 Sub conditions since there are up to 4 substats per item)
+// - 2*Sub means that 2 substats of the item must meet the condition
+// - Sub values = ATK%, DEF%, HP%, CR%, CD%, ACC, RES, ATK, DEF, HP. Sub value can be followed by 1, 2, 3, 4 e.g. SPD2 in rules means SPD(2) in Raid screen
+
+
+// GLOBAL HARD FLOOR: 4* or below and Common/Uncommon are sold no matter what
+// (placed before ALL keep rules, including "Keep, Level >= 12" and the accessory keep-all sets)
+////////////////////////////////////////////////////////////////////////////////////////////////
+Sell, Rank < 5
+Sell, Rarity < Rare
+Sell Accessory, Rank < 5
+Sell Accessory, Rarity < Rare
+
+// GLOBAL: keep ALL Mythic items (artifacts and accessories, any set)
+// The bot cannot tell which substat is the inherent mythic roll: displayed roll counts
+// understate effective rolls by one on the (unknown) mythic substat, so ANY displayed-roll
+// keep/sell gate would mis-judge Mythics (e.g. an effective double roll shown as two singles).
+// Low volume + built-in reroll value -> keep all, review manually.
+////////////////////////////////////////////////////////////////////////////////////////////
+// Exception: Mythic Feral and Mercurial ARTIFACTS are upgraded to 8 first to reveal rolls
+// (still never sold - the Keep below catches them after the upgrade)
+Upgrade 8, Set = Feral/Mercurial, Rarity = Mythic
+Keep, Rarity = Mythic
+
+// Mythic ACCESSORIES: special sets keep all (5* and 6*); normal sets keep 6* only -
+// a 5* Mythic accessory of a normal set is sold without upgrading
+Keep Accessory, Set = Feral/Mercurial/Merciless/Swift Parry/Deflection/Pinpoint/Stone Skin/Protection/Supersonic/Rebirth/Stonecleaver/Slayer, Rarity = Mythic
+Keep Accessory, Special = Reaction, Rarity = Mythic
+Keep Accessory, Special = Bloodshield, Rarity = Mythic
+Sell Accessory, Rank = 5, Rarity = Mythic
+Keep Accessory, Rarity = Mythic
+
+// MERCURIAL OVERRIDES: must run BEFORE "Keep, Level >= 12"
+// so that Mercurial items upgraded to level 12 are re-evaluated here instead of being auto-kept
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// Boots with SPD mainstat, any rarity (5* and 6*): upgrade to 8 to reveal rolls, then keep all
+Upgrade 8, Set = Mercurial, Rank >= 5, Type = B, Main = SPD
+Keep, Set = Mercurial, Rank >= 5, Type = B, Main = SPD
+
+
+// Epic and Legendary W/H/S/G/C with SPD substat (5* and 6*): upgrade to 8 to reveal rolls, then keep all
+Upgrade 8, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = W/H/S/G/C, Sub = SPD
+Keep, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = W/H/S/G/C, Sub = SPD
+
+// Level 12 evaluation, Epic/Legendary W/H/S/G/C upgraded without SPD: keep if ANY substat (flats included) has a double roll, else sell
+// Rationale: one substat can be rerolled, so a double roll into a trash/flat stat can become useful
+Keep, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = W/H/S/G/C, Level = 12, Sub = SPD2/HP%2/DEF%2/ATK%2/CR%2/CD%2/ACC2/RES2/HP2/DEF2/ATK2
+Sell, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = W/H/S/G/C, Level = 12
+
+// Level 12 evaluation, Epic/Legendary boots HP%/DEF%/ATK% mainstat: keep if SPD1 or any double roll (flats included), else sell
+Keep, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Level = 12, Sub = SPD1/HP%2/DEF%2/ATK%2/CR%2/CD%2/ACC2/RES2/HP2/DEF2/ATK2
+Sell, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Level = 12
+
+// FERAL OVERRIDES: level-12 evaluations, must run BEFORE "Keep, Level >= 12"
+////////////////////////////////////////////////////////////////////////////
+
+// W/H/S/G/C at level 12 with SPD substat: keep (keep-all spirit of the with-SPD rule, protects hand-leveled pieces)
+Keep, Set = Feral, Rank >= 5, Type = W/H/S/G/C, Level = 12, Sub = SPD
+// W/H/S/G/C upgraded to 12 without SPD: keep if any substat (flats included) has a double roll, else sell
+Keep, Set = Feral, Rank >= 5, Type = W/H/S/G/C, Level = 12, Sub = SPD2/HP%2/DEF%2/ATK%2/CR%2/CD%2/ACC2/RES2/HP2/DEF2/ATK2
+Sell, Set = Feral, Rank >= 5, Type = W/H/S/G/C, Level = 12
+
+// Boots flat HP/DEF/ATK mainstat upgraded to 12: keep if any substat has a double roll, else sell
+Keep, Set = Feral, Rank >= 5, Type = B, Main = HP/DEF/ATK, Level = 12, Sub = SPD2/HP%2/DEF%2/ATK%2/CR%2/CD%2/ACC2/RES2/HP2/DEF2/ATK2
+Sell, Set = Feral, Rank >= 5, Type = B, Main = HP/DEF/ATK, Level = 12
+
+
+// All Items: keep level >= 12 (4* and below / sub-Rare already sold by the global hard floor above)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+Keep, Level >= 12
+
+
+// Accessories
+//////////////
+
+// Accessory Sets Swift Parry, Deflection, Pinpoint : keep all 5* and 6*
+// (lower ranks and Common/Uncommon already sold by the global hard floor at the top)
+GroupSets = Swift Parry/Deflection/Pinpoint
+Keep Accessory, Set = GroupSets
+
+// Feral, Mercurial and Merciless accessories: upgrade to 8 to reveal rolls, then keep
+// regardless of substat rolls - never sold
+Upgrade 8 Accessory, Set = Feral/Mercurial/Merciless, Rank >= 5
+Keep Accessory, Set = Feral/Mercurial/Merciless, Rank >= 5
+
+// Special Accessories Reaction and Bloodshield : keep all
+Keep Accessory, Special = Reaction
+Keep Accessory, Special = Bloodshield
+
+// Accessory Sets Stone Skin, Protection, Supersonic, Rebirth, Stonecleaver, Slayer:
+// roll-to-8 evaluation per type; Mythics already kept by the global rule at the top; everything else sold by the scoped Sell at the end of this block
+// ("Sell Accessory" only affects R/A/N - artifacts of Stonecleaver/Slayer etc. still follow their own sections below)
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+GroupSets = Stone Skin/Protection/Supersonic/Rebirth/Stonecleaver/Slayer
+
+
+// Rings HP or DEF mainstat (5*/6* Rare+): no HP% and no DEF% substat -> sell
+// else upgrade 8, keep if HP%(2) or DEF%(2) or (HP%(1) and DEF%(1)), else sell
+Upgrade 8 Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = HP/DEF, Sub = HP%/DEF%
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = HP/DEF, Sub = HP%2/DEF%2
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = HP/DEF, Sub = HP%1, Sub = DEF%1
+
+// Rings ATK mainstat (5*/6* Rare+): no ATK% substat -> sell
+// else upgrade 8, keep if HP%(2) or ATK%(2) or (ATK%(1) and HP%(1)), else sell
+Upgrade 8 Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = ATK, Sub = ATK%
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = ATK, Sub = HP%2/ATK%2
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = R, Main = ATK, Sub = ATK%1, Sub = HP%1
+
+// Amulets any mainstat (5*/6* Rare+): no ACC and no RES substat -> sell
+// else upgrade 8, keep if ACC(2) or RES(2) or (ACC(1) and RES(1)), else sell
+Upgrade 8 Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = A, Sub = ACC/RES
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = A, Sub = ACC2/RES2
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = A, Sub = ACC1, Sub = RES1
+
+// Banners any mainstat (5*/6* Rare+): with SPD substat keep as is (no upgrade)
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = N, Sub = SPD
+// without SPD substat: upgrade 8, keep if any substat (flats included) has a double roll, else sell
+// (with-SPD banners never reach the Upgrade rule: kept by the rule above)
+Upgrade 8 Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = N
+Keep Accessory, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = N, Sub = SPD2/HP%2/DEF%2/ATK%2/ACC2/RES2/CR%2/CD%2/HP2/DEF2/ATK2
+
+// Sell all other Stone Skin/Protection/Supersonic/Rebirth/Stonecleaver/Slayer accessories
+Sell Accessory, Set = GroupSets
+
+
+// All other Accessories: Keep only 6* Epic+
+Sell Accessory, Rank < 6
+Sell Accessory, Rank = 6, Rarity < Epic
+
+// Rings HP mainstat: If substats HP% + ATK% then Upgrade level 8 and Keep if (HP%(1) and ATK%(1)) or (HP%2 or ATK%2) substats
+Upgrade 8 Accessory, Type = R, Main = HP, Sub= HP%, Sub=ATK%
+Keep Accessory, Type = R, Main = HP, Sub=HP%2/ATK%2
+Keep Accessory, Type = R, Main = HP, Sub=HP%1, Sub=ATK%1
+
+// Rings HP/DEF mainstat: If substats HP% + DEF% then Upgrade level 8 and Keep if (HP%(1) and DEF%(1)) or (HP%2 or DEF%2) substats
+Upgrade 8 Accessory, Type = R, Main = HP/DEF, Sub= HP%, Sub=DEF%
+Keep Accessory, Type = R, Main = HP/DEF, Sub = HP%2/DEF%2
+Keep Accessory, Type = R, Main = HP/DEF, Sub = HP%1, Sub = DEF%1
+
+// Rings ATK mainstat: If substats HP% + ATK% then Upgrade level 8 and Keep if (HP%(1) and ATK%(1)) or (HP%2 or ATK%2) substats
+Upgrade 8 Accessory, Type = R, Main = ATK, Sub = HP%, Sub=ATK%
+Keep Accessory, Type = R, Main = ATK, Sub = HP%2/ATK%2
+Keep Accessory, Type = R, Main = ATK, Sub = HP%1, Sub = ATK%1
+
+Sell Accessory, Type = R
+
+// Amulets HP/DEF/CD% mainstat: if substats ACC + RES then Upgrade Level 8 and Keep if (ACC(1) and RES(1)) or (ACC2 or RES2) substats
+Upgrade 8 Accessory, Type = A, Main = HP/DEF/CD%, Sub = ACC, Sub=RES
+Keep Accessory, Type = A, Main = HP/DEF/CD%, Sub = ACC2/RES2
+Keep Accessory, Type = A, Main = HP/DEF/CD%, Sub = ACC1, Sub=RES1
+
+// Amulets ATK mainstat: if substat ACC(1) then Upgrade Level 8 and Keep if ACC(2)
+Upgrade 8 Accessory, Type = A, Main = ATK, Sub = ACC
+Keep Accessory, Type = A, Main = ATK, Sub = ACC2
+
+Sell Accessory, Type = A
+
+// Banners HP/DEF mainstat: if substats (HP% + SPD) or (DEF% + SPD) then Upgrade Level 8 and Keep if SPD(1) or (HP%2 or DEF%2)
+Upgrade 8 Accessory, Type = N, Main = HP/DEF, Sub = SPD, Sub = HP%/DEF%
+Keep Accessory, Type = N, Main = HP/DEF, Sub = SPD1, Sub = HP%1/DEF%1
+Keep Accessory, Type = N, Main = HP/DEF, Sub = SPD, Sub = HP%2/DEF%2
+
+// Banners ATK mainstat: if substats (ATK% + SPD) then Upgrade Level 8 and Keep if SPD(1) or ATK%2
+Upgrade 8 Accessory, Type = N, Main = ATK, Sub = SPD
+Keep Accessory, Type = N, Main = ATK, Sub = SPD1, Sub = ATK%1
+Keep Accessory, Type = N, Main = ATK, Sub = SPD, Sub = ATK%2
+
+// Banners ACC/RES mainstat: if SPD substat then Upgrade Level 8 and Keep if SPD(1)
+Upgrade 8 Accessory, Type = N, Main = ACC/RES, Sub = SPD
+Keep Accessory, Type = N, Main = ACC/RES, Sub = SPD1
+Sell Accessory, Type = N
+
+
+
+// Special set Feral
+// Accessories handled in the accessory section above (upgrade 8, keep all)
+// Mythics kept by the global rule at the top; level-12 evaluations in the FERAL OVERRIDES block at the top
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 1. W/H/S/G/C with SPD substat: upgrade to 8, then keep all
+Upgrade 8, Set = Feral, Rank >= 5, Type = W/H/S/G/C, Sub = SPD
+Keep, Set = Feral, Rank >= 5, Type = W/H/S/G/C, Sub = SPD
+
+// 2. W/H/S/G/C without SPD substat: upgrade to 12 (kept at TOP if any double roll incl. flats, else sold)
+// With-SPD items never reach this rule: caught by the Upgrade 8 rule in 1. above
+Upgrade 12, Set = Feral, Rank >= 5, Type = W/H/S/G/C
+
+// 3. Boots SPD mainstat: upgrade to 12, keep all (auto-kept by "Keep, Level >= 12" after the upgrade)
+Upgrade 12, Set = Feral, Rank >= 5, Type = B, Main = SPD
+
+// 4. Boots HP%/DEF%/ATK% mainstat with SPD substat: upgrade to 12, keep all (auto-kept by "Keep, Level >= 12")
+Upgrade 12, Set = Feral, Rank >= 5, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+// 5. Boots flat HP/DEF/ATK mainstat: upgrade to 12 (kept at TOP if any double roll, else sold)
+Upgrade 12, Set = Feral, Rank >= 5, Type = B, Main = HP/DEF/ATK
+
+// 6. Sell everything else (incl. HP%/DEF%/ATK% boots WITHOUT SPD substat)
+Sell, Set = Feral
+
+// Special set Merciless (Mercurial split into its own section below)
+GroupSets = Merciless
+///////////////////////////////
+
+// 1. WHS: If Rank >=5 and Rarity >= Rare the Upgrade Level 8 and Keep if SPD1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD/CR%/CD%
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD1/CR%1/CD%1
+
+// 2. Gauntlets: If Rank >=5 and Rarity >= Rare CD% mainstat then Upgrade Level 8 and Keep if CR%1 or SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD1/CR%1
+
+// 3. Gauntlets: If Rank >=5 and Rarity >= Rare CR% mainstat then Upgrade Level 8 and Keep if CD%1 or SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD/CD%
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD1/CD%1
+
+// 4. Gauntlets: If Rank >=5 and Rarity >= Rare with any mainstat then Upgrade Level 8 and Keep if substat SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Sub = SPD
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = G, Sub = SPD1
+
+// 5. Chestplate: If Rank >=5 and Rarity >= Rare ACC/RES/HP%/DEF%/ATK% mainstat then Upgrade Level 8 and Keep if CR%1 or CD%1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Main =ACC/RES/HP%/DEF%/ATK%, Sub = CR%/CD%
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = C, Main =ACC/RES/HP%/DEF%/ATK%, Sub = CR%1/CD%1
+
+// 6. Chestplate: If Rank >=5 and Rarity >= Rare with any mainstat and substat SPD then Upgrade Level 8 and Keep if SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Sub = SPD
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = C, Sub = SPD1
+
+// 7. Boots: If Rank >=5 and Rarity >= Rare SPD mainstat then upgrade Level 8 and Keep all
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = SPD
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = B, Main = SPD
+
+// 8. Boots: If Rank >=5 and Rarity >= Rare HP%/DEF%/ATK% mainstat and SPD or CR% or CD% substat then Upgrade Level 8 and Keep if Substat SPD1 or CR%1 or CD%1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD/CR%/CD%
+Keep, Rank >= 5, Set = GroupSets, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1/CR%1/CD%1
+
+// 9. Sell all other Merciless artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+// Special set Mercurial (split from Merciless - speed-focused)
+// NOTE: unconditional keeps (SPD-main boots, Epic/Legendary W/H/S/G/C with SPD substat, all Mythics) and all
+// level 12 post-upgrade evaluations are at the TOP of this file, before "Keep, Level >= 12"
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// Boots with flat HP/DEF/ATK mainstat: sell, any rarity (5* and 6*)
+Sell, Set = Mercurial, Rank >= 5, Type = B, Main = HP/DEF/ATK
+
+// 1. Rare W/H/S/G/C: upgrade 8 if SPD substat, keep if SPD1 after upgrade (no SPD substat -> section Sell below)
+Upgrade 8, Set = Mercurial, Rank >= 5, Rarity = Rare, Type = W/H/S/G/C, Sub = SPD
+Keep, Set = Mercurial, Rank >= 5, Rarity = Rare, Type = W/H/S/G/C, Sub = SPD1
+
+// 2. Rare boots HP%/DEF%/ATK% mainstat: upgrade 8 if SPD substat, keep if SPD1 after upgrade (no SPD -> section Sell)
+Upgrade 8, Set = Mercurial, Rank >= 5, Rarity = Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = Mercurial, Rank >= 5, Rarity = Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1
+
+// 3. Epic/Legendary W/H/S/G/C with SPD substat and all Mythics are kept by the top-of-file rules and never reach this section
+
+// 4. 6* Epic W/H/S/G/C without SPD substat: upgrade to 12 (kept at TOP of file if any double roll incl. flats, else sold)
+// 5* Epic without SPD substat falls through to the section Sell below
+Upgrade 12, Set = Mercurial, Rank = 6, Rarity = Epic, Type = W/H/S/G/C
+
+// 5. Epic/Legendary boots HP%/DEF%/ATK% mainstat with SPD substat (5* and 6*): upgrade to 12
+// (kept at TOP of file if SPD1 or any double roll, else sold; without SPD -> section Sell below)
+Upgrade 12, Set = Mercurial, Rank >= 5, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+
+// 6. Legendary W/H/S/G/C without SPD substat: upgrade to 12 (kept at TOP of file if any double roll incl. flats, else sold)
+// With-SPD Legendaries and Mythics never reach this rule: already kept by the top-of-file rules
+Upgrade 12, Set = Mercurial, Rank >= 5, Rarity >= Legendary, Type = W/H/S/G/C
+
+// 7. Sell all other Mercurial artifacts that are not matching the previous rules
+Sell, Set = Mercurial
+
+// Special set Stonecleaver
+///////////////////////////
+
+// 1. WHS: If Rank >=5 and Rarity >= Rare then Upgrade Level 8 and Keep if SPD1 or CR%1 or CD%1 substat
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD/CR%/CD%
+Keep, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD1/CR%1/CD%1
+
+// 2. Gauntlets: If Rank >=5 and Rarity >= Rare CD% mainstat then Upgrade Level 8 and Keep if CR%1 or SPD1
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank >= 5, Set = Stonecleaver, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD1/CR%1
+
+// 3. Gauntlets: If Rank >=5 and Rarity >= Rare CR% mainstat then Upgrade Level 8 and Keep if CD%1 or SPD1
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD/CD%
+Keep, Rank >= 5, Set = Stonecleaver, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD1/CD%1
+
+// 4. Chestplate: If Rank >=5 and Rarity >= Rare ACC/RES/HP%/DEF%/ATK% mainstat then Upgrade Level 8 and Keep if CR%1 or CD%1
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = C, Main =ACC/RES/HP%/DEF%/ATK%, Sub = CR%/CD%
+Keep, Rank >= 5, Set = Stonecleaver, Rarity >= Rare, Type = C, Main =ACC/RES/HP%/DEF%/ATK%, Sub = CR%1/CD%1
+
+// 5. Boots: If Rank >=5 and Rarity >= Rare SPD mainstat then upgrade Level 8 and Keep all
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = B, Main = SPD
+Keep, Rank >= 5, Set = Stonecleaver, Rarity >= Rare, Type = B, Main = SPD
+
+// 6. Boots: If Rank >=5 and Rarity >= Rare HP%/DEF%/ATK% mainstat and SPD or CR% or CD% substat then Upgrade Level 8 and Keep if Substat SPD1 or CR%1 or CD%1
+Upgrade 8, Set = Stonecleaver, Rank >= 5, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD/CR%/CD%
+Keep, Rank >= 5, Set = Stonecleaver, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1/CR%1/CD%1
+
+// 7. Sell all other Stonecleaver artifacts that are not matching the previous rules
+Sell, Set = Stonecleaver
+
+// Other Special sets
+GroupSets = Rebirth/Supersonic/Pinpoint/Chronophage
+///////////////////////////////////////////////////
+
+// 1. WHS: If Rank >=5 and Rarity >= Rare SPD substat then Upgrade Level 8 and Keep if if SPD(1) substat
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = W/H/S, Sub = SPD1
+
+// 2. Gauntlets: If Rank >=5 and Rarity >= Rare any mainstat SPD substat then Upgrade Level 8 and Keep if SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = G, Sub = SPD1
+
+// 3. Chestplate: If Rank >=5 and Rarity >= Rare any mainstat SPD substat then Upgrade Level 8 and Keep if SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = C, Sub = SPD1
+
+// 4. Boots: If Rank >=5 and Rarity >= Rare SPD mainstat ACC or RES or CR% or CD% substats then Upgrade Level 8 and Keep if ACC1 or RES1 or CR%1 or CD%1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC1/RES1/CR%1/CD%1
+
+// 5. Boots: If Rank >=5 and Rarity >= Rare HP%/DEF%/ATK% mainstat SPD substat then Upgrade Level 8 and Keep if SPD1
+Upgrade 8, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank >= 5, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1
+
+// Sell all other Special sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// Defensive and Health sets
+GroupSets = Life/Defense/Frost/Regeneration/Shield/Stalwart/Curing/Immortal/Divine Life/Deflection/Resilience/Frostbite/Guardian/Defiant/Bolster
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Upgrade Level 8 and Keep 6* Epic+ if SPD(1) substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 3*Sub = RES/ACC/CR%/CD%/HP%/DEF%
+
+// Gauntlets: Upgrade Level 8 and Keep 6* Epic+ and main Stat HP% or Def% if SPD substat and keep if after upgrade SPD1
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = HP%/DEF%, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = HP%/DEF%, Sub = SPD1
+
+// Chestplate: Upgrade Level 8 and Keep 6* Epic+ and main Stat HP%/DEF%/ACC/RES mainstat if SPD substat and keep if after upgrade SPD1
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ACC/RES, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ACC/RES, Sub = SPD1
+
+// Boots: Upgrade Boots 6* Epic+ SPD mainstat if ACC or RES or HP% or DEF% substats, keep after upgrade if ACC1 or RES1 or HP%1 or DEF%1
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = HP%/DEF%/ACC/RES
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = HP%1/DEF%1/ACC1/RES1
+
+// Boots: Upgrade Boots 6* Epic+ HP%/DEF% mainstat if SPD substats, keep after upgrade if SPD1
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%, Sub = SPD1
+
+// Sell all other Defensive and Health sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// 2nd tier damage sets
+GroupSets = Offense/Critical Rate/Crit Damage/Lifesteal/Frenzy/Destroy/Toxic/Retaliation/Avenging/Divine Offense/Divine Critical Rate/Fatal/Bloodthirst
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Upgrade Level 8 and Keep 6* Epic+ Keep after upgrade if SPD1 and CR%1 substats or SPD2 or CR%2
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = CR%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD1, Sub = CR%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD2/CR%2
+
+// Gauntlets: Upgrade Level 8 6* Rare+ CD% mainstat, Keep after upgrade if CR%1 or SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD1/CR%1
+
+// Gauntlets: Upgrade Level 8 6* Rare+ CR% mainstat, Keep after upgrade if CD%1 and SPD1 OR CD%2 or SPD2 substats
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD, Sub = CD%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CR%, Sub = SPD1, Sub = CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CR%, Sub = CD%2/SPD2
+
+// Chestplate: Upgrade Level 8 and Keep Epic+ HP%/DEF%/ATK%/ACC/RES Keep after upgrade if (SPD1 + CR%1) or (SPD1 + CD%1) or (CR%1 + CD%1) or SPD2 or CR%2 or CD%2 substats
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD, Sub = CR%/CD%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD1, Sub = CD%1/CR%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = CR%1, Sub = CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD2/CD%2/CR%2
+
+// Boots: Upgrade Level 8 6* Rare+ SPD mainstat and Keep after upgrade if ACC1 + CR%1 or ACC1 + CD%1 or CR%1 + CD%1 or ACC2 or CR%2 or CD%2 substats 
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC, Sub = CR%/CD%
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = CR%, Sub= CD%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC1, Sub = CR%1/CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = CR%1, Sub = CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC2/CR%2/CD%2
+
+// Boots: Upgrade Level 8 6* Epic+ HP%/DEF%/ATK% mainstat and Keep after upgrade if SPD1 + CR%1 or SPD1 + CD%1 or SPD2 substats
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1, Sub = CR%1/CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD2
+
+// Sell all other 2nd tier damage sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// 1st tier damage sets
+GroupSets = Savage/Cruel/Lethal/Killstroke/Instinct/Zeal/Slayer
+///////////////////////////////////////////////////////////////
+
+// WHS: Upgrade Level 8 6* Epic+ and Keep after upgrade if SPD1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = W/H/S, Sub = SPD1/CR%1/CD%1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 3*Sub = ATK%/ACC/CR%/CD%/HP%/DEF%
+
+// Gauntlets: Upgrade Level 8 6* Rare+ CD% mainstat and Keep after upgrade if CR%1 or SPD1
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD/CR%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = G, Main = CD%, Sub = SPD1/CR%1
+
+// Gauntlets: Upgrade Level 8 6* Epic+ CR% mainstat and Keep after upgrade if CD%1 and SPD1 OR CD%2 or SPD2 substats
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Main = CR%, Sub = SPD, Sub=CD%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = G, Main = CR%, Sub = SPD1, Sub = CD%1
+Keep, Rank = 6, Set = GroupSets, Rarity >= Epic, Type = G, Main = CR%, Sub = SPD2/CD%2
+
+// Chestplate: Upgrade Level 8 6* Rare+ HP%/DEF%/ATK%/ACC/RES mainstat and Keep after upgrade if SPD1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub=SPD/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD1/CD%1/CR%1
+
+// Boots: Upgrade Level 8 6* Rare+ SPD mainstat and Keep after upgrade if ACC1 or RES1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC1/RES1/CR%1/CD%1
+
+// Boots: Upgrade Level 8 6* Rare+ HP%/DEF%/ATK% mainstat and Keep after upgrade if SPD1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD/CR%/CD%
+Keep, Rank = 6, Set = GroupSets, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1/CR%1/CD%1
+
+// Sell all other 1st tier damage sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// Stoneskin and Protection
+GroupSets = Protection/Stone Skin
+/////////////////////////////////
+// WHS: Upgrade Level 8 6* Rare+ and Keep after ugprade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = W/H/S, Sub = SPD1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 3*Sub = RES/ACC/CR%/CD%/HP%/DEF%
+
+
+// Gauntlets: Upgrade Level 8 6* Rare+ with any mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = G, Sub = SPD1
+
+
+// Chestplate: Upgrade Level 8 6* Rare+ with any mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = C, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = C, Sub = SPD1
+
+
+// Boots: Upgrade level 8 6* Rare+ SPD mainstat and Keep after upgrade if ACC1 or RES1 or CR%1 or CD%1 or HP%2 or DEF%2 or ATK%2 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%/HP%/DEF%/ATK%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = CR%1/CD%1/ACC1/RES1/HP%2/DEF%2/ATK%2
+
+// Boots: Upgrade Level 8 6* Keep Rare+ HP%/DEF%/ATK% mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1
+
+// Sell all other Universal sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// Universal sets damage and acc / res : always needs speed
+GroupSets = Speed/Accuracy/Resistance/Daze/Cursed/Immunity/Relentless/Stun/Provoke/Reflex/Divine Speed/Swift Parry/Perception/Affinitybreaker/Untouchable/Fortitude/Impulse/Righteous/Fury
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// WHS: Upgrade Level 8 6* Epic+ and Keep after ugprade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD1
+Keep, Set = GroupSets, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 3*Sub = ATK%/ACC/CR%/CD%/HP%/DEF%
+
+// Gauntlets: Upgrade Level 8 6* Epic+ with any mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = G, Sub = SPD1
+
+// Chestplate: Upgrade Level 8 6* Epic+ with any mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = C, Sub = SPD1
+
+// Boots: Upgrade level 8 6* Rare+ SPD mainstat and Keep after upgrade if ACC1 or RES1 or CR%1 or CD%1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = ACC/RES/CR%/CD%
+Keep, Set = GroupSets, Rank = 6, Rarity >= Rare, Type = B, Main = SPD, Sub = CR%1/CD%1/ACC1/RES1
+
+// Boots: Upgrade Level 8 6* Keep Epic+ HP%/DEF%/ATK% mainstat and Keep after upgrade if SPD1 substat
+Upgrade 8, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD
+Keep, Set = GroupSets, Rank = 6, Rarity >= Epic, Type = B, Main = HP%/DEF%/ATK%, Sub = SPD1
+
+// Sell all other Universal sets Artifacts that are not matching the previous rules
+Sell, Set = GroupSets
+
+
+// Keep all other items if no rule is matching (in case of new set)
+///////////////////////////////////////////////////////////////////
