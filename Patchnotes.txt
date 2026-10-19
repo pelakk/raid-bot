@@ -1,3 +1,14 @@
+v8.0.0.5 (private beta)
+Tag Team Arena: the bot no longer loops when the opponent it chose is above the rows shown; the list is scrolled towards it, and an opponent it cannot reach is skipped until the list refresh
+
+v8.0.0.4 (private beta)
+Live Arena: the skills order works again: each skill is clicked once the turn is really shown, champions with a second form (Lady Mikage) are followed, and the battle goes back to Auto cleanly if a turn cannot be played
+Chimera: the A1-only turns are clicked once the turn is really shown
+Tavern: awakened champions (red stars) are never used as food, whatever your settings; a last check before Upgrade cancels it if one is in the slots
+Tag Team Arena: the opponent is chosen from the team power shown in the game, with your player and clan filters
+Classic and Tag Team Arena: the free refresh of the list is clicked only when the game shows it
+Smaller download: the 32-bit files the bot never used are removed
+
 v8.0.0.3 (private beta)
 New Bug report button (in place of Screenshot): write what happened, take screenshots of Raid, and the bot makes a zip with your logs and settings (your licence data removed, your names masked) to drop on Discord
 Dungeons: Hard stages already won are no longer taken as locked (Normal was played instead)
