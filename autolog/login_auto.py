@@ -45,7 +45,7 @@ ULONG_PTR = ctypes.c_ulonglong if ctypes.sizeof(ctypes.c_void_p) == 8 else ctype
 EXE_PATH = Path(r"C:\Windows 11\raid-bot\RaidBot.exe")
 KEYS_PATH = Path(r"C:\Windows 11\keys")
 USERNAME = "kamzza2"
-CLICK_GAP = 10.0
+CLICK_GAP = 30.0
 DESKTOP_SETTLE = 25.0
 HERE = Path(__file__).resolve().parent
 LOG_PATH = HERE / "login_auto.log"
@@ -56,13 +56,7 @@ STEPS = [
     ("username", 70, 180, USERNAME),
     ("key", 70, 235, "KEY"),
     ("login", 150, 340, None),
-    ("settings", 80, 240, None),
-    ("preset dropdown", 330, 90, None),
 ]
-PRESETS = (
-    ("preset1", 330, 127),
-    ("preset2", 330, 143),
-)
 START_STEP = ("start", 460, 350, None)
 
 
@@ -377,9 +371,7 @@ def run(from_autostart: bool) -> None:
     if not move_window_to_origin(proc.pid):
         logging.warning("Nie udalo sie przesunac okna RaidBot na 0,0.")
 
-    preset_name, preset_x, preset_y = random.choice(PRESETS)
-    logging.info("Wylosowany preset: %s (%s,%s)", preset_name, preset_x, preset_y)
-    steps = [*STEPS, (preset_name, preset_x, preset_y, None), START_STEP]
+    steps = [*STEPS, START_STEP]
 
     for index, (name, x, y, text) in enumerate(steps, start=1):
         if proc.poll() is not None:
