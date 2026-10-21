@@ -1,3 +1,19 @@
+v8.0.1.0
+Promotions: an offer whose closing question came late is now closed for good (it could come back for hours)
+Bug report: the window now tells you to drop the zip in the ask-support channel of the Discord
+Grim Forest: the team is made again with your deck champions (it could take random champions out of your deck), the Draw Champions screen is handled and the drawn champions confirmed
+Grim Forest: a trait card screen left open when the bot starts is handled (the bot waited, thinking Raid was frozen)
+Faction Wars: no more error when a crypt is suspended after a defeat on stage 1
+Doom Tower: the team of each boss is chosen again, and a defeated Ultimate Boss is seen again in Gold Keys
+Unlock a Mastery quest: put aside for version 8.1 (with its second part)
+
+v8.0.0.6 (private beta)
+Champion replacement: champions are replaced again when the filtered list is short (it stayed with empty places, "Champions list not read"); the filter is cleared before your ranks and rarities are ticked
+Summoning Portal: champions in the Master Vault are no longer counted in your collection ("Collection is full" with a negative number, nothing summoned)
+Tavern, artifact equipment, arena defence: champions in the Master Vault are no longer taken
+Tournaments and Events: a page the bot does not know is closed after a few seconds instead of waiting until the action timeout
+Advanced Quest Unlock a Mastery, first part: on a Minotaur's Labyrinth daily battle with 4 champions, the free place takes your strongest champion without mastery so that it earns Basic Scrolls
+
 v8.0.0.5 (private beta)
 Tag Team Arena: the bot no longer loops when the opponent it chose is above the rows shown; the list is scrolled towards it, and an opponent it cannot reach is skipped until the list refresh
 
