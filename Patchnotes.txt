@@ -1,3 +1,71 @@
+v8.2.0.2
+Live Arena Skills order: champions with a passive skill now play the chosen skill (A3 no longer played as A2), and a skill Raid refuses is replaced by A1 on that turn instead of switching the battle to Auto
+
+v8.2.0.1
+Fixed: the bot no longer stops on a false "account logged in on another device" when no message is shown
+
+v8.2.0.0
+AutoSell: artifacts are now upgraded set by set, so the bot only works on the set it is looking at
+AutoSell: accessories are upgraded the same way, faction by faction then special by special
+AutoSell: when set-by-set upgrading cannot be used, the bot stops and says why in orange
+AutoSell window: Faction and Special filters for accessories
+AutoSell window: the filters and the tab you chose are kept when the window comes back
+AutoSell window: Stop is always in the same place, greyed when nothing runs
+AutoSell window: a confirmation is asked above 20 items, naming what will be done
+AutoSell window: resize and move it as you like; its place and size are kept for next time
+AutoSell window: To sell and To upgrade open with everything checked; uncheck what you want to keep
+AutoSell window: Sell, Upgrade and Collect only act on the checked items shown in their own tab, and each button shows the exact number it will do
+AutoSell window: while upgrading, the orange bar shows the item in progress and how many are done
+AutoSell window: the set filter list now shows every set
+Upgrades: the bot waits for each item to reach its target level before moving on, and Stop is taken into account between every step
+Items used in a preset are never offered for sale
+Daily rest: switching it OFF during a rest ends the rest at once
+Summon Rush rebuilt: it now upgrades as at the bot start, then makes room by levelling your 3* (4* first with "Until rank 5") with Raid's Instant Upgrade and ranking them up by hand, never with Instant/Fast Rank Up
+Summon Rush: champions done with "Until rank N" and the rush's spare rares go to the Reserve Vault
+Summon Rush: x10 summons follow each other, with the summon animation sped up from the first one
+Summon Rush: the "Done" box counts the burnt Mystery Shards live; a finished rush switches itself OFF the next time you launch RSLBot
+The bot window always opens inside one of your screens
+Connection errors and "account logged in on another device": the message is seen even when the screen check misses it, the bot stops clicking under it, then clicks Continue or Re-log in
+Inbox AutoSell: the same window as the Storage: items to sell and to upgrade in two tabs, the sale confirmed in Raid's own box; upgraded items move to their new tab at once
+Stats: new Stats button with your battles, victories, time played and loot (best pieces, energy per 6* Legendary by place), the last battles in a row and your energy, silver and gems; kept on this PC only
+Guide: new Guide button, the user guide opens in a bot window in your language (13 languages, the arrow changes it); a second click closes it
+Stats, Bug report and Guide windows: they open again where you left them, with their size, even after the bot was closed; Bug report can be resized
+Left menu redesigned: logo at the top, Stats and Guide side by side, Bug report under them, the version at the bottom with a "New" button when an update is ready
+Login screen: your Raid links are shown as used / total and how many are left ("Raid links: 2 / 3 (1 left)"), also in the license list; the block no longer touches the license key
+Mouse hidden: works again on PCs where it failed; only "Mouse hidden activated" is shown
+Tavern: the number of champions is read correctly with a full collection (Summon Rush stopped on "Number of Champions not found" and the AutoSell was skipped)
+Log Monitor: closed promotions and short waits no longer fill the Log Monitor (they stay in log.txt)
+General tab: "Memory reading" (ON by default; OFF = screen reading only) and "Send orders directly to the game" (OFF by default, needs Memory reading and "Leave mouse and keyboard free", the new name of "Hide mouse and keyboard Bot orders": for now, mass artifact sales and artifact upgrades; more actions will come later); the Raid and login windows are brought back on screen when out of reach
+Raid window: put back where you left it as soon as the bot sees it, even after the bot or the PC was restarted
+Minimum silver to keep: up to 500M, by 50M
+Champion names corrected in your settings are saved, the correction no longer comes back at every start
+Storage AutoSell: the rules' result now opens in a window where you choose: artifacts to sell and to upgrade in two tabs, with Raid's own pictures, the rule of each card and filters; only the checked items are sold or upgraded, and the window closes by itself after 60 minutes without doing anything
+Storage AutoSell: the Simulation checkbox is gone; if it was ticked, Inbox artifact selling is turned off once so you can review it before turning it back on
+Raid start: shown in three steps (Starting Plarium Play, Starting Raid, Raid started) and no longer waits when Raid is already open
+New installation: RSLBot Setup installs and updates the bot; your settings are kept and the whole RSLBot folder is saved before each update
+New version: shown once in a "What's new" panel next to the bot; if you choose Later, a "New: vX" button stays next to the version, its tooltip lists the changes and a click updates the bot at the end of the current battle
+Long battles lost by the turns limit (Grim Forest, Faction Wars, Doom Tower, Cursed City...): the stage is skipped at once instead of after 3 defeats; skipped stages and suspended crypts stay skipped after a restart, until the daily reset
+Faction Wars: after a defeat on Hard stage 1 the crypt is played in Normal mode for the rest of the day (Hard is tried again next time); the stage list is moved to the stage to play instead of starting stage 1
+Tag Team Arena: your three teams and the opponents are read directly from Raid; an opponent who beat you is not fought again during your exclusion time
+Live Arena: the opponent's champions are recognised more reliably for the ban
+Tavern: the brews and the champions to sacrifice are found in the list again (the list was moved the wrong way, "could not be added")
+Bastion: the camera no longer opens the Forge by mistake; buildings, Portal included, are clicked where they are
+Inbox: Greater Arcane Potions and the other potions are collected
+Tournaments: a leaderboard without a reward to claim is closed after a few seconds instead of waiting
+Quests: Daily, Weekly, Monthly and Advanced rewards are claimed as soon as they are ready
+Demon Lord: the damage of a Quick Battle is read correctly
+Hydra and Chimera: they cannot be turned on while a key has no Keep score; a Chimera without Keep score now turns Chimera off (it turned Hydra off)
+Cursed City: Reset in the menu also forgets the stages skipped today
+Raid in full screen: the bot no longer hides behind Raid; it stops and asks you to press Alt+Enter in Raid (windowed mode)
+Login screen: the window keeps the place you move it to
+Login screen: LOGIN waits until the Raid account line is shown
+Auto login: "Auto login in N s" with a STOP button (STOP cancels it this time only); the delay (Off, 10, 15 or 20 s) is set in the General tab and used at the next start
+
+v8.0.1.1
+Version stopped by the RSLBot team: the bot no longer stops while it plays; a small window above the bot says which version will be needed at its next start (OK closes it)
+Licenses: the new 3-month duration is shown with its end date
+Raid account link: licenses that can be linked to several Raid accounts now say how many accounts can still be linked
+
 v8.0.1.0
 Promotions: an offer whose closing question came late is now closed for good (it could come back for hours)
 Bug report: the window now tells you to drop the zip in the ask-support channel of the Discord
