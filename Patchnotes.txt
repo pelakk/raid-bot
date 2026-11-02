@@ -1,3 +1,27 @@
+v8.3.0.0
+AutoSell: new "Auto" mode for the Artifact Storage, Accessory Storage, Inbox and Gemstone lines: every day from the "Auto start" hour (bottom of the AutoSell group), the bot manages the new items without the window and goes on with its day; a line that could not finish is tried again 30 min later (3 times a day at most)
+AutoSell: Gemstones AutoSell (Gemstone line in the Bastion tab): keep N gemstones per type with Gemstones.txt, the bot opens the Gemstone Storage and sells the rest
+AutoSell: New and Auto work on Raid's "Just New" items only (the filter is set by the bot); Full works on the whole storage
+AutoSell: the "Item number" setting and the Market line are gone; the "Screen" mode is gone too (a saved Screen mode is read as New for the Storage, Full for the Inbox)
+AutoSell window: a line tells when "Send orders directly to the game" is off and links to its setting
+Inbox AutoSell: accessories are sold again (their confirmation box was refused); a pass with no item of its kind is skipped
+Hydra and Demon Lord: every reward chest on the screen is claimed and its items go through AutoSell (the chests after the first ones were left)
+Hydra and Chimera: "Turn Off when all keys used" works again
+Live Arena Skills order: when a champion's order says Auto, is used up, or its skill is on cooldown, the bot plays its first ready skill of the order, then its highest ready skill, A1 last (no more A1 only)
+Live Arena and Grim Forest: with the mouse hidden, champion names are typed in the filter without the clipboard and without taking the keyboard focus (the usual way kept if Raid does not take them)
+Cursed City: the stage is no longer fought as "Unknown" when its name was read too early
+Doom Tower Silver Keys: the boss is clicked again after a Secret Room could not be reached (it stopped for 10 minutes)
+Grim Forest: 3 defeats against a stage skip that stage and the bot goes on with the other targets (it gave up all keys until the reset); the "two of three crowns" popup is closed
+"All battles ON" turns Grim Forest ON too (it was left as it was)
+Tavern: brews, chickens and skill tomes are taken again (their click was too long); rank ups use the champions first, then the chickens above "Use chickens if more than"
+Tavern 2* stock: one 1* level 1 is kept for each 1* level 10, and the number set is what is left after every 2* level 20 is ranked up
+Tavern: rare champions are used as food whenever "Exclude rare" is Off (ascended or awakened ones stay excluded)
+Champion page: a champion sheet left open is closed before the bot goes back to the Bastion
+Raid window: a maximized Raid is no longer put in full screen by the bot
+RSLBot Setup: when Raid uses the DLL to replace, Setup offers to close Raid before installing (updates started by the bot close it themselves)
+More screens are read in Raid's memory, the screen check as a backup
+Your clan's member list is sent once a day to RSLBot (for the clan offer)
+
 v8.2.0.2
 Live Arena Skills order: champions with a passive skill now play the chosen skill (A3 no longer played as A2), and a skill Raid refuses is replaced by A1 on that turn instead of switching the battle to Auto
 
