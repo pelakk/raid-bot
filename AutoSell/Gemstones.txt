@@ -1,0 +1,145 @@
+# RSLBot Gemstones AutoSell rules: one line per gemstone type.
+# After the '=': empty = keep all of that type; N = keep N free stones of that type, the others are sold.
+# Gemstones socketed in a relic are never counted nor sold. The '# owned' comment is refreshed by the bot.
+# id | rarity | name = keep   # owned
+# Grouped by shape (Circular, Triangular, Square, Diamond, Pentagonal), then rarity. Default: keep 5 of each Rare type, keep all of the others.
+# Circular Gemstone - Rare
+ 17 | Rare      | Invigorated                = 5    # owned 16 (+26 socketed)
+ 18 | Rare      | Unstoppable                = 5    # owned 9 (+6 socketed)
+ 19 | Rare      | Unerring Focus             = 5    # owned 5 (+3 socketed)
+ 20 | Rare      | Critical Bolster           = 5    # owned 14 (+4 socketed)
+ 89 | Rare      | Woe To The Besieged        = 5    # owned 0
+ 90 | Rare      | You Asked For It           = 5    # owned 0
+# Circular Gemstone - Epic
+ 37 | Epic      | Foekiller                  =      # owned 15 (+9 socketed)
+ 38 | Epic      | Targetfinder               =      # owned 2 (+12 socketed)
+ 39 | Epic      | Destructive Accuracy       =      # owned 18 (+2 socketed)
+ 40 | Epic      | Unflinching                =      # owned 3 (+22 socketed)
+ 99 | Epic      | Old Sorcery                =      # owned 0
+100 | Epic      | Magic Destroyer            =      # owned 0
+# Circular Gemstone - Legendary
+ 57 | Legendary | Dungeon Delver             =      # owned 19
+ 58 | Legendary | Explosive Power            =      # owned 15
+ 59 | Legendary | Uncontrollable             =      # owned 0 (+9 socketed)
+ 60 | Legendary | Puppetmaster               =      # owned 1 (+7 socketed)
+109 | Legendary | Pyromaniac                 =      # owned 0
+110 | Legendary | Toxin's Touch              =      # owned 0
+# Circular Gemstone - Mythical
+ 77 | Mythical  | Bloodthirsty Prowess       =      # owned 5 (+7 socketed)
+ 78 | Mythical  | Undead Bulwark             =      # owned 1 (+4 socketed)
+ 79 | Mythical  | Bolstered Defense          =      # owned 1 (+6 socketed)
+ 80 | Mythical  | Boss Slayer                =      # owned 4 (+3 socketed)
+119 | Mythical  | Fortuitous Velocity        =      # owned 0
+120 | Mythical  | Momentum Breaker           =      # owned 0
+# Triangular Gemstone - Rare
+  1 | Rare      | Lifedrain                  = 5    # owned 5 (+5 socketed)
+  2 | Rare      | Shieldbreaker              = 5    # owned 7 (+4 socketed)
+  3 | Rare      | Pierce Defenses            = 5    # owned 2 (+12 socketed)
+  4 | Rare      | Unbowed Might              = 5    # owned 10 (+5 socketed)
+ 81 | Rare      | Fighting Fury              = 5    # owned 0
+ 82 | Rare      | The Strong Survive         = 5    # owned 0
+# Triangular Gemstone - Epic
+ 21 | Epic      | Quickstrike                =      # owned 5 (+3 socketed)
+ 22 | Epic      | Unrelenting Power          =      # owned 3 (+6 socketed)
+ 24 | Epic      | Target Smash               =      # owned 3 (+4 socketed)
+ 43 | Epic      | Pouncing Strike            =      # owned 1 (+2 socketed)
+ 91 | Epic      | Void Slayer                =      # owned 0
+ 92 | Epic      | Bloody Momentum            =      # owned 0
+# Triangular Gemstone - Legendary
+ 23 | Legendary | Attacking Prowess          =      # owned 0 (+1 socketed)
+ 41 | Legendary | Rolling Force              =      # owned 0 (+1 socketed)
+ 42 | Legendary | Critical Strategy          =      # owned 0
+ 44 | Legendary | Piercing Strike            =      # owned 1 (+1 socketed)
+101 | Legendary | Fearmonger                 =      # owned 0
+102 | Legendary | Take 'Em Down              =      # owned 0
+# Triangular Gemstone - Mythical
+ 61 | Mythical  | Sharpened Riposte          =      # owned 0 (+1 socketed)
+ 62 | Mythical  | Constant Onslaught         =      # owned 1
+ 63 | Mythical  | Double Down                =      # owned 0
+ 64 | Mythical  | Extra Punishment           =      # owned 2
+111 | Mythical  | Know Thy Enemy             =      # owned 0
+112 | Mythical  | No Mercy                   =      # owned 0
+# Square Gemstone - Rare
+  9 | Rare      | Sanctified Skin            = 5    # owned 13
+ 10 | Rare      | Steadfastness              = 5    # owned 13
+ 11 | Rare      | Embellished Shield         = 5    # owned 3
+ 12 | Rare      | Barbed Defense             = 5    # owned 12 (+1 socketed)
+ 85 | Rare      | Runes Of Shielding         = 5    # owned 0
+ 86 | Rare      | Will Of Iron               = 5    # owned 0
+# Square Gemstone - Epic
+ 29 | Epic      | Strength Sap               =      # owned 6 (+1 socketed)
+ 30 | Epic      | Strengthening Will         =      # owned 11 (+1 socketed)
+ 31 | Epic      | Weak Retort                =      # owned 4 (+5 socketed)
+ 32 | Epic      | Single Combat Master       =      # owned 4 (+2 socketed)
+ 95 | Epic      | Self Control               =      # owned 0
+ 96 | Epic      | Standing Proud             =      # owned 0
+# Square Gemstone - Legendary
+ 49 | Legendary | Opening Gambit             =      # owned 3 (+1 socketed)
+ 50 | Legendary | Damage Mitigation          =      # owned 0 (+3 socketed)
+ 51 | Legendary | Weakening Resolve          =      # owned 0 (+4 socketed)
+ 52 | Legendary | Steadfast Preparation      =      # owned 0 (+2 socketed)
+105 | Legendary | Hunker Down                =      # owned 0
+106 | Legendary | Unflappable                =      # owned 0
+# Square Gemstone - Mythical
+ 69 | Mythical  | Buff Depletion             =      # owned 0
+ 70 | Mythical  | Blunt Blades               =      # owned 0
+ 71 | Mythical  | Goad God                   =      # owned 0 (+1 socketed)
+ 72 | Mythical  | Torpidity                  =      # owned 0
+115 | Mythical  | Nigh Impermeable           =      # owned 0
+116 | Mythical  | Blinding Barrage           =      # owned 0
+# Diamond Gemstone - Rare
+  5 | Rare      | Greater Restoration        = 5    # owned 17
+  6 | Rare      | Unburdened                 = 5    # owned 11
+  7 | Rare      | Blessed Heal               = 5    # owned 10
+  8 | Rare      | Enhanced Shot              = 5    # owned 20
+ 83 | Rare      | Rapid Regrowth             = 5    # owned 0
+ 84 | Rare      | Tough Hide                 = 5    # owned 0
+# Diamond Gemstone - Epic
+ 25 | Epic      | Revival Blessing           =      # owned 7 (+2 socketed)
+ 26 | Epic      | Energy Expansion           =      # owned 8 (+3 socketed)
+ 27 | Epic      | Starting Strength          =      # owned 0 (+4 socketed)
+ 28 | Epic      | Precision Removal          =      # owned 9 (+1 socketed)
+ 93 | Epic      | Force Breaker              =      # owned 0
+ 94 | Epic      | Perfect Heist              =      # owned 0
+# Diamond Gemstone - Legendary
+ 45 | Legendary | Expeditious Exploitation   =      # owned 0 (+1 socketed)
+ 46 | Legendary | Carved Open                =      # owned 0 (+3 socketed)
+ 47 | Legendary | Gathering Momentum         =      # owned 0 (+3 socketed)
+ 48 | Legendary | Parting Gift               =      # owned 0 (+2 socketed)
+103 | Legendary | Weakness Revealed          =      # owned 2
+104 | Legendary | Last Stand                 =      # owned 0
+# Diamond Gemstone - Mythical
+ 65 | Mythical  | Caught Unaware             =      # owned 0
+ 66 | Mythical  | Heal 'N' Go                =      # owned 0 (+1 socketed)
+ 67 | Mythical  | Revival's Boon             =      # owned 0
+ 68 | Mythical  | Necrodefense               =      # owned 0
+113 | Mythical  | Living Dynamo              =      # owned 0
+114 | Mythical  | Monstrosity                =      # owned 0
+# Pentagonal Gemstone - Rare
+ 13 | Rare      | Extra Velocity             = 5    # owned 18 (+1 socketed)
+ 14 | Rare      | Unbroken Strength          = 5    # owned 14
+ 15 | Rare      | Fleetfoot                  = 5    # owned 12
+ 16 | Rare      | In For The Kill            = 5    # owned 17 (+2 socketed)
+ 87 | Rare      | Tactical Withdrawal        = 5    # owned 0
+ 88 | Rare      | Skullcracker               = 5    # owned 0
+# Pentagonal Gemstone - Epic
+ 33 | Epic      | Assured Security           =      # owned 7 (+4 socketed)
+ 34 | Epic      | Survival Speed             =      # owned 1 (+8 socketed)
+ 35 | Epic      | Maximum Velocity           =      # owned 0
+ 36 | Epic      | Growing Resolve            =      # owned 4 (+4 socketed)
+ 97 | Epic      | Essence Taker              =      # owned 0
+ 98 | Epic      | Spirit Breaker             =      # owned 0
+# Pentagonal Gemstone - Legendary
+ 53 | Legendary | Speedy Willpower           =      # owned 3 (+1 socketed)
+ 54 | Legendary | Power Reset                =      # owned 0 (+3 socketed)
+ 55 | Legendary | Skill Adept                =      # owned 1 (+2 socketed)
+ 56 | Legendary | Nimblemiss                 =      # owned 1 (+2 socketed)
+107 | Legendary | Taking Advantage           =      # owned 0
+108 | Legendary | Toy With Foes              =      # owned 0
+# Pentagonal Gemstone - Mythical
+ 73 | Mythical  | Skillmaster                =      # owned 0
+ 74 | Mythical  | Impede Them                =      # owned 0 (+1 socketed)
+ 75 | Mythical  | Patient Refuge             =      # owned 0
+ 76 | Mythical  | Slow The Enemy             =      # owned 1
+117 | Mythical  | Abyssal Ice                =      # owned 0
+118 | Mythical  | Ruinous Venom              =      # owned 0

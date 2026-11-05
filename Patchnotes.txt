@@ -1,3 +1,41 @@
+v8.4.1.0
+Daily Battles and Dungeons: the dungeon stages are found again (Raid 11.85.5 changed their list: Iron Twins, Spider's Den and the other dungeons were suspended every day with "No stage available")
+Dungeons and Faction Wars crypts: when the Hard mode asked is still locked, the highest Normal stage open is played (the Hard stage number was played in Normal)
+Daily Quest "Increase Champion's Level 3 times": done again with Memory reading on (the Tavern opened by Go is used; the bot left it and wrote "Tavern: champions not read")
+AutoSell Manage: no battle starts while a Manage runs; when Champions or the Inbox cannot be reached, the bot says so and stops (it went back to its battles, then skipped Champions for 2 hours)
+AutoSell: accessories with an anomalous substat (PvE, PvP, Boss or DNG DMG) are protected, never sold
+AutoSell after battles: protected items are never sold
+AutoSell: loading a settings file saved during a Manage no longer starts a Manage at the next Start
+Cursed City: with no key left, it is skipped until a key is back (the bot went through every stage with "Requirements not met")
+The bot's texts and windows now say RSLBot
+Less traffic with the server: a clan list refused by the server is no longer sent again every few minutes
+
+v8.4.0.2
+AutoSell after battles: with a full artifact storage (drops sent to the Inbox), the drops are judged and sold again (they were all kept)
+Advanced Quests "Craft 1 Resilience / Perception Artifact": the right set is crafted (two old clicks chose another set in the new Forge, the quest was never completed and crafted again and again); at most one craft per 2 hours and 2 a day; the set and the Craft button are clicked where Raid shows them. "Craft 1 Epic or Legendary Artifact" and "Use 1 Charm" add a Rarity Charm where Raid shows it. Craft quests are done only with Memory reading on
+
+v8.4.0.1
+Campaign and Dungeons replacements: with a long champion list, a max level champion is taken out from its own team place again (another one was taken out, then the bot could not reach its card in the list and kept the max level champions for hours)
+
+v8.4.0.0
+AutoSell: the Bastion tab shows the AutoSell as a dashboard: one row per line (Battles, Artifact, Accessory, Inbox, Gemstone) with its state, its last result and a gear; "AutoSell Auto" hour on top (OFF turns every Auto line off), Manage below to open a line's window
+AutoSell gear (one per line): Auto on or off, rules file and Edit, limits (don't run while the storage has more free slots than a number, most items sold and upgraded per run), the sale by weight of each storage line, and a Report of today, 7 days and 30 days
+AutoSell Auto: under the free space chosen, the lightest items are sold by weight until it is free again (never protected, preset, held or Keep-line items; level limit to choose); Gemstone sale limit, lowest rarity first
+AutoSell Weight: every item gets a weight (Panda's Autosell 2.0 formula); sort any AutoSell window by weight, check the lightest and sell them; weight files in AutoSell\Weights (Panda.txt by default) to make your own
+AutoSell: protected items are never sold (Mercurial, Merciless, Feral, Swift Parry, Deflection, Reaction and Bloodshield accessories, SPD banners with 3 rolls); the best pieces of each group are held; items in a champion's preset are never sold
+AutoSell window: filters as check lists (rarity, rank, slot, sets, specials), an All tab, the rules file chosen and its changes taken at once; a rules file Raid would refuse opens in an editor with the refused lines in red
+AutoSell: direct artifact upgrades are much faster (no extra pause, only the upgraded artifact read again, up to three rule stages in a row)
+AutoSell windows no longer stay in front of the bot window, and the bot shows "Paused" while one waits for your order
+Window size: new Aa button at the top of the bot window (100 % to 200 %)
+Raid on a monitor at 125 % or more is now supported ("Raid on scaled monitor", On by default; set it Off in Settings\UserSettings.txt to go back)
+The Raid window stays where you put it
+Tooltips are shown on several lines
+Gemstone: the Auto line is kept after a restart, and ON chosen before Start now runs
+Advanced Quests: "Craft 1 Perception / Resilience Artifact" crafts the right set (Swift Parry was crafted)
+Raid windows that do not close with their close button (Clan vs Clan intro) are closed with Escape; the bot no longer waits for them for hours
+Hydra: every focus, eaten champion, new and killed head is shown in the Log Monitor
+With memory reading on, the Sparring Pit, the Tavern training and the artifacts after a battle or an upgrade are read in Raid's memory (no more text reading)
+
 v8.3.0.0
 AutoSell: new "Auto" mode for the Artifact Storage, Accessory Storage, Inbox and Gemstone lines: every day from the "Auto start" hour (bottom of the AutoSell group), the bot manages the new items without the window and goes on with its day; a line that could not finish is tried again 30 min later (3 times a day at most)
 AutoSell: Gemstones AutoSell (Gemstone line in the Bastion tab): keep N gemstones per type with Gemstones.txt, the bot opens the Gemstone Storage and sells the rest

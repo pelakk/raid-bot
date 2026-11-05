@@ -1,0 +1,147 @@
+# Panda_Gemstones_v1.0.txt (31 Oct 2026, Anh): keep 3 of each Rare gemstone type, keep ALL Epic / Legendary / Mythical (nothing else sold).
+# Socketed gemstones are never counted nor sold. RaidBot refreshes the "# owned" comments itself.
+# RSLBot Gemstones AutoSell rules: one line per gemstone type.
+# After the '=': empty = keep all of that type; N = keep N free stones of that type, the others are sold.
+# Gemstones socketed in a relic are never counted nor sold. The '# owned' comment is refreshed by the bot.
+# id | rarity | name = keep   # owned
+# Grouped by shape (Circular, Triangular, Square, Diamond, Pentagonal), then rarity.
+# Circular Gemstone - Rare
+ 17 | Rare      | Invigorated                = 3
+ 18 | Rare      | Unstoppable                = 3
+ 19 | Rare      | Unerring Focus             = 3
+ 20 | Rare      | Critical Bolster           = 3
+ 89 | Rare      | Woe To The Besieged        = 3
+ 90 | Rare      | You Asked For It           = 3
+# Circular Gemstone - Epic
+ 37 | Epic      | Foekiller                  = 
+ 38 | Epic      | Targetfinder               = 
+ 39 | Epic      | Destructive Accuracy       = 
+ 40 | Epic      | Unflinching                = 
+ 99 | Epic      | Old Sorcery                = 
+100 | Epic      | Magic Destroyer            = 
+# Circular Gemstone - Legendary
+ 57 | Legendary | Dungeon Delver             = 
+ 58 | Legendary | Explosive Power            = 
+ 59 | Legendary | Uncontrollable             = 
+ 60 | Legendary | Puppetmaster               = 
+109 | Legendary | Pyromaniac                 = 
+110 | Legendary | Toxin's Touch              = 
+# Circular Gemstone - Mythical
+ 77 | Mythical  | Bloodthirsty Prowess       = 
+ 78 | Mythical  | Undead Bulwark             = 
+ 79 | Mythical  | Bolstered Defense          = 
+ 80 | Mythical  | Boss Slayer                = 
+119 | Mythical  | Fortuitous Velocity        = 
+120 | Mythical  | Momentum Breaker           = 
+# Triangular Gemstone - Rare
+  1 | Rare      | Lifedrain                  = 3
+  2 | Rare      | Shieldbreaker              = 3
+  3 | Rare      | Pierce Defenses            = 3
+  4 | Rare      | Unbowed Might              = 3
+ 81 | Rare      | Fighting Fury              = 3
+ 82 | Rare      | The Strong Survive         = 3
+# Triangular Gemstone - Epic
+ 21 | Epic      | Quickstrike                = 
+ 22 | Epic      | Unrelenting Power          = 
+ 24 | Epic      | Target Smash               = 
+ 43 | Epic      | Pouncing Strike            = 
+ 91 | Epic      | Void Slayer                = 
+ 92 | Epic      | Bloody Momentum            = 
+# Triangular Gemstone - Legendary
+ 23 | Legendary | Attacking Prowess          = 
+ 41 | Legendary | Rolling Force              = 
+ 42 | Legendary | Critical Strategy          = 
+ 44 | Legendary | Piercing Strike            = 
+101 | Legendary | Fearmonger                 = 
+102 | Legendary | Take 'Em Down              = 
+# Triangular Gemstone - Mythical
+ 61 | Mythical  | Sharpened Riposte          = 
+ 62 | Mythical  | Constant Onslaught         = 
+ 63 | Mythical  | Double Down                = 
+ 64 | Mythical  | Extra Punishment           = 
+111 | Mythical  | Know Thy Enemy             = 
+112 | Mythical  | No Mercy                   = 
+# Square Gemstone - Rare
+  9 | Rare      | Sanctified Skin            = 3
+ 10 | Rare      | Steadfastness              = 3
+ 11 | Rare      | Embellished Shield         = 3
+ 12 | Rare      | Barbed Defense             = 3
+ 85 | Rare      | Runes Of Shielding         = 3
+ 86 | Rare      | Will Of Iron               = 3
+# Square Gemstone - Epic
+ 29 | Epic      | Strength Sap               = 
+ 30 | Epic      | Strengthening Will         = 
+ 31 | Epic      | Weak Retort                = 
+ 32 | Epic      | Single Combat Master       = 
+ 95 | Epic      | Self Control               = 
+ 96 | Epic      | Standing Proud             = 
+# Square Gemstone - Legendary
+ 49 | Legendary | Opening Gambit             = 
+ 50 | Legendary | Damage Mitigation          = 
+ 51 | Legendary | Weakening Resolve          = 
+ 52 | Legendary | Steadfast Preparation      = 
+105 | Legendary | Hunker Down                = 
+106 | Legendary | Unflappable                = 
+# Square Gemstone - Mythical
+ 69 | Mythical  | Buff Depletion             = 
+ 70 | Mythical  | Blunt Blades               = 
+ 71 | Mythical  | Goad God                   = 
+ 72 | Mythical  | Torpidity                  = 
+115 | Mythical  | Nigh Impermeable           = 
+116 | Mythical  | Blinding Barrage           = 
+# Diamond Gemstone - Rare
+  5 | Rare      | Greater Restoration        = 3
+  6 | Rare      | Unburdened                 = 3
+  7 | Rare      | Blessed Heal               = 3
+  8 | Rare      | Enhanced Shot              = 3
+ 83 | Rare      | Rapid Regrowth             = 3
+ 84 | Rare      | Tough Hide                 = 3
+# Diamond Gemstone - Epic
+ 25 | Epic      | Revival Blessing           = 
+ 26 | Epic      | Energy Expansion           = 
+ 27 | Epic      | Starting Strength          = 
+ 28 | Epic      | Precision Removal          = 
+ 93 | Epic      | Force Breaker              = 
+ 94 | Epic      | Perfect Heist              = 
+# Diamond Gemstone - Legendary
+ 45 | Legendary | Expeditious Exploitation   = 
+ 46 | Legendary | Carved Open                = 
+ 47 | Legendary | Gathering Momentum         = 
+ 48 | Legendary | Parting Gift               = 
+103 | Legendary | Weakness Revealed          = 
+104 | Legendary | Last Stand                 = 
+# Diamond Gemstone - Mythical
+ 65 | Mythical  | Caught Unaware             = 
+ 66 | Mythical  | Heal 'N' Go                = 
+ 67 | Mythical  | Revival's Boon             = 
+ 68 | Mythical  | Necrodefense               = 
+113 | Mythical  | Living Dynamo              = 
+114 | Mythical  | Monstrosity                = 
+# Pentagonal Gemstone - Rare
+ 13 | Rare      | Extra Velocity             = 3
+ 14 | Rare      | Unbroken Strength          = 3
+ 15 | Rare      | Fleetfoot                  = 3
+ 16 | Rare      | In For The Kill            = 3
+ 87 | Rare      | Tactical Withdrawal        = 3
+ 88 | Rare      | Skullcracker               = 3
+# Pentagonal Gemstone - Epic
+ 33 | Epic      | Assured Security           = 
+ 34 | Epic      | Survival Speed             = 
+ 35 | Epic      | Maximum Velocity           = 
+ 36 | Epic      | Growing Resolve            = 
+ 97 | Epic      | Essence Taker              = 
+ 98 | Epic      | Spirit Breaker             = 
+# Pentagonal Gemstone - Legendary
+ 53 | Legendary | Speedy Willpower           = 
+ 54 | Legendary | Power Reset                = 
+ 55 | Legendary | Skill Adept                = 
+ 56 | Legendary | Nimblemiss                 = 
+107 | Legendary | Taking Advantage           = 
+108 | Legendary | Toy With Foes              = 
+# Pentagonal Gemstone - Mythical
+ 73 | Mythical  | Skillmaster                = 
+ 74 | Mythical  | Impede Them                = 
+ 75 | Mythical  | Patient Refuge             = 
+ 76 | Mythical  | Slow The Enemy             = 
+117 | Mythical  | Abyssal Ice                = 
+118 | Mythical  | Ruinous Venom              = 
