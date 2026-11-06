@@ -1,3 +1,11 @@
+v8.4.3.0
+Grim Forest: with no key left, it is skipped until a key is back (the bot tried to start battles again and again, then restarted Raid until the player was logged out)
+AutoSell: artifacts sell again when champion presets could not be read (some accounts sold nothing at all, "champion presets unreadable")
+AutoSell window: Sell sells exactly the items checked; Level filter and "Check under weight" added
+Grim Forest Set Team: the Deck Setup screen is recognised again (the button only said "Go first to Deck Setup")
+Hydra: a head killed before the bot saw it gets its real name (no more "unknown head"), and the focus no longer stops on an error
+Campaign & Dungeons (Daily Battles): a line in Next mode uses its own fight mode and stage
+
 v8.4.1.0
 Daily Battles and Dungeons: the dungeon stages are found again (Raid 11.85.5 changed their list: Iron Twins, Spider's Den and the other dungeons were suspended every day with "No stage available")
 Dungeons and Faction Wars crypts: when the Hard mode asked is still locked, the highest Normal stage open is played (the Hard stage number was played in Normal)
