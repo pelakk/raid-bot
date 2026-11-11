@@ -34,9 +34,11 @@
 #
 # WHEN STEPS ARE APPLIED
 #   - The account level is read after each battle and at the Bastion.
-#   - Each step is applied once, when the level reaches it, in level order. Every change is shown
-#     in cyan in the log. A step whose level is already passed is not applied again, even after a
-#     restart of the bot (set the Farm list OFF then ON to start the plan again).
+#   - Each step is applied when the level reaches it, in level order. Every change is shown in cyan
+#     in the log.
+#   - At each start of the bot, and each time the plan file is saved, the whole plan is applied
+#     again up to the account level: a line added below the account level is applied too (a setting
+#     changed by hand in the bot then takes the plan's value again).
 #   - The plan can be changed while the bot runs: it is read again at each level check.
 #   - A badly written line is shown in orange in the log and ignored; the other lines still work.
 #   - At the level chosen in the "until" list of the Farm row your own settings come back, and the
@@ -65,7 +67,7 @@
 #         champion written here, so it must be the one the account has.
 #   Account Start Champion Collection = N   (0 = off)
 #       The champion collection is extended (Champions, "+" at the end of the list, 10 places) until N places, paid with
-#       silver only (120,000; never the gems button). The minimum silver of the settings does not apply during the account start.
+#       silver only (120,000 for the first 10, then more: 240,000 for 60 places; never the gems button). The minimum silver of the settings does not apply during the account start.
 #   Account Start Farm Until Core Rank = N
 #       While Athel or Warpriest is under N stars, the campaign does not go further: the stage won is
 #       replayed (food champions, experience) until both are ranked up. 0 = off.
@@ -111,5 +113,10 @@
 20 : Account Start Market Slots = 6
 20 : Account Start Champion Collection = 50
 25 : Account Start Champion Collection = 60
+# Leader at 4* level 40: 4 champions 4* made in the Tavern for his 5* (the campaign levels 2* and 3*, no more 1* nor 4* food)
+25 : Champion to level Rank choice = Until Rank 5
+25 : Account Start Farm Until Core Rank = 5
+25 : Campaign Champions replacement rank = 2&3
+25 : Sacrifice rank 1 champions checkbox = On
 30 : Account Start Champion Collection = 70
 35 : Account Start Champion Collection = 80

@@ -1,3 +1,29 @@
+v8.5.0.0
+Licences: Daily Battles is no longer a feature (Campaign & Dungeons lines for every licence, the 4 main dungeons with Free); Storage and Inbox management for every licence, Free included; AutoSell after Battles with Regular and Premium; Live Arena and Summon Rush with Regular; Relic Rank Up and Gemstones with Premium
+Raid 11.90.1 supported (memory reading realigned: battle skills, Live Arena draft, Quick Battle boss damage, clan leader name, long battles)
+Battles tab: every battle on one side, compact ON/OFF switch with a gear on each line; Campaign & Dungeons as lines (Max defeats, Down, Up, its own fight mode and stage); new Quests line
+Doom Tower: mode menu on its line (Normal, Hard, Hd->Nm), Secret Rooms ON or from a boss defeated, max defeats for floors, bosses and Secret Rooms; Hard blocked: gold keys go on in Normal
+Faction Wars: Max, Down and Up; going down after 3 defeats really plays the lower stage; Hard crypts no longer played in Normal
+Clan Boss window: one table (order, chest, keys, mode, team), keys by plan per affinity or Automatic, stop at a chest or at a damage; chests read in Raid
+Quests: Manage window shown at once; Advanced Quests Craft 1 Relic, Unlock a Mastery, Use 3 Glyphs; Weekly Quest Ascend a Champion
+Relic Rank Up: plan read in Raid, run from Manage or daily Auto
+AutoSell rules editor: view, edit, group tools and Compare; Auto sells the Artifact and Accessory storages before the Inbox
+Bazaar: the real Bazaar items to tick, read in Raid; stops at the first item the Gold Bars cannot pay
+Sparring Pit: champions chosen on the cards shown, sort order read in Raid
+Passes: tabs read in Raid, pass without tabs claimed, Battle Pass intro pages turned with Next
+Limited Series: Watch, 50K reward and share rewards collected
+Tournaments: the running tournaments' rewards claimed (Claim Reward rows, each checked in Raid); Events: rewards claimed on the cards with a red dot, Demon Coalition rewards collected
+Farm account start (Raid 11.90.1 tutorial): tutorial battle without Auto played by following the guide (skills, enemies and buttons read in Raid), starter champion chosen with the arrows, rares fed to the core champions' rank ups, Champion Collection price read in Raid
+Bastion: reward places visited first (Missions, Challenges, Quests, Inbox, Passes), Challenges rewards claimed at once, a building not opened is clicked again after closing the popup over it
+Teams: only champions Raid lets you pick are chosen (locked cards skipped); Campaign: stages of another region never played
+Inbox: new Shop and Other rewards collected (Pumpkin Hunt, Live Arena and Hydra Clash chests, Tournament and Chimera Clash chests), chest windows closed
+Bastion: buildings clicked from Raid's memory with Memory reading on, camera moved only when needed, never under the chat or the notification bubbles
+Grim Forest: Curio Altar closed with its Collect button, guarded chest skipped is not chosen again, Hard rows no longer shifted
+Memory reading on: Raid's screens and server lag decided from memory (no more pixel guesses), game data not read: the bot waits instead of a limited mode
+Raid version not validated for this RSLBot: orange warning at each start
+Tooltips: 1 s / 10 s everywhere
+Fixes: idle bot no longer restarted as frozen, auto login no longer stuck after a PC start, Classic Arena refill from the Inbox, Iron Twins at 0 keys, Live Arena gems spent written in the log
+
 v8.4.3.0
 Grim Forest: with no key left, it is skipped until a key is back (the bot tried to start battles again and again, then restarted Raid until the player was logged out)
 AutoSell: artifacts sell again when champion presets could not be read (some accounts sold nothing at all, "champion presets unreadable")
