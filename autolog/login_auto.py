@@ -361,14 +361,16 @@ def run(from_autostart: bool) -> None:
     proc = start_raidbot()
     logging.info("Czekam %.0f s na okno i przesuwam je na 0,0.", CLICK_GAP)
     deadline = time.monotonic() + CLICK_GAP
+    moved = False
     while time.monotonic() < deadline:
         if move_window_to_origin(proc.pid):
+            moved = True
             break
         time.sleep(0.4)
     remaining = deadline - time.monotonic()
     if remaining > 0:
         time.sleep(remaining)
-    if not move_window_to_origin(proc.pid):
+    if not moved and not move_window_to_origin(proc.pid):
         logging.warning("Nie udalo sie przesunac okna RaidBot na 0,0.")
 
     steps = [*STEPS, START_STEP]
