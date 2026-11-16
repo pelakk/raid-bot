@@ -1,3 +1,9 @@
+v8.6.0.0
+Market and Soul Altar purchases (Bastion tab, Setup)
+More rewards collected: Inbox chests, Shop free Silver Ticket, Tournaments, Events
+Doom Tower: silver keys played after the gold keys
+Many fixes (Demon Lord, Quests, Sparring Pit, Arenas, Keeps)
+
 v8.5.0.0
 Licences: Daily Battles is no longer a feature (Campaign & Dungeons lines for every licence, the 4 main dungeons with Free); Storage and Inbox management for every licence, Free included; AutoSell after Battles with Regular and Premium; Live Arena and Summon Rush with Regular; Relic Rank Up and Gemstones with Premium
 Raid 11.90.1 supported (memory reading realigned: battle skills, Live Arena draft, Quick Battle boss damage, clan leader name, long battles)

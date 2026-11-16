@@ -1,0 +1,104 @@
+// =====================================================================================
+// MARKET DEFAULT - RSLBot v8.6 - rules for the artifacts the Market buys
+// =====================================================================================
+// HOW IT WORKS
+// - Bastion > Market > Manage > "Buy Artifacts": choose this file (or any AutoSell rules file).
+//   Edit opens the rules editor. Buy Artifacts must be ON.
+// - At each Market visit, the bot reads every artifact offered and checks the "Buy" lines of
+//   the file, from top to bottom. The first Buy line that matches decides: the artifact is
+//   bought if its price is not above the line's MaxPrice and if the silver left stays above
+//   "Minimum silver to keep".
+// - A Buy line uses the same conditions as Keep / Sell / Upgrade lines: Set, Rank, Rarity,
+//   Type, Main, Sub, n*Sub, Faction, Weight.
+// - Market artifacts are level 0: Epic = 2 substats, Legendary = 3, Mythical = 4.
+//   So "3*Sub = ..." never matches an Epic.
+// - MaxPrice = the most silver a line pays (1M = 1,000,000, 750K = 750,000).
+//   A Buy line without MaxPrice uses "Max silver per artifact" of Market Management.
+// - Weight: "Weight >= N" (Panda weight, 0..110), beside Sub or in place of it.
+// - Safety: the Market never buys an artifact that a Sell line would sell at once
+//   (a Sell line of this file, or of the Artifacts storage rules file). The rules editor
+//   shows such a Buy line in red: "wrong Buy line".
+// - Statistics: Market Management > Stats (what was bought since the bot started).
+//
+// BUY LINES IN THE STORAGE RULES FILES
+// - "Buy" is an action like Keep, Sell and Upgrade: Buy lines can also be written in the
+//   storage rules files (End Game, Mid Game, ...), for example next to the lines of each set:
+//       Buy,  Set = Speed, Rank = 6, Rarity = Epic, Type = B, Main = SPD, MaxPrice = 1M
+//       Keep, Set = Speed, Rank = 6, Type = B, Main = SPD
+//   Then choose that file in the Market too: one file for buying and keeping.
+// - Only the Market reads Buy lines. The storage, the Inbox and the battles skip them,
+//   so a Buy line never changes what the storage keeps or sells.
+// - For now this separate Market file is the simplest way: it can be changed without
+//   touching the storage rules.
+//
+// SET CHOICE (advanced account, players' advice Reddit 2025-2026, not official numbers)
+//   Priority 1: Speed, Savage, Regeneration           (ON in this file)
+//   Priority 2: Reflex, Provoke, Cursed               (OFF: remove the // to use them)
+//   Priority 3: Stun, Lifesteal (Legendary only)      (OFF)
+//   Other sets: only exceptional pieces               (OFF)
+//   6* only (5* or less ignored); flat ATK / DEF / HP main stat on gauntlets or chestplate ignored;
+//   Epic: right main stat + good substats; Legendary / Mythical: 3 good substats.
+//   Prices: Epic up to 1M, Legendary and Mythical up to 2M.
+// =====================================================================================
+
+// ================= PRIORITY 1 =================
+
+// ---- SPEED: any 6* piece with a SPD substat, or SPD boots ----
+Buy, Set = Speed, Rank = 6, Rarity = Epic, Type = B, Main = SPD, MaxPrice = 1M
+Buy, Set = Speed, Rank = 6, Rarity >= Legendary, Type = B, Main = SPD, MaxPrice = 2M
+Buy, Set = Speed, Rank = 6, Rarity = Epic, Type = W/H/S/C/G, Sub = SPD, MaxPrice = 1M
+Buy, Set = Speed, Rank = 6, Rarity >= Legendary, Type = W/H/S/C/G, Sub = SPD, MaxPrice = 2M
+
+// ---- SAVAGE: C.RATE, C.DMG, SPD and offensive stats ----
+Buy, Set = Savage, Rank = 6, Rarity = Epic, Type = B, Main = SPD, Sub = CR%/CD%, MaxPrice = 1M
+Buy, Set = Savage, Rank = 6, Rarity >= Legendary, Type = B, Main = SPD, Sub = CR%/CD%, MaxPrice = 2M
+Buy, Set = Savage, Rank = 6, Rarity = Epic, Type = G, Main = CD%/CR%, Sub = SPD/CR%/CD%/ATK%, MaxPrice = 1M
+Buy, Set = Savage, Rank = 6, Rarity >= Legendary, Type = G, Main = CD%/CR%, Sub = SPD/CR%/CD%/ATK%, MaxPrice = 2M
+Buy, Set = Savage, Rank = 6, Rarity = Epic, Type = C, Main = ATK%, Sub = SPD/CR%/CD%, MaxPrice = 1M
+Buy, Set = Savage, Rank = 6, Rarity >= Legendary, Type = C, Main = ATK%, Sub = SPD/CR%/CD%, MaxPrice = 2M
+Buy, Set = Savage, Rank = 6, Rarity = Epic, Type = W/H/S, 2*Sub = SPD/CR%/CD%/ATK%, MaxPrice = 1M
+Buy, Set = Savage, Rank = 6, Rarity >= Legendary, Type = W/H/S, 3*Sub = SPD/CR%/CD%/ATK%, MaxPrice = 2M
+
+// ---- REGENERATION: HP%, DEF%, SPD, RES ----
+Buy, Set = Regeneration, Rank = 6, Rarity = Epic, Type = B, Main = SPD, Sub = HP%/DEF%/RES, MaxPrice = 1M
+Buy, Set = Regeneration, Rank = 6, Rarity >= Legendary, Type = B, Main = SPD, Sub = HP%/DEF%/RES, MaxPrice = 2M
+Buy, Set = Regeneration, Rank = 6, Rarity = Epic, Type = G/C, Main = HP%/DEF%, Sub = SPD/HP%/DEF%/RES, MaxPrice = 1M
+Buy, Set = Regeneration, Rank = 6, Rarity >= Legendary, Type = G/C, Main = HP%/DEF%, Sub = SPD/HP%/DEF%/RES, MaxPrice = 2M
+Buy, Set = Regeneration, Rank = 6, Rarity = Epic, Type = W/H/S, 2*Sub = SPD/HP%/DEF%/RES, MaxPrice = 1M
+Buy, Set = Regeneration, Rank = 6, Rarity >= Legendary, Type = W/H/S, 3*Sub = SPD/HP%/DEF%/RES, MaxPrice = 2M
+
+// ================= PRIORITY 2: always a SPD substat or SPD boots =================
+
+// ---- REFLEX: SPD and coherent stats ----
+// Buy, Set = Reflex, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 1M
+// Buy, Set = Reflex, Rank = 6, Rarity >= Epic, Type = G, Main = CD%/CR%/HP%/DEF%/ATK%, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Reflex, Rank = 6, Rarity >= Epic, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Reflex, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 1M
+
+// ---- PROVOKE: SPD, ACC, HP%, DEF% ----
+// Buy, Set = Provoke, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = ACC/HP%/DEF%, MaxPrice = 1M
+// Buy, Set = Provoke, Rank = 6, Rarity >= Epic, Type = G/C, Main = HP%/DEF%, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Provoke, Rank = 6, Rarity >= Epic, Type = C, Main = ACC, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Provoke, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = ACC/HP%/DEF%, MaxPrice = 1M
+
+// ---- CURSED: SPD, ACC, defensive stats ----
+// Buy, Set = Cursed, Rank = 6, Rarity >= Epic, Type = B, Main = SPD, Sub = ACC/HP%/DEF%/RES, MaxPrice = 1M
+// Buy, Set = Cursed, Rank = 6, Rarity >= Epic, Type = G/C, Main = HP%/DEF%, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Cursed, Rank = 6, Rarity >= Epic, Type = C, Main = ACC, Sub = SPD, MaxPrice = 1M
+// Buy, Set = Cursed, Rank = 6, Rarity >= Epic, Type = W/H/S, Sub = SPD, Sub = ACC/HP%/DEF%/RES, MaxPrice = 1M
+
+// ================= PRIORITY 3: Legendary and more, SPD + 2 good substats =================
+
+// Buy, Set = Stun/Lifesteal, Rank = 6, Rarity >= Legendary, Type = B, Main = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+// Buy, Set = Stun/Lifesteal, Rank = 6, Rarity >= Legendary, Type = G, Main = CD%/CR%/HP%/DEF%/ATK%, Sub = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+// Buy, Set = Stun/Lifesteal, Rank = 6, Rarity >= Legendary, Type = C, Main = HP%/DEF%/ATK%/ACC/RES, Sub = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+// Buy, Set = Stun/Lifesteal, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+
+// ================= OTHER SETS: only exceptional pieces (Legendary and more, 3 substats with SPD) =================
+
+// Buy, Rank = 6, Rarity >= Legendary, Type = B, Main = SPD, 3*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+// Buy, Rank = 6, Rarity >= Legendary, Type = G/C, Main = CD%/CR%/HP%/DEF%/ATK%, Sub = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+// Buy, Rank = 6, Rarity >= Legendary, Type = W/H/S, Sub = SPD, 2*Sub = HP%/DEF%/ATK%/CR%/CD%/ACC/RES, MaxPrice = 2M
+
+// ---- with the weight instead (uncomment to use) ----
+// Buy, Rank = 6, Rarity >= Epic, Weight >= 70, MaxPrice = 1M
