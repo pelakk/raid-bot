@@ -1,3 +1,18 @@
+v9.0.3.0
+Smart Battle: Hydra goal adjusts itself, no battle cut by the Battle timeout, Live Arena last 10 results
+Champions: Summon Rush and Reserve Vault, Champion Optimize sets and results
+Bastion: screens made alike with Report pages; AutoSell rules editor
+Grim Forest, Cursed City, Doom Tower, Classic Arena fixes
+Quests: Glyph and Mastery only when asked
+
+v9.0.2.0
+Everything of RSLBot 8.6 (Market and Soul Altar purchases, more rewards collected, Doom Tower silver keys, many fixes)
+Smart Battle fixes (Demon Lord, Hydra, Live Arena)
+
+v9.0.1.0
+Smart Battle: the RaidSim simulator with its native turn meters
+Every RSLBot 8.5 feature and fix up to 12/11 (Advanced craft quests made safe, Coalition event)
+
 v8.6.0.0
 Market and Soul Altar purchases (Bastion tab, Setup)
 More rewards collected: Inbox chests, Shop free Silver Ticket, Tournaments, Events
