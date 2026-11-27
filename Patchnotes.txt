@@ -1,3 +1,8 @@
+v9.0.3.1
+Account Level Up window after a battle closed (the bot waited until the battle timeout)
+After Raid starts: a place blocked by an offer is waited for, then entered; a place not opened is tried again in 5 minutes
+Bazaar tab shown again
+
 v9.0.3.0
 Smart Battle: Hydra goal adjusts itself, no battle cut by the Battle timeout, Live Arena last 10 results
 Champions: Summon Rush and Reserve Vault, Champion Optimize sets and results
